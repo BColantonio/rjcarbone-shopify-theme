@@ -8,6 +8,83 @@
  * ------------------------------------------------------------
  */{
   "sections": {
+    "wholesale_intro": {
+      "type": "section",
+      "blocks": {
+        "heading": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Wholesale Flowers, Plants &amp; Floral Supplies</h2>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "type_preset": "h3",
+            "font": "var(--font-heading--family)",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "balance",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "body": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Serving florists, floral designers, event professionals, and businesses. RJ Carbone sells exclusively to business customers.</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        },
+        "notice": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Wholesale only — not open for retail purchases.</strong></p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "body",
+        "notice"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "gap": 8,
+        "section_width": "page-width",
+        "section_height": "",
+        "background_media": "none",
+        "background_color": "{{ settings.color_palette.background }}",
+        "border": "none",
+        "padding-block-start": 40,
+        "padding-block-end": 0
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -196,6 +273,7 @@
     }
   },
   "order": [
+    "wholesale_intro",
     "product_list_fa6P9H"
   ]
 }
