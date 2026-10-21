@@ -476,6 +476,7 @@
     "show_date": "Päivämäärä",
     "show_inventory_quantity": "Näytä alhaisen varaston määrä",
     "show_pickup_availability": "Näytä noudon saatavuus",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "Näytä haku",
     "text_label_case": "Tekstimerkinnän kirjainkoko",
     "use_inverse_logo": "Käytä käänteistä logoa",

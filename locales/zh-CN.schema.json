@@ -478,6 +478,7 @@
     "show_date": "日期",
     "show_inventory_quantity": "显示低库存数量",
     "show_pickup_availability": "显示取货服务信息",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "显示搜索",
     "text_label_case": "文本标签大小写",
     "transition_to_main_product": "产品卡到产品页面的过渡",

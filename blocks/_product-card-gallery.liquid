@@ -26,8 +26,20 @@
         </div>
       </div>
     {%- endif -%}
+    {% liquid
+      assign has_inline_controls = false
+      if settings.show_card_quantity_controls and product.available and product.variants_count == 1
+        unless product.requires_selling_plan
+          if product.selling_plan_groups.size == 0 and product.selected_or_first_available_variant.available
+            assign has_inline_controls = true
+          endif
+        endunless
+      endif
+    %}
     {% if product.available and settings.quick_add or settings.mobile_quick_add %}
-      {% render 'quick-add', product: product, section_id: section.id %}
+      {% unless has_inline_controls %}
+        {% render 'quick-add', product: product, section_id: section.id %}
+      {% endunless %}
     {% endif %}
   {% endunless %}
 {% endcapture %}

@@ -1008,6 +1008,7 @@
     "show_grid_layout_selector": "إظهار محدد تخطيط الشبكة",
     "show_inventory_quantity": "إظهار كمية المخزون المنخفض",
     "show_pickup_availability": "إظهار توفر الاستلام",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_powered_by_shopify": "إظهار عبارة \"Powered by Shopify\"",
     "show_sale_price_first": "إظهار سعر التخفيض أولاً",
     "show_search": "إظهار البحث",

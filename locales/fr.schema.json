@@ -470,6 +470,7 @@
     "show_count": "Afficher le nombre",
     "show_date": "Date",
     "show_pickup_availability": "Afficher la disponibilité pour le retrait",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "Afficher la recherche",
     "use_inverse_logo": "Utiliser le logo inversé",
     "vertical_padding": "Espacement vertical",

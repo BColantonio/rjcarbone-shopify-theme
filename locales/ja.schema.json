@@ -466,6 +466,7 @@
     "show_count": "件数を表示",
     "show_date": "日付",
     "show_pickup_availability": "店舗受取の出品状況を表示",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "検索を表示",
     "use_inverse_logo": "反転ロゴを使用する",
     "vertical_padding": "垂直方向の余白",

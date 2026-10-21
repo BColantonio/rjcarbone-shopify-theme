@@ -466,6 +466,7 @@
     "show_count": "Anzahl anzeigen",
     "show_date": "Datum",
     "show_pickup_availability": "Abholverfügbarkeit anzeigen",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "Suche anzeigen",
     "use_inverse_logo": "Inverses Logo verwenden",
     "vertical_padding": "Vertikales Padding",

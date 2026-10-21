@@ -473,6 +473,7 @@
     "show_date": "วันที่",
     "show_inventory_quantity": "แสดงจำนวนสต็อกสินค้าที่เหลือน้อย",
     "show_pickup_availability": "แสดงความพร้อมในการรับสินค้า",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "แสดงการค้นหา",
     "use_inverse_logo": "ใช้โลโก้แบบผกผัน",
     "vertical_padding": "การเว้นขอบด้านในแนวตั้ง",

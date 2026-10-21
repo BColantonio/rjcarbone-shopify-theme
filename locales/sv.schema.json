@@ -475,6 +475,7 @@
     "show_alignment": "Visa justering",
     "show_date": "Datum",
     "show_pickup_availability": "Visa tillgänglighet för hämtning",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "Visa sökning",
     "text_label_case": "Skiftläge för textetikett",
     "use_inverse_logo": "Använd inverterad logotyp",

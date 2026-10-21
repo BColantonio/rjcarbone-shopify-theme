@@ -473,6 +473,7 @@
     "show_count": "Vis antal",
     "show_date": "Dato",
     "show_pickup_availability": "Vis tilgængelighed for afhentning",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "Vis søgning",
     "text_label_case": "Bogstavstørrelse for tekstlabel",
     "use_inverse_logo": "Brug inverteret logo",

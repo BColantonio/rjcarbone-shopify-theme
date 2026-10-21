@@ -1,0 +1,129 @@
+{%- doc -%}
+  Renders quantity controls and an Add to cart button below a product card's information.
+  Only renders for available single-variant products without selling plans, when
+  the "Show quantity controls on product cards" theme setting is enabled.
+
+  @param {object} product - The product object
+  @param {object} [block] - The product card block, used to keep form IDs unique
+
+  @example
+  {% render 'product-card-quantity-controls', product: closest.product, block: block %}
+{%- enddoc -%}
+
+{%- liquid
+  assign variant = product.selected_or_first_available_variant
+  assign is_eligible = false
+
+  if settings.show_card_quantity_controls and product.available and product.variants_count == 1 and variant.available
+    unless product.requires_selling_plan
+      if product.selling_plan_groups.size == 0
+        assign is_eligible = true
+      endif
+    endunless
+  endif
+-%}
+
+{%- if is_eligible -%}
+  {%- liquid
+    assign form_id = 'ProductCardForm-' | append: block.id | append: '-' | append: product.id
+    assign default_quantity = variant.quantity_rule.min | default: 1
+    assign add_to_cart_text = 'products.product.add_to_cart' | t
+  -%}
+
+  {% render 'add-to-cart-button-styles' %}
+  {% render 'fly-to-cart-styles' %}
+  {% render 'quantity-selector-styles' %}
+  {% render 'buy-buttons-styles' %}
+
+  {%- # data-card-interactive keeps clicks in this whole area from navigating the card. -%}
+  <div
+    class="product-card-quantity-controls"
+    data-card-interactive
+  >
+    <product-form-component
+      data-section-id="{{ section.id }}"
+      data-product-id="{{ product.id }}"
+      data-product-url="{{ product.url }}"
+      data-quantity-default="{{ default_quantity }}"
+      data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
+      on:submit="/handleSubmit"
+    >
+      <div
+        class="visually-hidden"
+        aria-live="assertive"
+        role="status"
+        aria-atomic="true"
+        ref="liveRegion"
+      ></div>
+      {%- form 'product', product, id: form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        <input
+          type="hidden"
+          name="id"
+          ref="variantId"
+          value="{{ variant.id }}"
+        >
+        <span
+          class="product-form-text__error product-card-quantity-controls__error hidden"
+          ref="addToCartTextError"
+        >
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+        </span>
+        <div class="product-card-quantity-controls__row">
+          {% render 'quantity-selector', product: product, variant: variant %}
+          {% render 'add-to-cart-button',
+            add_to_cart_text: add_to_cart_text,
+            class: 'product-card-quantity-controls__button button-primary add-to-cart-button',
+            can_add_to_cart: true,
+            show_icon: false,
+            product: product
+          %}
+        </div>
+      {%- endform -%}
+    </product-form-component>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .product-card-quantity-controls {
+    position: relative;
+    z-index: var(--layer-raised);
+    inline-size: 100%;
+    min-inline-size: 0;
+    cursor: default;
+  }
+
+  .product-card-quantity-controls__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--gap-xs);
+    min-inline-size: 0;
+  }
+
+  .product-card-quantity-controls__row .quantity-selector-wrapper,
+  .product-card-quantity-controls__row add-to-cart-component {
+    display: flex;
+    flex: 1 1 8rem;
+    min-inline-size: 0;
+  }
+
+  .product-card-quantity-controls__row .quantity-selector {
+    inline-size: 100%;
+  }
+
+  .product-card-quantity-controls__button {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    min-block-size: var(--minimum-touch-target);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .product-card-quantity-controls__error {
+    color: var(--color-error);
+    font-size: var(--font-size--sm);
+    overflow-wrap: anywhere;
+  }
+{% endstylesheet %}

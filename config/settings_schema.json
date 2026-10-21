@@ -1875,6 +1875,12 @@
         "visible_if": "{{ settings.quick_add == true }}"
       },
       {
+        "type": "checkbox",
+        "id": "show_card_quantity_controls",
+        "label": "t:settings.show_card_quantity_controls",
+        "default": false
+      },
+      {
         "type": "header",
         "content": "t:settings.media"
       },

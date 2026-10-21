@@ -466,6 +466,7 @@
     "show_count": "개수 표시",
     "show_date": "날짜",
     "show_pickup_availability": "픽업 가능 여부 표시",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_search": "검색 표시",
     "use_inverse_logo": "반전 로고 사용",
     "vertical_padding": "세로 패딩",

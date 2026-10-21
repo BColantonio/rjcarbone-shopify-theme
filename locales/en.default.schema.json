@@ -1094,6 +1094,7 @@
     "show_grid_layout_selector": "Show grid layout selector",
     "show_inventory_quantity": "Show low stock quantity",
     "show_pickup_availability": "Show pickup availability",
+    "show_card_quantity_controls": "Show quantity controls on product cards",
     "show_powered_by_shopify": "Show \"Powered by Shopify\"",
     "show_sale_price_first": "Show sale price first",
     "show_search": "Show search",

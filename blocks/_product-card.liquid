@@ -10,6 +10,7 @@
 
 {% capture children %}
   {% content_for 'blocks', closest.product: product %}
+  {% render 'product-card-quantity-controls', product: product, block: block %}
 {% endcapture %}
 
 {% render 'product-card', children: children, product: product, product_view_context: product_view_context %}
