@@ -8,6 +8,13 @@
  * ------------------------------------------------------------
  */{
   "sections": {
+    "supplies_back_link": {
+      "type": "supplies-back-link",
+      "settings": {
+        "padding-block-start": 16,
+        "padding-block-end": 0
+      }
+    },
     "section": {
       "type": "section",
       "blocks": {
@@ -346,6 +353,7 @@
     }
   },
   "order": [
+    "supplies_back_link",
     "section",
     "popular_categories",
     "supply_categories",

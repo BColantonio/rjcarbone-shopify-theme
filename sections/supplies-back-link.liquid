@@ -1,0 +1,69 @@
+{% capture category_entry_data %}
+  {% render 'supplies-category-data' %}
+{% endcapture %}
+
+{% liquid
+  assign category_entries = category_entry_data | strip | split: '^'
+  assign is_supplies_subcategory = false
+
+  for category_entry in category_entries
+    assign category_parts = category_entry | split: '|'
+    if category_parts[1] == collection.handle
+      assign is_supplies_subcategory = true
+      break
+    endif
+  endfor
+%}
+
+{% if is_supplies_subcategory %}
+  <div
+    class="section section--page-width spacing-style supplies-back-link"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <p class="h6 supplies-back-link__text">
+      <a href="{{ routes.collections_url }}/supplies">{{ 'actions.back_to' | t: title: 'Supplies' }}</a>
+    </p>
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .supplies-back-link__text {
+    margin-block: 0;
+  }
+
+  .supplies-back-link__text a {
+    color: var(--color-foreground);
+    text-decoration-color: currentcolor;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.collection_links_text",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

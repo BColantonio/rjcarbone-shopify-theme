@@ -1,0 +1,10 @@
+{%- doc -%}
+  Returns the Supplies category names and handles as a caret-delimited string.
+  Keep these entries aligned with scripts/supplies-collections.json, excluding zzz.
+
+  @example
+  {% capture category_data %}{% render 'supplies-category-data' %}{% endcapture %}
+  {% assign categories = category_data | strip | split: '^' %}
+{%- enddoc -%}
+
+Adhesives|adhesives^Bags/Sleeves|bags-sleeves^Balloons|balloons^Baskets|baskets^Buckets|buckets^Candle Holders|candle-holders^Candles|candles^Card Picks|card-picks^Cards|cards^Ceramic Containers|ceramic-containers^Chenille Stems|chenille-stems^Christmas Items|christmas-items^Decorative Containers|decorative-containers^Display Items|display-items^Dried/Preserved Flowers|dried-preserved-flowers^Dry Foam & Styrofoam|dry-foam-styrofoam^Dyes/Glitter|dyes-glitter^Event Lighting|event-lighting^Fall Items|fall-items^Feathers|feathers^Floral Bags / Wraps|floral-bags-wraps^Flower Boxes|flower-boxes^Foam & Oasis|foam-oasis^Foil/Mesh|foil-mesh^Forms/Tags|forms-tags^Fruits/Berries|fruits-berries^Funeral Items|funeral-items^Giftware|giftware^Hardware/Tools|hardware-tools^Holiday Items|holiday-items^Marbles \ Vase Filler|marbles-vase-filler^Mother's Day Supplies|mothers-day-supplies^Novelty Birds/Bugs|novelty-birds-bugs^Novelty Misc.|novelty-misc^Novelty Pick|novelty-pick^Paper Sleeves|paper-sleeves^Paper Tissue/Shred|paper-tissue-shred^Picks (Plastic, Metal, Wood)|picks-plastic-metal-wood^Plant Accessories|plant-accessories^Plant Pots/Saucers|plant-pots-saucers^Plastic Containers|plastic-containers^Plastic Flowers/Fruit|plastic-flowers-fruit^Pot Covers|pot-covers^Preservatives|preservatives^Prom & Wedding|prom-wedding^Ribbon|ribbon^Seasonal Items|seasonal-items^Shells - Seashells|shells-seashells^Silk Flowers|silk-flowers^Silk Greens/Foliage|silk-greens-foliage^Silk Plants|silk-plants^Special Order Items|special-order-items^Spray Paint|spray-paint^Stem Wrap/ Tape|stem-wrap-tape^Stuffed Animals|stuffed-animals^Tissue/Wrap|tissue-wrap^Vases|vases^Water Tubes|water-tubes^Wedding Supplies|wedding-supplies^Wire Items|wire-items^Wreaths|wreaths
