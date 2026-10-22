@@ -319,6 +319,8 @@
       "adding_to_cart": "正在添加...",
       "add_to_cart_error": "添加到购物车时出错",
       "sold_out": "售罄",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "不可售",
       "quantity_error_max": "此商品上限为 {{ maximum }}",
       "quantity": "数量",

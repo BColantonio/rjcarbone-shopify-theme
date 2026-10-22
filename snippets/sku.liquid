@@ -3,6 +3,10 @@
   It is used in the sku block.
 
   @param {product} product_resource - The product to render
+  @param {boolean} [show_label] - Whether to prefix the SKU with a translated label
+
+  @example
+  {% render 'sku', product_resource: closest.product, show_label: true %}
 {%- enddoc -%}
 
 {%- liquid
@@ -14,6 +18,9 @@
     class="sku"
     data-testid="product-sku"
   >
+    {%- if show_label -%}
+      <span class="sku__label">{{ 'products.product.sku_label' | t }}</span>&#32;
+    {%- endif -%}
     <bdi ref="sku">{{- sku -}}</bdi>
   </span>
 </div>

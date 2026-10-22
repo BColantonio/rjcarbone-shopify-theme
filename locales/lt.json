@@ -357,6 +357,8 @@
       "add_to_cart_error": "Dedant į krepšelį įvyko klaida",
       "quantity_error_max": "Nustatytas didžiausias šios prekės kiekis: {{ maximum }}",
       "sold_out": "Išparduota",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Nėra",
       "quantity": "Kiekis",
       "quantity_increments": "Kiekis didėja kas {{ increment }}",

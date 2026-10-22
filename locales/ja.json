@@ -319,6 +319,8 @@
       "adding_to_cart": "追加中...",
       "add_to_cart_error": "カートに追加する際にエラーが発生しました",
       "sold_out": "売り切れ",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "利用できません",
       "quantity_error_max": "このアイテムの最大値は{{ maximum }}です",
       "quantity": "個数",

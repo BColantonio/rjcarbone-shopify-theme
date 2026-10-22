@@ -319,6 +319,8 @@
       "added_to_cart": "Добавено в количката",
       "add_to_cart_error": "Грешка при добавянето в количката",
       "sold_out": "Изчерпано",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Неналично",
       "quantity_error_max": "За този артикул има максимум от {{ maximum }}",
       "quantity": "Количество",

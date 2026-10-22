@@ -319,6 +319,8 @@
       "adding_to_cart": "Menambahkan...",
       "add_to_cart_error": "Kesalahan saat menambahkan ke keranjang",
       "sold_out": "Habis",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Tidak Tersedia",
       "quantity_error_max": "Item ini memiliki batas maksimum {{ maximum }}",
       "quantity": "Jumlah",

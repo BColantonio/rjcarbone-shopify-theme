@@ -343,6 +343,8 @@
       "add_to_cart_error": "Det uppstod ett fel när artikeln skulle läggas till i varukorgen",
       "quantity_error_max": "Den här artikeln har max {{ maximum }}",
       "sold_out": "Slutsåld",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Inte tillgängliga",
       "quantity": "Kvantitet",
       "quantity_increments": "Ökningar i steg om {{ increment }}",

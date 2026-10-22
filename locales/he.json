@@ -357,6 +357,8 @@
       "add_to_cart_error": "שגיאה בהוספה לסל",
       "quantity_error_max": "לפריט זה יש מקסימום של {{ maximum }}",
       "sold_out": "אזל מהמלאי",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "לא זמין",
       "quantity": "כמות",
       "quantity_increments": "בכפולות של {{ increment }}",

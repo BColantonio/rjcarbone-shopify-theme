@@ -343,6 +343,8 @@
       "add_to_cart_error": "Nem tudtuk hozzáadni a terméket a kosárhoz",
       "quantity_error_max": "A tétel maximális mennyisége {{ maximum }}",
       "sold_out": "Elfogyott",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Nincs készleten",
       "quantity": "Mennyiség",
       "quantity_increments": "Növekmény: {{ increment }}",

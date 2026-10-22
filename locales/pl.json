@@ -357,6 +357,8 @@
       "add_to_cart_error": "Błąd podczas dodawania do koszyka",
       "quantity_error_max": "Pozycja ma maksymalny limit {{ maximum }}",
       "sold_out": "Wyprzedane",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Niedostępny",
       "quantity": "Ilość",
       "quantity_increments": "Przyrost o {{ increment }}",

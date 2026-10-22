@@ -1,0 +1,117 @@
+{%- doc -%}
+  Renders the selling unit from the product metafield custom.selling_unit
+  (single line text) with a translated label. Renders nothing when the
+  metafield is blank, so no wrapper or spacing is left behind.
+
+  @example
+  {% content_for 'block', type: 'selling-unit', id: 'selling-unit', closest.product: product %}
+{%- enddoc -%}
+
+{%- liquid
+  assign block_settings = block.settings
+  assign selling_unit = closest.product.metafields.custom.selling_unit.value | strip
+-%}
+
+{%- if selling_unit != blank -%}
+  {% render 'text-block-styles' %}
+
+  <div
+    class="text-block text-block--align-{{ block_settings.alignment }} text-{{ block_settings.alignment }} {{ block_settings.type_preset | default: 'paragraph' }} spacing-style"
+    style="
+      {% render 'spacing-style', settings: block_settings %}
+      --width: 100%;
+    "
+    data-testid="product-selling-unit"
+    {{ block.shopify_attributes }}
+  >
+    <span class="selling-unit">
+      <span class="selling-unit__label">{{ 'products.product.selling_unit_label' | t }}</span>
+      <bdi>{{ selling_unit | escape }}</bdi>
+    </span>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:names.product_selling_unit",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.resource_reference_product_selling_unit"
+    },
+    {
+      "type": "select",
+      "id": "type_preset",
+      "label": "t:settings.preset",
+      "options": [
+        {
+          "value": "paragraph",
+          "label": "t:options.paragraph"
+        },
+        {
+          "value": "h6",
+          "label": "t:options.h6"
+        }
+      ],
+      "default": "paragraph"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment",
+      "label": "t:settings.alignment",
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_selling_unit",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

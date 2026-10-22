@@ -319,6 +319,8 @@
       "adding_to_cart": "Προσθήκη...",
       "add_to_cart_error": "Παρουσιάστηκε σφάλμα κατά την προσθήκη στο καλάθι",
       "sold_out": "Εξαντλήθηκε",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Μη διαθέσιμο",
       "quantity_error_max": "Αυτό το προϊόν έχει μέγιστο όριο {{ maximum }}",
       "quantity": "Ποσότητα",

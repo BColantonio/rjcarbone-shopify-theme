@@ -371,6 +371,8 @@
       "add_to_cart_error": "حدث خطأ أثناء الإضافة إلى سلة التسوق",
       "quantity_error_max": "الحد الأقصى لهذا العنصر هو {{ maximum }}",
       "sold_out": "نفد المخزون",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "غير متوفر",
       "quantity": "الكمية",
       "quantity_increments": "بزيادات قدرها {{ increment }}",

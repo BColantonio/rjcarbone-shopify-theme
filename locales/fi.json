@@ -319,6 +319,8 @@
       "adding_to_cart": "Lisätään...",
       "add_to_cart_error": "Ostoskoriin lisättäessä tapahtui virhe",
       "sold_out": "Loppuunmyyty",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Ei käytettävissä",
       "quantity_error_max": "Tämän tuotteen enimmäismäärä on {{ maximum }}",
       "quantity": "Määrä",

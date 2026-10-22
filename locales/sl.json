@@ -331,6 +331,8 @@
       "adding_to_cart": "Dodajanje ...",
       "add_to_cart_error": "Pri dodajanju v košarico je prišlo do napake",
       "sold_out": "Razprodano",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Ni na voljo",
       "quantity_error_max": "Ta artikel ima največ {{ maximum }}",
       "quantity": "Količina",

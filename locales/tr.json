@@ -343,6 +343,8 @@
       "add_to_cart_error": "Sepete eklenirken hata oluştu",
       "quantity_error_max": "Bu ürün için maksimum değer: {{ maximum }}",
       "sold_out": "Tükendi",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Kullanılamıyor",
       "quantity": "Adet",
       "quantity_increments": "Artış değeri: {{ increment }}",

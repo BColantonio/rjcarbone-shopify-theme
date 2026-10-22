@@ -362,6 +362,8 @@
       "add_to_cart_error": "Error adding to cart",
       "quantity_error_max": "This item has a maximum of {{ maximum }}",
       "sold_out": "Sold out",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Unavailable",
       "quantity": "Quantity",
       "quantity_increments": "Increments of {{ increment }}",

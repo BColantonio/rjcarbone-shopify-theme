@@ -350,6 +350,8 @@
       "add_to_cart_error": "Errore durante l'aggiunta al carrello",
       "quantity_error_max": "Questo articolo ha un massimo di {{ maximum }}",
       "sold_out": "Esaurito",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Non disponibile",
       "quantity": "Quantità",
       "quantity_increments": "Incrementi di {{ increment }}",

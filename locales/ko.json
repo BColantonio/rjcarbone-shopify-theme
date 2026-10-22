@@ -319,6 +319,8 @@
       "adding_to_cart": "추가 중...",
       "add_to_cart_error": "카트에 추가하는 중 오류 발생",
       "sold_out": "품절",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "사용할 수 없음",
       "quantity_error_max": "이 품목의 최대 개수는 {{ maximum }}개입니다.",
       "quantity": "수량",

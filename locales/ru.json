@@ -357,6 +357,8 @@
       "add_to_cart_error": "Возникла ошибка при добавлении в корзину",
       "quantity_error_max": "Максимальное количество этого товара — {{ maximum }}",
       "sold_out": "Продано",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Недоступно",
       "quantity": "Количество",
       "quantity_increments": "Прирост: {{ increment }}",

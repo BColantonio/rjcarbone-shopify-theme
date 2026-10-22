@@ -343,6 +343,8 @@
       "add_to_cart_error": "Problem med å legge til i handlekurven",
       "quantity_error_max": "Denne varen har et maksimumsantall på {{ maximum }}",
       "sold_out": "Utsolgt",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Utilgjengelig",
       "quantity": "Antall",
       "quantity_increments": "Økninger på {{ increment }}",

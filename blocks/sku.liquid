@@ -54,7 +54,7 @@
   "
   {{ block.shopify_attributes }}
 >
-  {% render 'sku', product_resource: product_resource %}
+  {% render 'sku', product_resource: product_resource, show_label: block_settings.show_label %}
 </product-sku-component>
 
 {% schema %}
@@ -65,6 +65,12 @@
     {
       "type": "paragraph",
       "content": "t:content.resource_reference_product_sku"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_label",
+      "label": "t:settings.show_label",
+      "default": false
     },
     {
       "type": "header",

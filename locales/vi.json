@@ -343,6 +343,8 @@
       "add_to_cart_error": "Lỗi khi thêm vào giỏ hàng",
       "quantity_error_max": "Mặt hàng này có tối đa {{ maximum }}",
       "sold_out": "Hết hàng",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Không khả dụng",
       "quantity": "Số lượng",
       "quantity_increments": "Mức gia tăng {{ increment }}",

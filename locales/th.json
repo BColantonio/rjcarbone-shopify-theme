@@ -319,6 +319,8 @@
       "adding_to_cart": "กำลังเพิ่ม...",
       "add_to_cart_error": "เกิดข้อผิดพลาดขณะเพิ่มสินค้าในตะกร้า",
       "sold_out": "ขายหมดแล้ว",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "ไม่พร้อมจำหน่าย",
       "quantity_error_max": "สินค้านี้มีจำนวนสูงสุดที่ {{ maximum }} รายการ",
       "quantity": "จำนวน",

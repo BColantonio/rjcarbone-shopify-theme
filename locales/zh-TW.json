@@ -343,6 +343,8 @@
       "add_to_cart_error": "加入購物車時發生錯誤",
       "quantity_error_max": "此品項上限為 {{ maximum }}",
       "sold_out": "售罄",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "無可用資料",
       "quantity": "數量",
       "quantity_increments": "{{ increment }} 的倍數",

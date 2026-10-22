@@ -350,6 +350,8 @@
       "add_to_cart_error": "Eroare la adăugarea în coș",
       "quantity_error_max": "Acest articol are maxim {{ maximum }}",
       "sold_out": "Stoc epuizat",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Indisponibil",
       "quantity": "Cantitate",
       "quantity_increments": "Creșteri de {{ increment }}",

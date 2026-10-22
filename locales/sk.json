@@ -357,6 +357,8 @@
       "add_to_cart_error": "Chyba pri pridávaní do košíka",
       "quantity_error_max": "Maximálne množstvo tejto položky je {{ maximum }}",
       "sold_out": "Vypredané",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Nedostupné",
       "quantity": "Množstvo",
       "quantity_increments": "Prírastky po {{ increment }}",

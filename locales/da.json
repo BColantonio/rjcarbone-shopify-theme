@@ -319,6 +319,8 @@
       "adding_to_cart": "Tilføjer...",
       "add_to_cart_error": "Der opstod en fejl, da du lagde varen i indkøbskurven",
       "sold_out": "Udsolgt",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Ikke tilgængelig",
       "quantity_error_max": "Denne vare har en maksimumgrænse på {{ maximum }}",
       "quantity": "Antal",

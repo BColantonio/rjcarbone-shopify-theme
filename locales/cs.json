@@ -331,6 +331,8 @@
       "added_to_cart": "Přidáno do košíku",
       "add_to_cart_error": "Chyba při přidávání do košíku",
       "sold_out": "Vyprodáno",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Není k dispozici",
       "quantity_error_max": "Maximum této položky je: {{ maximum }}",
       "quantity": "Množství",

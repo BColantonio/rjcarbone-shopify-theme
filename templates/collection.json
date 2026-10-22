@@ -170,6 +170,32 @@
               },
               "blocks": {}
             },
+            "sku_card_FxQ2aL": {
+              "type": "sku",
+              "settings": {
+                "show_label": true,
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "selling_unit_card_Rk7vNd": {
+              "type": "selling-unit",
+              "settings": {
+                "type_preset": "paragraph",
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "price_EzJzMm": {
               "type": "price",
               "settings": {
@@ -195,6 +221,8 @@
           "block_order": [
             "card-gallery",
             "product_title_4nY4eT",
+            "sku_card_FxQ2aL",
+            "selling_unit_card_Rk7vNd",
             "price_EzJzMm"
           ]
         }

@@ -343,6 +343,8 @@
       "add_to_cart_error": "کارٹ میں شامل کرنے میں خرابی",
       "quantity_error_max": "اس آئٹم کی زیادہ سے زیادہ حد {{ maximum }} ہے",
       "sold_out": "فروخت ہو گیا",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "دستیاب نہیں ہے",
       "quantity": "مقدار",
       "quantity_increments": "{{ increment }} کا اضافہ",

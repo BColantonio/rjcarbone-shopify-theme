@@ -343,6 +343,8 @@
       "add_to_cart_error": "Fout bij het toevoegen aan de winkelwagen",
       "quantity_error_max": "Voor dit artikel geldt een maximum van {{ maximum }}.",
       "sold_out": "Uitverkocht",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Niet beschikbaar",
       "quantity": "Aantal",
       "quantity_increments": "Stappen van {{ increment }}",

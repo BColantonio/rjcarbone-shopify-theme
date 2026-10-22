@@ -319,6 +319,8 @@
       "adding_to_cart": "Wird hinzugefügt...",
       "add_to_cart_error": "Fehler beim Hinzufügen zum Warenkorb",
       "sold_out": "Ausverkauft",
+      "sku_label": "SKU:",
+      "selling_unit_label": "Sold by:",
       "unavailable": "Nicht verfügbar",
       "quantity_error_max": "Dieser Artikel hat ein Maximum von {{ maximum }}",
       "quantity": "Menge",
