@@ -15,6 +15,7 @@
   endif
 %}
 
+{% unless section.settings.hide_when_empty and section.settings.collection_list == blank %}
 {% liquid
   if section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
@@ -42,6 +43,9 @@
 >
   <div class="section-resource-list__content">
     {%- content_for 'blocks' -%}
+    {% if section.settings.heading != blank %}
+      <h2 class="h2">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
   </div>
 
   {% if section_collections == null %}
@@ -78,6 +82,7 @@
     test_id: 'collections-list-grid'
   %}
 </div>
+{% endunless %}
 
 {% schema %}
 {
@@ -120,9 +125,20 @@
   },
   "settings": [
     {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings.heading"
+    },
+    {
       "type": "collection_list",
       "id": "collection_list",
       "label": "t:settings.collection_list"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_empty",
+      "label": "t:settings.visibility",
+      "default": false
     },
     {
       "type": "header",
