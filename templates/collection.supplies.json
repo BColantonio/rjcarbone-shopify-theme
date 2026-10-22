@@ -147,8 +147,14 @@
       },
       "block_order": [],
       "settings": {
-        "heading": "Popular Categories",
-        "collection_list": [],
+        "heading": "Featured Categories",
+        "collection_list": [
+          "christmas-items",
+          "vases",
+          "ribbon",
+          "foam-oasis",
+          "hardware-tools"
+        ],
         "hide_when_empty": true,
         "supplies_only": true,
         "layout_type": "grid",
