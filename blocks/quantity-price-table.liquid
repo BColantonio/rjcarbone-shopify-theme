@@ -1,0 +1,93 @@
+{%- doc -%}
+  Renders the display-only quantity-price table from the product metafield
+  custom.quantity_price_breaks. Renders nothing when the metafield is blank.
+
+  @example
+  {% content_for 'block', type: 'quantity-price-table', id: 'quantity-price-table', closest.product: product %}
+{%- enddoc -%}
+
+{% render 'quantity-price-table',
+  product: closest.product,
+  quantity_label: block.settings.quantity_label,
+  price_label: block.settings.price_label,
+  notice: block.settings.notice,
+  settings: block.settings,
+  shopify_attributes: block.shopify_attributes
+%}
+
+{% schema %}
+{
+  "name": "t:names.product_quantity_price_table",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "quantity_label",
+      "label": "t:settings.quantity_column_label",
+      "default": "Cases"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "t:settings.price_column_label",
+      "default": "Price per case"
+    },
+    {
+      "type": "text",
+      "id": "notice",
+      "label": "t:settings.preview_notice",
+      "default": "Pricing preview — quantity discounts not yet applied at checkout."
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_quantity_price_table",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

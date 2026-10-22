@@ -1,0 +1,131 @@
+{%- doc -%}
+  Renders a display-only quantity-price table from the product JSON metafield
+  custom.quantity_price_breaks, for example:
+  [{"minimum_quantity":1,"price":"82.95"},{"minimum_quantity":6,"price":"78.80"}]
+  Ranges are derived from each row's minimum quantity and the next row's minimum.
+  Prices are plain decimals in the shop currency. Renders nothing when the
+  metafield is blank or has no valid rows. It never changes cart or checkout prices.
+
+  @param {product} product - The product that owns the metafield
+  @param {string} [quantity_label] - Quantity column heading, e.g. "Cases"
+  @param {string} [price_label] - Price column heading, e.g. "Price per case"
+  @param {string} [notice] - Optional preview notice. Omit or leave blank to hide it
+  @param {object} [settings] - Block settings used for padding
+  @param {string} [shopify_attributes] - Block shopify_attributes for the wrapper
+
+  @example
+  {% render 'quantity-price-table', product: closest.product, quantity_label: 'Cases', price_label: 'Price per case', notice: 'Pricing preview' %}
+{%- enddoc -%}
+
+{%- liquid
+  assign breaks = product.metafields.custom.quantity_price_breaks.value | sort: 'minimum_quantity'
+  if quantity_label != blank
+    assign quantity_heading = quantity_label | escape
+  else
+    assign quantity_heading = 'products.product.quantity' | t
+  endif
+
+  if price_label != blank
+    assign price_heading = price_label | escape
+  else
+    assign price_heading = 'content.price' | t
+  endif
+
+  capture rows
+    assign valid_rows = breaks | where: 'price'
+    for row in valid_rows
+      assign min_quantity = row.minimum_quantity | plus: 0
+      assign price_cents = row.price | times: 100 | round
+      if min_quantity < 1 or price_cents <= 0
+        continue
+      endif
+
+      assign next_row = valid_rows[forloop.index]
+      assign range_label = min_quantity | append: '+'
+      if next_row
+        assign next_minimum = next_row.minimum_quantity | plus: 0
+        assign range_end = next_minimum | minus: 1
+        if range_end > min_quantity
+          assign range_label = min_quantity | append: '–' | append: range_end
+        elsif range_end == min_quantity
+          assign range_label = min_quantity
+        endif
+      endif
+
+      echo '<tr><th scope="row" class="quantity-price-table__range">'
+      echo range_label
+      echo '</th><td class="quantity-price-table__price">'
+      echo price_cents | money
+      echo '</td></tr>'
+    endfor
+  endcapture
+-%}
+
+{%- if rows != blank -%}
+  <div
+    class="quantity-price-table spacing-style"
+    style="{% render 'spacing-style', settings: settings %}"
+    data-testid="quantity-price-table"
+    {{ shopify_attributes }}
+  >
+    <table class="quantity-price-table__table">
+      <thead>
+        <tr>
+          <th scope="col">{{ quantity_heading }}</th>
+          <th scope="col">{{ price_heading }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{- rows -}}
+      </tbody>
+    </table>
+    {%- if notice != blank -%}
+      <p class="quantity-price-table__notice">{{ notice | escape }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .quantity-price-table {
+    --quantity-price-table-gap: 0.25rem;
+
+    inline-size: 100%;
+    min-width: 0;
+    font-size: var(--font-size--xs);
+  }
+
+  .quantity-price-table__table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .quantity-price-table__table :is(th, td) {
+    padding-block: var(--quantity-price-table-gap);
+    padding-inline: 0;
+    text-align: start;
+    font-weight: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  .quantity-price-table__table thead th {
+    font-weight: 600;
+    border-block-end: var(--style-border-width, 1px) solid rgb(var(--color-foreground-rgb) / var(--opacity-50));
+  }
+
+  .quantity-price-table__table td {
+    text-align: end;
+  }
+
+  .quantity-price-table__table thead th:last-child {
+    text-align: end;
+  }
+
+  .quantity-price-table__notice {
+    margin-block: var(--quantity-price-table-gap) 0;
+    font-size: var(--font-size--xs);
+    font-style: italic;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-70));
+    text-wrap: pretty;
+  }
+{% endstylesheet %}

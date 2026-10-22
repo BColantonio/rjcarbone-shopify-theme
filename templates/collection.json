@@ -216,6 +216,19 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "quantity_price_card_Bv6hJs": {
+              "type": "quantity-price-table",
+              "settings": {
+                "quantity_label": "Cases",
+                "price_label": "Price per case",
+                "notice": "Pricing preview — quantity discounts not yet applied at checkout.",
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -223,7 +236,8 @@
             "product_title_4nY4eT",
             "sku_card_FxQ2aL",
             "selling_unit_card_Rk7vNd",
-            "price_EzJzMm"
+            "price_EzJzMm",
+            "quantity_price_card_Bv6hJs"
           ]
         }
       },
