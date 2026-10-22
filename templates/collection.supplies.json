@@ -150,6 +150,7 @@
         "heading": "Popular Categories",
         "collection_list": [],
         "hide_when_empty": true,
+        "supplies_only": true,
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "columns": 4,

@@ -15,6 +15,7 @@
   endif
 %}
 
+{% if section.settings.supplies_only != true or collection.handle == 'supplies' %}
 {% unless section.settings.hide_when_empty and section.settings.collection_list == blank %}
 {% liquid
   if section.settings.background_color != blank
@@ -83,6 +84,7 @@
   %}
 </div>
 {% endunless %}
+{% endif %}
 
 {% schema %}
 {
@@ -137,6 +139,12 @@
     {
       "type": "checkbox",
       "id": "hide_when_empty",
+      "label": "t:settings.visibility",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "supplies_only",
       "label": "t:settings.visibility",
       "default": false
     },
