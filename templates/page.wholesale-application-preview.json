@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "application_preview": {
+      "type": "wholesale-application-preview"
+    }
+  },
+  "order": [
+    "application_preview"
+  ]
+}
