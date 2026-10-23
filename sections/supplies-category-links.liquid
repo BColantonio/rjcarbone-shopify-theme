@@ -3,6 +3,9 @@
     render 'supplies-category-data'
   endcapture
   assign category_entries = category_entry_data | strip | split: '^' | sort_natural
+  capture floral_category_links
+    render 'floral-department-category-links', collection_handle: collection.handle
+  endcapture
 %}
 
 {% if collection.handle == 'supplies' %}
@@ -23,6 +26,13 @@
         </li>
       {% endfor %}
     </ul>
+  </div>
+{% elsif floral_category_links != blank %}
+  <div
+    class="section section--page-width spacing-style supplies-category-links"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    {{ floral_category_links }}
   </div>
 {% endif %}
 

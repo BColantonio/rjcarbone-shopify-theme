@@ -100,7 +100,8 @@ function printHelp() {
 
 Without --apply, the script reports which configured collections are unpublished
 to Online Store. With --apply, it publishes only those collections to Online Store.
-The configured collection with handle "zzz" is excluded.
+For the Supplies configuration, the collection with handle "zzz" is excluded.
+Department configurations include only their configured confirmed categories.
 
 Required environment variables:
   Either SHOPIFY_ADMIN_ACCESS_TOKEN or both SHOPIFY_CLIENT_ID and SHOPIFY_CLIENT_SECRET
@@ -111,9 +112,76 @@ Optional environment variable:
 `);
 }
 
-function validateConfig(entries) {
+function validateConfig(config) {
+  let entries;
+  let departmentConfiguration = false;
+
+  if (Array.isArray(config)) {
+    entries = config;
+  } else if (Array.isArray(config?.departments) && config.departments.length > 0) {
+    departmentConfiguration = true;
+    const expectedDepartments = [
+      { name: 'Flowers', id: 'F', count: 66 },
+      { name: 'Roses', id: 'R', count: 9 },
+      { name: 'Greens', id: 'G', count: 28 },
+      { name: 'Plants', id: 'P', count: 50 },
+    ];
+
+    if (config.departments.length !== expectedDepartments.length) {
+      throw new Error('Department configuration must contain Flowers, Roses, Greens, and Plants.');
+    }
+
+    entries = [];
+    for (const [index, expected] of expectedDepartments.entries()) {
+      const department = config.departments[index];
+      if (
+        department?.department !== expected.name ||
+        department?.sourceCategoryId !== expected.id ||
+        department?.sourceUrl !==
+          `https://www.rjcarbone.com/gallery?category=${expected.id}` ||
+        !Array.isArray(department.categories) ||
+        department.categories.length !== expected.count ||
+        department.categoryCount !== expected.count
+      ) {
+        throw new Error(`Department configuration for ${expected.name} is invalid.`);
+      }
+
+      for (const [categoryIndex, category] of department.categories.entries()) {
+        if (
+          category?.department !== expected.name ||
+          typeof category?.originalCategoryId !== 'string' ||
+          !/^[A-Za-z0-9.]+$/.test(category.originalCategoryId) ||
+          category.originalCategoryId === 'P' ||
+          category.originalCategoryId === 'PZZ' ||
+          category.sourceUrl !==
+            `${department.sourceUrl}&productItem=${category.originalCategoryId}`
+        ) {
+          throw new Error(
+            `Category ${categoryIndex + 1} in ${expected.name} has invalid source metadata.`
+          );
+        }
+        entries.push(category);
+      }
+    }
+  }
+
   if (!Array.isArray(entries) || entries.length === 0) {
-    throw new Error('Configuration must be a non-empty JSON array.');
+    throw new Error('Configuration must be a non-empty JSON array or department configuration.');
+  }
+
+  if (departmentConfiguration) {
+    if (entries.length !== 153) {
+      throw new Error(`Department configuration must contain exactly 153 confirmed categories.`);
+    }
+
+    const tropicalFoliage = entries.filter((entry) => entry.originalCategoryId === 'GTRO');
+    if (
+      tropicalFoliage.length !== 2 ||
+      !tropicalFoliage.some((entry) => entry.department === 'Greens' && entry.handle === 'greens-tropical-foliage') ||
+      !tropicalFoliage.some((entry) => entry.department === 'Plants' && entry.handle === 'plants-tropical-foliage')
+    ) {
+      throw new Error('Department configuration must retain both Tropical Foliage collections.');
+    }
   }
 
   const handles = new Set();
@@ -123,9 +191,15 @@ function validateConfig(entries) {
       typeof entry?.name !== 'string' ||
       entry.name.trim() === '' ||
       typeof entry?.handle !== 'string' ||
-      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.handle)
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.handle) ||
+      (departmentConfiguration &&
+        (typeof entry.department !== 'string' ||
+          typeof entry.originalCategoryId !== 'string'))
     ) {
-      throw new Error(`Configuration entry ${index + 1} must include a name and valid handle.`);
+      const fields = departmentConfiguration
+        ? 'name, department, originalCategoryId, and valid handle'
+        : 'name and valid handle';
+      throw new Error(`Configuration entry ${index + 1} must include ${fields}.`);
     }
 
     if (handles.has(entry.handle)) {
@@ -134,6 +208,8 @@ function validateConfig(entries) {
 
     handles.add(entry.handle);
   }
+
+  return { entries, departmentConfiguration };
 }
 
 function validateEnvironment() {
@@ -304,8 +380,8 @@ async function main() {
     return;
   }
 
-  const entries = JSON.parse(await readFile(options.configPath, 'utf8'));
-  validateConfig(entries);
+  const config = JSON.parse(await readFile(options.configPath, 'utf8'));
+  const { entries, departmentConfiguration } = validateConfig(config);
   validateEnvironment();
 
   if (useClientCredentials) {
@@ -313,12 +389,18 @@ async function main() {
   }
 
   const publication = await getOnlineStorePublication();
-  const entriesToPublish = entries.filter((entry) => entry.handle !== 'zzz');
+  const entriesToPublish = departmentConfiguration
+    ? entries
+    : entries.filter((entry) => entry.handle !== 'zzz');
 
   console.log(`Mode: ${options.apply ? 'APPLY' : 'DRY RUN'}`);
   console.log(`Store: ${storeDomain}`);
   console.log(`Online Store publication identified: ${publication.name} (${publication.id})`);
-  console.log(`Configured collections: ${entriesToPublish.length} (zzz excluded)`);
+  console.log(
+    departmentConfiguration
+      ? `Configured collections: ${entriesToPublish.length}`
+      : `Configured collections: ${entriesToPublish.length} (zzz excluded)`
+  );
 
   let published = 0;
   let skipped = 0;

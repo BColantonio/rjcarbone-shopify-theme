@@ -1,0 +1,1156 @@
+{
+  "source": {
+    "site": "https://www.rjcarbone.com",
+    "retrievedAt": "2026-10-23",
+    "method": "Public homepage department menus and linked /gallery category records; no authentication used."
+  },
+  "departments": [
+    {
+      "department": "Flowers",
+      "sourceCategoryId": "F",
+      "sourceUrl": "https://www.rjcarbone.com/gallery?category=F",
+      "categoryCount": 66,
+      "categories": [
+        {
+          "name": "Alstroemeria",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FALS",
+          "originalCategoryId": "FALS",
+          "handle": "alstroemeria",
+          "department": "Flowers"
+        },
+        {
+          "name": "Amaranthus",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FAMA",
+          "originalCategoryId": "FAMA",
+          "handle": "amaranthus",
+          "department": "Flowers"
+        },
+        {
+          "name": "Anemones",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FANE",
+          "originalCategoryId": "FANE",
+          "handle": "anemones",
+          "department": "Flowers"
+        },
+        {
+          "name": "Asters",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FAST",
+          "originalCategoryId": "FAST",
+          "handle": "asters",
+          "department": "Flowers"
+        },
+        {
+          "name": "Asters Mardi Gras",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=ASMG",
+          "originalCategoryId": "ASMG",
+          "handle": "asters-mardi-gras",
+          "department": "Flowers"
+        },
+        {
+          "name": "Astillbe",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FAS",
+          "originalCategoryId": "FAS",
+          "handle": "astillbe",
+          "department": "Flowers"
+        },
+        {
+          "name": "Bells Ireland",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FBEL",
+          "originalCategoryId": "FBEL",
+          "handle": "bells-ireland",
+          "department": "Flowers"
+        },
+        {
+          "name": "Berries Cut Flower",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FBER",
+          "originalCategoryId": "FBER",
+          "handle": "berries-cut-flower",
+          "department": "Flowers"
+        },
+        {
+          "name": "Berzillia",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=GBE",
+          "originalCategoryId": "GBE",
+          "handle": "berzillia",
+          "department": "Flowers"
+        },
+        {
+          "name": "Billy Balls",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FBIB",
+          "originalCategoryId": "FBIB",
+          "handle": "billy-balls",
+          "department": "Flowers"
+        },
+        {
+          "name": "Brunia",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FBRU",
+          "originalCategoryId": "FBRU",
+          "handle": "brunia",
+          "department": "Flowers"
+        },
+        {
+          "name": "Bupleurum",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FBU",
+          "originalCategoryId": "FBU",
+          "handle": "bupleurum",
+          "department": "Flowers"
+        },
+        {
+          "name": "Calla Lilies Bouquets",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FCBO",
+          "originalCategoryId": "FCBO",
+          "handle": "calla-lilies-bouquets",
+          "department": "Flowers"
+        },
+        {
+          "name": "Campanula",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FCAM",
+          "originalCategoryId": "FCAM",
+          "handle": "campanula",
+          "department": "Flowers"
+        },
+        {
+          "name": "Carbone Fresh Pull",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=CFP",
+          "originalCategoryId": "CFP",
+          "handle": "carbone-fresh-pull",
+          "department": "Flowers"
+        },
+        {
+          "name": "Carnations",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FCAR",
+          "originalCategoryId": "FCAR",
+          "handle": "carnations",
+          "department": "Flowers"
+        },
+        {
+          "name": "Cremons",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FCRE",
+          "originalCategoryId": "FCRE",
+          "handle": "cremons",
+          "department": "Flowers"
+        },
+        {
+          "name": "Crocosmia",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FCRO",
+          "originalCategoryId": "FCRO",
+          "handle": "crocosmia",
+          "department": "Flowers"
+        },
+        {
+          "name": "Dalhias",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FDAH",
+          "originalCategoryId": "FDAH",
+          "handle": "dalhias",
+          "department": "Flowers"
+        },
+        {
+          "name": "Deli Star Disbuds",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FDES",
+          "originalCategoryId": "FDES",
+          "handle": "deli-star-disbuds",
+          "department": "Flowers"
+        },
+        {
+          "name": "Delphinium",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FDEL",
+          "originalCategoryId": "FDEL",
+          "handle": "delphinium",
+          "department": "Flowers"
+        },
+        {
+          "name": "Dianthus",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FDIA",
+          "originalCategoryId": "FDIA",
+          "handle": "dianthus",
+          "department": "Flowers"
+        },
+        {
+          "name": "Dusty Miller",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FDUS",
+          "originalCategoryId": "FDUS",
+          "handle": "dusty-miller",
+          "department": "Flowers"
+        },
+        {
+          "name": "Fever Few",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FFEV",
+          "originalCategoryId": "FFEV",
+          "handle": "fever-few",
+          "department": "Flowers"
+        },
+        {
+          "name": "Gerbera",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FGER",
+          "originalCategoryId": "FGER",
+          "handle": "gerbera",
+          "department": "Flowers"
+        },
+        {
+          "name": "Gerbera Mini",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FMGE",
+          "originalCategoryId": "FMGE",
+          "handle": "gerbera-mini",
+          "department": "Flowers"
+        },
+        {
+          "name": "Gypsophilia",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FGYP",
+          "originalCategoryId": "FGYP",
+          "handle": "gypsophilia",
+          "department": "Flowers"
+        },
+        {
+          "name": "Hydrangea Mini Green",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=HYDM",
+          "originalCategoryId": "HYDM",
+          "handle": "hydrangea-mini-green",
+          "department": "Flowers"
+        },
+        {
+          "name": "Hydrangea Novelty (Ss)",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FHYN",
+          "originalCategoryId": "FHYN",
+          "handle": "hydrangea-novelty-ss",
+          "department": "Flowers"
+        },
+        {
+          "name": "Hydrangea White/Blue",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FHYD",
+          "originalCategoryId": "FHYD",
+          "handle": "hydrangea-white-blue",
+          "department": "Flowers"
+        },
+        {
+          "name": "Hypericum",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FHYP",
+          "originalCategoryId": "FHYP",
+          "handle": "hypericum",
+          "department": "Flowers"
+        },
+        {
+          "name": "Kale",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FKAL",
+          "originalCategoryId": "FKAL",
+          "handle": "kale",
+          "department": "Flowers"
+        },
+        {
+          "name": "Kangaroo Paws",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FKAP",
+          "originalCategoryId": "FKAP",
+          "handle": "kangaroo-paws",
+          "department": "Flowers"
+        },
+        {
+          "name": "Larkspur",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FLAR",
+          "originalCategoryId": "FLAR",
+          "handle": "larkspur",
+          "department": "Flowers"
+        },
+        {
+          "name": "Leucadendron",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FLEU",
+          "originalCategoryId": "FLEU",
+          "handle": "leucadendron",
+          "department": "Flowers"
+        },
+        {
+          "name": "Lillies Asiatic / La",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FLIL",
+          "originalCategoryId": "FLIL",
+          "handle": "lillies-asiatic-la",
+          "department": "Flowers"
+        },
+        {
+          "name": "Lily Hybrid",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FLHY",
+          "originalCategoryId": "FLHY",
+          "handle": "lily-hybrid",
+          "department": "Flowers"
+        },
+        {
+          "name": "Limonium",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FLIM",
+          "originalCategoryId": "FLIM",
+          "handle": "limonium",
+          "department": "Flowers"
+        },
+        {
+          "name": "Lisianthus",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FLIS",
+          "originalCategoryId": "FLIS",
+          "handle": "lisianthus",
+          "department": "Flowers"
+        },
+        {
+          "name": "Local Grown Flowers",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=LG",
+          "originalCategoryId": "LG",
+          "handle": "local-grown-flowers",
+          "department": "Flowers"
+        },
+        {
+          "name": "Lysamachia",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FLYS",
+          "originalCategoryId": "FLYS",
+          "handle": "lysamachia",
+          "department": "Flowers"
+        },
+        {
+          "name": "Mini Callas",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FMCL",
+          "originalCategoryId": "FMCL",
+          "handle": "mini-callas",
+          "department": "Flowers"
+        },
+        {
+          "name": "Mini Carnations",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FMCA",
+          "originalCategoryId": "FMCA",
+          "handle": "mini-carnations",
+          "department": "Flowers"
+        },
+        {
+          "name": "Mums Large Football",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FMUM",
+          "originalCategoryId": "FMUM",
+          "handle": "mums-large-football",
+          "department": "Flowers"
+        },
+        {
+          "name": "Novelty Flowers",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FNOV",
+          "originalCategoryId": "FNOV",
+          "handle": "novelty-flowers",
+          "department": "Flowers"
+        },
+        {
+          "name": "Phlox Cut Flower",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FPHL",
+          "originalCategoryId": "FPHL",
+          "handle": "phlox-cut-flower",
+          "department": "Flowers"
+        },
+        {
+          "name": "Pods Fresh Cut",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=PODS",
+          "originalCategoryId": "PODS",
+          "handle": "pods-fresh-cut",
+          "department": "Flowers"
+        },
+        {
+          "name": "Pom Pons",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FPOM",
+          "originalCategoryId": "FPOM",
+          "handle": "pom-pons",
+          "department": "Flowers"
+        },
+        {
+          "name": "Protea",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FPRO",
+          "originalCategoryId": "FPRO",
+          "handle": "protea",
+          "department": "Flowers"
+        },
+        {
+          "name": "Queen Anns Lace",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FQAL",
+          "originalCategoryId": "FQAL",
+          "handle": "queen-anns-lace",
+          "department": "Flowers"
+        },
+        {
+          "name": "Ranunculus",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FRAN",
+          "originalCategoryId": "FRAN",
+          "handle": "ranunculus",
+          "department": "Flowers"
+        },
+        {
+          "name": "Rice Flower",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FRF",
+          "originalCategoryId": "FRF",
+          "handle": "rice-flower",
+          "department": "Flowers"
+        },
+        {
+          "name": "Safflower",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FSAF",
+          "originalCategoryId": "FSAF",
+          "handle": "safflower",
+          "department": "Flowers"
+        },
+        {
+          "name": "Scabiosa",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FSCA",
+          "originalCategoryId": "FSCA",
+          "handle": "scabiosa",
+          "department": "Flowers"
+        },
+        {
+          "name": "Snapdragon",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FSNA",
+          "originalCategoryId": "FSNA",
+          "handle": "snapdragon",
+          "department": "Flowers"
+        },
+        {
+          "name": "Statice",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FSTA",
+          "originalCategoryId": "FSTA",
+          "handle": "statice",
+          "department": "Flowers"
+        },
+        {
+          "name": "Stock",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FSTO",
+          "originalCategoryId": "FSTO",
+          "handle": "stock",
+          "department": "Flowers"
+        },
+        {
+          "name": "Sunflower Miniature",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FSUM",
+          "originalCategoryId": "FSUM",
+          "handle": "sunflower-miniature",
+          "department": "Flowers"
+        },
+        {
+          "name": "Sunflowers",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FSUN",
+          "originalCategoryId": "FSUN",
+          "handle": "sunflowers",
+          "department": "Flowers"
+        },
+        {
+          "name": "Thistle",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FTHI",
+          "originalCategoryId": "FTHI",
+          "handle": "thistle",
+          "department": "Flowers"
+        },
+        {
+          "name": "Trachelium",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FTRA",
+          "originalCategoryId": "FTRA",
+          "handle": "trachelium",
+          "department": "Flowers"
+        },
+        {
+          "name": "Tulips Cut",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FTUL",
+          "originalCategoryId": "FTUL",
+          "handle": "tulips-cut",
+          "department": "Flowers"
+        },
+        {
+          "name": "Tulips Parrot",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=TULP",
+          "originalCategoryId": "TULP",
+          "handle": "tulips-parrot",
+          "department": "Flowers"
+        },
+        {
+          "name": "Tweedia",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FTWE",
+          "originalCategoryId": "FTWE",
+          "handle": "tweedia",
+          "department": "Flowers"
+        },
+        {
+          "name": "Veronica",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FVER",
+          "originalCategoryId": "FVER",
+          "handle": "veronica",
+          "department": "Flowers"
+        },
+        {
+          "name": "Wax Flower",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=F&productItem=FWAX",
+          "originalCategoryId": "FWAX",
+          "handle": "wax-flower",
+          "department": "Flowers"
+        }
+      ]
+    },
+    {
+      "department": "Roses",
+      "sourceCategoryId": "R",
+      "sourceUrl": "https://www.rjcarbone.com/gallery?category=R",
+      "categoryCount": 9,
+      "categories": [
+        {
+          "name": "Garden Roses",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=ROSG",
+          "originalCategoryId": "ROSG",
+          "handle": "garden-roses",
+          "department": "Roses"
+        },
+        {
+          "name": "Rose Color 40Cm",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=RC40",
+          "originalCategoryId": "RC40",
+          "handle": "rose-color-40cm",
+          "department": "Roses"
+        },
+        {
+          "name": "Rose Color 50Cm",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=RC50",
+          "originalCategoryId": "RC50",
+          "handle": "rose-color-50cm",
+          "department": "Roses"
+        },
+        {
+          "name": "Rose Color 60Cm",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=RC60",
+          "originalCategoryId": "RC60",
+          "handle": "rose-color-60cm",
+          "department": "Roses"
+        },
+        {
+          "name": "Rose Color 70Cm",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=RC70",
+          "originalCategoryId": "RC70",
+          "handle": "rose-color-70cm",
+          "department": "Roses"
+        },
+        {
+          "name": "Rose Color 80Cm",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=RO80",
+          "originalCategoryId": "RO80",
+          "handle": "rose-color-80cm",
+          "department": "Roses"
+        },
+        {
+          "name": "Rose Red 50Cm",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=RR50",
+          "originalCategoryId": "RR50",
+          "handle": "rose-red-50cm",
+          "department": "Roses"
+        },
+        {
+          "name": "Rose Red 60Cm",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=RR60",
+          "originalCategoryId": "RR60",
+          "handle": "rose-red-60cm",
+          "department": "Roses"
+        },
+        {
+          "name": "Spray Roses",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=R&productItem=ROSS",
+          "originalCategoryId": "ROSS",
+          "handle": "spray-roses",
+          "department": "Roses"
+        }
+      ]
+    },
+    {
+      "department": "Greens",
+      "sourceCategoryId": "G",
+      "sourceUrl": "https://www.rjcarbone.com/gallery?category=G",
+      "categoryCount": 28,
+      "categories": [
+        {
+          "name": "Aspidistra",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GASP",
+          "originalCategoryId": "GASP",
+          "handle": "aspidistra",
+          "department": "Greens"
+        },
+        {
+          "name": "Bear Grass",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GBGR",
+          "originalCategoryId": "GBGR",
+          "handle": "bear-grass",
+          "department": "Greens"
+        },
+        {
+          "name": "Curly Willow",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GCW",
+          "originalCategoryId": "GCW",
+          "handle": "curly-willow",
+          "department": "Greens"
+        },
+        {
+          "name": "Emerald",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GEM",
+          "originalCategoryId": "GEM",
+          "handle": "emerald",
+          "department": "Greens"
+        },
+        {
+          "name": "Eucalyptus",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=EUC",
+          "originalCategoryId": "EUC",
+          "handle": "eucalyptus",
+          "department": "Greens"
+        },
+        {
+          "name": "Grasses Cut",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GGRA",
+          "originalCategoryId": "GGRA",
+          "handle": "grasses-cut",
+          "department": "Greens"
+        },
+        {
+          "name": "Huckleberry",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GHUC",
+          "originalCategoryId": "GHUC",
+          "handle": "huckleberry",
+          "department": "Greens"
+        },
+        {
+          "name": "Ivy Cut",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GIVY",
+          "originalCategoryId": "GIVY",
+          "handle": "ivy-cut",
+          "department": "Greens"
+        },
+        {
+          "name": "Monstera",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GMON",
+          "originalCategoryId": "GMON",
+          "handle": "monstera",
+          "department": "Greens"
+        },
+        {
+          "name": "Mosses Fresh",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GMOS",
+          "originalCategoryId": "GMOS",
+          "handle": "mosses-fresh",
+          "department": "Greens"
+        },
+        {
+          "name": "Myrtle",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GMYR",
+          "originalCategoryId": "GMYR",
+          "handle": "myrtle",
+          "department": "Greens"
+        },
+        {
+          "name": "Nagi Fern",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GNAG",
+          "originalCategoryId": "GNAG",
+          "handle": "nagi-fern",
+          "department": "Greens"
+        },
+        {
+          "name": "Novelty Greens",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GNOV",
+          "originalCategoryId": "GNOV",
+          "handle": "novelty-greens",
+          "department": "Greens"
+        },
+        {
+          "name": "Penny Cress",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GPEN",
+          "originalCategoryId": "GPEN",
+          "handle": "penny-cress",
+          "department": "Greens"
+        },
+        {
+          "name": "Pittosporum Greens",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GPIT",
+          "originalCategoryId": "GPIT",
+          "handle": "pittosporum-greens",
+          "department": "Greens"
+        },
+        {
+          "name": "Plumosa",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GPLU",
+          "originalCategoryId": "GPLU",
+          "handle": "plumosa",
+          "department": "Greens"
+        },
+        {
+          "name": "Rosemary Greens",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GROS",
+          "originalCategoryId": "GROS",
+          "handle": "rosemary-greens",
+          "department": "Greens"
+        },
+        {
+          "name": "Ruscus Israeli",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GRUS",
+          "originalCategoryId": "GRUS",
+          "handle": "ruscus-israeli",
+          "department": "Greens"
+        },
+        {
+          "name": "Ruscus Italian",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GIR",
+          "originalCategoryId": "GIR",
+          "handle": "ruscus-italian",
+          "department": "Greens"
+        },
+        {
+          "name": "Ruscus Italian Long",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GIRL",
+          "originalCategoryId": "GIRL",
+          "handle": "ruscus-italian-long",
+          "department": "Greens"
+        },
+        {
+          "name": "Salal Large",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GSAL",
+          "originalCategoryId": "GSAL",
+          "handle": "salal-large",
+          "department": "Greens"
+        },
+        {
+          "name": "Salal Tips",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GST",
+          "originalCategoryId": "GST",
+          "handle": "salal-tips",
+          "department": "Greens"
+        },
+        {
+          "name": "Sprengeri Fern",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GSPR",
+          "originalCategoryId": "GSPR",
+          "handle": "sprengeri-fern",
+          "department": "Greens"
+        },
+        {
+          "name": "Steel Grass",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GSG",
+          "originalCategoryId": "GSG",
+          "handle": "steel-grass",
+          "department": "Greens"
+        },
+        {
+          "name": "Sword Fern",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GSOF",
+          "originalCategoryId": "GSOF",
+          "handle": "sword-fern",
+          "department": "Greens"
+        },
+        {
+          "name": "Tee Pee Palm",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GTEE",
+          "originalCategoryId": "GTEE",
+          "handle": "tee-pee-palm",
+          "department": "Greens"
+        },
+        {
+          "name": "Tree Fern",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GTRE",
+          "originalCategoryId": "GTRE",
+          "handle": "tree-fern",
+          "department": "Greens"
+        },
+        {
+          "name": "Tropical Foliage",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=G&productItem=GTRO",
+          "originalCategoryId": "GTRO",
+          "handle": "greens-tropical-foliage",
+          "department": "Greens",
+          "reviewStatus": "shared-source-entry"
+        }
+      ]
+    },
+    {
+      "department": "Plants",
+      "sourceCategoryId": "P",
+      "sourceUrl": "https://www.rjcarbone.com/gallery?category=P",
+      "categoryCount": 50,
+      "categories": [
+        {
+          "name": "2\" Flowering Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=2FLP",
+          "originalCategoryId": "2FLP",
+          "handle": "2-flowering-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "2\"/2.5\" Foliage Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PL2i",
+          "originalCategoryId": "PL2i",
+          "handle": "2-2-5-foliage-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "3\" Foliage Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=P3FO",
+          "originalCategoryId": "P3FO",
+          "handle": "3-foliage-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "4\" Flowering Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=P4FL",
+          "originalCategoryId": "P4FL",
+          "handle": "4-flowering-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "4\" Foliage Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=P4FO",
+          "originalCategoryId": "P4FO",
+          "handle": "4-foliage-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "4.5\" Flowering Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=P45F",
+          "originalCategoryId": "P45F",
+          "handle": "4-5-flowering-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "4.5\" Foliage Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=P4.5",
+          "originalCategoryId": "P4.5",
+          "handle": "4-5-foliage-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "6\" Flowering Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PFLO",
+          "originalCategoryId": "PFLO",
+          "handle": "6-flowering-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Aglaonema Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PAGL",
+          "originalCategoryId": "PAGL",
+          "handle": "aglaonema-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Air Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=AIRP",
+          "originalCategoryId": "AIRP",
+          "handle": "air-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Alocasia Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PALC",
+          "originalCategoryId": "PALC",
+          "handle": "alocasia-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Anthurium Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PAP",
+          "originalCategoryId": "PAP",
+          "handle": "anthurium-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Bamboo Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PBAM",
+          "originalCategoryId": "PBAM",
+          "handle": "bamboo-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Begonia Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=BEPL",
+          "originalCategoryId": "BEPL",
+          "handle": "begonia-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Bonsai Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PBON",
+          "originalCategoryId": "PBON",
+          "handle": "bonsai-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Cactus Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PCAC",
+          "originalCategoryId": "PCAC",
+          "handle": "cactus-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Carnivorous Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=CARP",
+          "originalCategoryId": "CARP",
+          "handle": "carnivorous-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Croton Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PCRO",
+          "originalCategoryId": "PCRO",
+          "handle": "croton-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Cyclamen Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PCY",
+          "originalCategoryId": "PCY",
+          "handle": "cyclamen-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Dish Gardens",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PDG",
+          "originalCategoryId": "PDG",
+          "handle": "dish-gardens",
+          "department": "Plants"
+        },
+        {
+          "name": "Dracaena Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=DRPL",
+          "originalCategoryId": "DRPL",
+          "handle": "dracaena-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Fern Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PFER",
+          "originalCategoryId": "PFER",
+          "handle": "fern-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Ficus Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PFIC",
+          "originalCategoryId": "PFIC",
+          "handle": "ficus-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Fiddle Leaf Fig Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PFID",
+          "originalCategoryId": "PFID",
+          "handle": "fiddle-leaf-fig-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Foliage Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PFOL",
+          "originalCategoryId": "PFOL",
+          "handle": "foliage-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Fruit/Vegetable Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=FRVE",
+          "originalCategoryId": "FRVE",
+          "handle": "fruit-vegetable-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Hanging Foliage Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PHFO",
+          "originalCategoryId": "PHFO",
+          "handle": "hanging-foliage-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Herb Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=HERB",
+          "originalCategoryId": "HERB",
+          "handle": "herb-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Hibiscus Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PHIB",
+          "originalCategoryId": "PHIB",
+          "handle": "hibiscus-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Holiday Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=HOPL",
+          "originalCategoryId": "HOPL",
+          "handle": "holiday-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Hoya Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=HOYP",
+          "originalCategoryId": "HOYP",
+          "handle": "hoya-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Ivy Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PIVY",
+          "originalCategoryId": "PIVY",
+          "handle": "ivy-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Monstera Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PMO",
+          "originalCategoryId": "PMO",
+          "handle": "monstera-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Mums Hardy",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PHM",
+          "originalCategoryId": "PHM",
+          "handle": "mums-hardy",
+          "department": "Plants"
+        },
+        {
+          "name": "Orchids",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=FORC",
+          "originalCategoryId": "FORC",
+          "handle": "orchids",
+          "department": "Plants"
+        },
+        {
+          "name": "Ornamental Grass",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PGRA",
+          "originalCategoryId": "PGRA",
+          "handle": "ornamental-grass",
+          "department": "Plants"
+        },
+        {
+          "name": "Palm Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PPAL",
+          "originalCategoryId": "PPAL",
+          "handle": "palm-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Phalaenopsis Orchid Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PPHA",
+          "originalCategoryId": "PPHA",
+          "handle": "phalaenopsis-orchid-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Philodendron Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PPHI",
+          "originalCategoryId": "PPHI",
+          "handle": "philodendron-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Pot Mum Plant",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PPM",
+          "originalCategoryId": "PPM",
+          "handle": "pot-mum-plant",
+          "department": "Plants"
+        },
+        {
+          "name": "Pothos Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PPOT",
+          "originalCategoryId": "PPOT",
+          "handle": "pothos-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Rubber Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PRUB",
+          "originalCategoryId": "PRUB",
+          "handle": "rubber-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Sansevieria Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PSAN",
+          "originalCategoryId": "PSAN",
+          "handle": "sansevieria-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Schefflera Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PSHE",
+          "originalCategoryId": "PSHE",
+          "handle": "schefflera-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Soil",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=SOIL",
+          "originalCategoryId": "SOIL",
+          "handle": "soil",
+          "department": "Plants"
+        },
+        {
+          "name": "Spathiphyllum Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PSPA",
+          "originalCategoryId": "PSPA",
+          "handle": "spathiphyllum-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Succulent Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PSUC",
+          "originalCategoryId": "PSUC",
+          "handle": "succulent-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Topiary Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=TOP",
+          "originalCategoryId": "TOP",
+          "handle": "topiary-plants",
+          "department": "Plants"
+        },
+        {
+          "name": "Tropical Foliage",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=GTRO",
+          "originalCategoryId": "GTRO",
+          "handle": "plants-tropical-foliage",
+          "department": "Plants",
+          "reviewStatus": "shared-source-entry"
+        },
+        {
+          "name": "Tropical Plants",
+          "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PTRO",
+          "originalCategoryId": "PTRO",
+          "handle": "tropical-plants",
+          "department": "Plants"
+        }
+      ]
+    }
+  ],
+  "ambiguousEntries": [
+    {
+      "name": "Plants",
+      "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=P",
+      "originalCategoryId": "P",
+      "proposedHandle": null,
+      "department": "Plants",
+      "reviewStatus": "ambiguous",
+      "reviewNote": "The item repeats the department name and uses the department code as its productItem identifier; confirm whether this is a genuine child category."
+    },
+    {
+      "name": "Zz Plants",
+      "sourceUrl": "https://www.rjcarbone.com/gallery?category=P&productItem=PZZ",
+      "originalCategoryId": "PZZ",
+      "proposedHandle": null,
+      "department": "Plants",
+      "reviewStatus": "placeholder",
+      "reviewNote": "Zz naming indicates a placeholder; confirm whether it should be excluded."
+    },
+    {
+      "name": "Tropical Foliage",
+      "sourceUrls": [
+        "https://www.rjcarbone.com/gallery?category=G&productItem=GTRO",
+        "https://www.rjcarbone.com/gallery?category=P&productItem=GTRO"
+      ],
+      "originalCategoryId": "GTRO",
+      "proposedHandles": [
+        "greens-tropical-foliage",
+        "plants-tropical-foliage"
+      ],
+      "departments": [
+        "Greens",
+        "Plants"
+      ],
+      "reviewStatus": "shared-source-entry",
+      "reviewNote": "The same name and productItem identifier appear in both department hierarchies; both links are retained and handles are department-prefixed. Confirm whether Shopify should represent these as separate collections."
+    }
+  ],
+  "exclusions": [
+    "View all links were omitted; these link to the department root rather than a category item.",
+    "Promotional/non-category links were omitted."
+  ]
+}

@@ -13,6 +13,13 @@
       break
     endif
   endfor
+
+  capture floral_back_link
+    render 'floral-department-back-link-flowers', collection_handle: collection.handle
+    render 'floral-department-back-link-roses', collection_handle: collection.handle
+    render 'floral-department-back-link-greens', collection_handle: collection.handle
+    render 'floral-department-back-link-plants', collection_handle: collection.handle
+  endcapture
 %}
 
 {% if is_supplies_subcategory %}
@@ -23,6 +30,13 @@
     <p class="h6 supplies-back-link__text">
       <a href="{{ routes.collections_url }}/supplies">{{ 'actions.back_to' | t: title: 'Supplies' }}</a>
     </p>
+  </div>
+{% elsif floral_back_link != blank %}
+  <div
+    class="section section--page-width spacing-style supplies-back-link"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <p class="h6 supplies-back-link__text">{{ floral_back_link }}</p>
   </div>
 {% endif %}
 

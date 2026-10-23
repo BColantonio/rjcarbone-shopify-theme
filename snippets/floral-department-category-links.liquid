@@ -1,0 +1,173 @@
+{%- doc -%}
+  Renders the complete category link list for a floral department collection.
+  @param {string} collection_handle - The department collection handle.
+  @example
+  {% render 'floral-department-category-links', collection_handle: collection.handle %}
+{%- enddoc -%}
+{%- case collection_handle -%}
+  {%- when 'flowers' -%}
+    <ul class="supplies-category-links__list" role="list">
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/alstroemeria">Alstroemeria</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/amaranthus">Amaranthus</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/anemones">Anemones</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/asters">Asters</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/asters-mardi-gras">Asters Mardi Gras</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/astillbe">Astillbe</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/bells-ireland">Bells Ireland</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/berries-cut-flower">Berries Cut Flower</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/berzillia">Berzillia</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/billy-balls">Billy Balls</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/brunia">Brunia</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/bupleurum">Bupleurum</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/calla-lilies-bouquets">Calla Lilies Bouquets</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/campanula">Campanula</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/carbone-fresh-pull">Carbone Fresh Pull</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/carnations">Carnations</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/cremons">Cremons</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/crocosmia">Crocosmia</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/dalhias">Dalhias</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/deli-star-disbuds">Deli Star Disbuds</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/delphinium">Delphinium</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/dianthus">Dianthus</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/dusty-miller">Dusty Miller</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/fever-few">Fever Few</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/gerbera">Gerbera</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/gerbera-mini">Gerbera Mini</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/gypsophilia">Gypsophilia</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/hydrangea-mini-green">Hydrangea Mini Green</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/hydrangea-novelty-ss">Hydrangea Novelty (Ss)</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/hydrangea-white-blue">Hydrangea White/Blue</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/hypericum">Hypericum</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/kale">Kale</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/kangaroo-paws">Kangaroo Paws</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/larkspur">Larkspur</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/leucadendron">Leucadendron</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/lillies-asiatic-la">Lillies Asiatic / La</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/lily-hybrid">Lily Hybrid</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/limonium">Limonium</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/lisianthus">Lisianthus</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/local-grown-flowers">Local Grown Flowers</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/lysamachia">Lysamachia</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/mini-callas">Mini Callas</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/mini-carnations">Mini Carnations</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/mums-large-football">Mums Large Football</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/novelty-flowers">Novelty Flowers</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/phlox-cut-flower">Phlox Cut Flower</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/pods-fresh-cut">Pods Fresh Cut</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/pom-pons">Pom Pons</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/protea">Protea</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/queen-anns-lace">Queen Anns Lace</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/ranunculus">Ranunculus</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rice-flower">Rice Flower</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/safflower">Safflower</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/scabiosa">Scabiosa</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/snapdragon">Snapdragon</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/statice">Statice</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/stock">Stock</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/sunflower-miniature">Sunflower Miniature</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/sunflowers">Sunflowers</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/thistle">Thistle</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/trachelium">Trachelium</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/tulips-cut">Tulips Cut</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/tulips-parrot">Tulips Parrot</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/tweedia">Tweedia</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/veronica">Veronica</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/wax-flower">Wax Flower</a></li>
+    </ul>
+  {%- when 'roses' -%}
+    <ul class="supplies-category-links__list" role="list">
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/garden-roses">Garden Roses</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-color-40cm">Rose Color 40Cm</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-color-50cm">Rose Color 50Cm</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-color-60cm">Rose Color 60Cm</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-color-70cm">Rose Color 70Cm</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-color-80cm">Rose Color 80Cm</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-red-50cm">Rose Red 50Cm</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-red-60cm">Rose Red 60Cm</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/spray-roses">Spray Roses</a></li>
+    </ul>
+  {%- when 'greens' -%}
+    <ul class="supplies-category-links__list" role="list">
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/aspidistra">Aspidistra</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/bear-grass">Bear Grass</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/curly-willow">Curly Willow</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/emerald">Emerald</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/eucalyptus">Eucalyptus</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/grasses-cut">Grasses Cut</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/huckleberry">Huckleberry</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/ivy-cut">Ivy Cut</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/monstera">Monstera</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/mosses-fresh">Mosses Fresh</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/myrtle">Myrtle</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/nagi-fern">Nagi Fern</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/novelty-greens">Novelty Greens</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/penny-cress">Penny Cress</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/pittosporum-greens">Pittosporum Greens</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/plumosa">Plumosa</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rosemary-greens">Rosemary Greens</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/ruscus-israeli">Ruscus Israeli</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/ruscus-italian">Ruscus Italian</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/ruscus-italian-long">Ruscus Italian Long</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/salal-large">Salal Large</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/salal-tips">Salal Tips</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/sprengeri-fern">Sprengeri Fern</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/steel-grass">Steel Grass</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/sword-fern">Sword Fern</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/tee-pee-palm">Tee Pee Palm</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/tree-fern">Tree Fern</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/greens-tropical-foliage">Tropical Foliage</a></li>
+    </ul>
+  {%- when 'plants' -%}
+    <ul class="supplies-category-links__list" role="list">
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/2-flowering-plants">2&quot; Flowering Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/2-2-5-foliage-plants">2&quot;/2.5&quot; Foliage Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/3-foliage-plants">3&quot; Foliage Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/4-flowering-plants">4&quot; Flowering Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/4-foliage-plants">4&quot; Foliage Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/4-5-flowering-plants">4.5&quot; Flowering Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/4-5-foliage-plants">4.5&quot; Foliage Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/6-flowering-plants">6&quot; Flowering Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/aglaonema-plants">Aglaonema Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/air-plants">Air Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/alocasia-plants">Alocasia Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/anthurium-plants">Anthurium Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/bamboo-plants">Bamboo Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/begonia-plants">Begonia Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/bonsai-plants">Bonsai Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/cactus-plants">Cactus Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/carnivorous-plants">Carnivorous Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/croton-plants">Croton Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/cyclamen-plants">Cyclamen Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/dish-gardens">Dish Gardens</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/dracaena-plants">Dracaena Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/fern-plants">Fern Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/ficus-plants">Ficus Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/fiddle-leaf-fig-plants">Fiddle Leaf Fig Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/foliage-plants">Foliage Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/fruit-vegetable-plants">Fruit/Vegetable Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/hanging-foliage-plants">Hanging Foliage Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/herb-plants">Herb Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/hibiscus-plants">Hibiscus Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/holiday-plants">Holiday Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/hoya-plants">Hoya Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/ivy-plants">Ivy Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/monstera-plants">Monstera Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/mums-hardy">Mums Hardy</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/orchids">Orchids</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/ornamental-grass">Ornamental Grass</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/palm-plants">Palm Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/phalaenopsis-orchid-plants">Phalaenopsis Orchid Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/philodendron-plants">Philodendron Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/pot-mum-plant">Pot Mum Plant</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/pothos-plants">Pothos Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rubber-plants">Rubber Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/sansevieria-plants">Sansevieria Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/schefflera-plants">Schefflera Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/soil">Soil</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/spathiphyllum-plants">Spathiphyllum Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/succulent-plants">Succulent Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/topiary-plants">Topiary Plants</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/plants-tropical-foliage">Tropical Foliage</a></li>
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/tropical-plants">Tropical Plants</a></li>
+    </ul>
+{%- endcase -%}

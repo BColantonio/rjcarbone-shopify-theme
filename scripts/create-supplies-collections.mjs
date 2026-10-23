@@ -45,13 +45,15 @@ const collectionCreateMutation = `#graphql
 `;
 
 function getArguments(args) {
-  const options = { apply: false, configPath: defaultConfigPath };
+  const options = { apply: false, validateOnly: false, configPath: defaultConfigPath };
 
   for (let index = 0; index < args.length; index += 1) {
     const argument = args[index];
 
     if (argument === '--apply') {
       options.apply = true;
+    } else if (argument === '--validate-only') {
+      options.validateOnly = true;
     } else if (argument === '--config') {
       const configPath = args[index + 1];
       if (!configPath || configPath.startsWith('--')) {
@@ -66,27 +68,75 @@ function getArguments(args) {
     }
   }
 
+  if (options.apply && options.validateOnly) {
+    throw new Error('--apply and --validate-only cannot be used together.');
+  }
+
   return options;
 }
 
 function printHelp() {
-  console.log(`Usage: node scripts/create-supplies-collections.mjs [--apply] [--config path]
+  console.log(`Usage: node scripts/create-supplies-collections.mjs [--apply] [--validate-only] [--config path]
 
 Without --apply, the script checks the configured handles and only reports what
 it would create. With --apply, it creates missing manual collections.
+With --validate-only, it validates the configuration without Shopify requests.
 
 Required environment variables:
-  SHOPIFY_STORE_DOMAIN
   Either SHOPIFY_ADMIN_ACCESS_TOKEN or both SHOPIFY_CLIENT_ID and SHOPIFY_CLIENT_SECRET
 
 Optional environment variable:
+  SHOPIFY_STORE_DOMAIN (defaults to ${clientCredentialsStoreDomain})
   SHOPIFY_API_VERSION (defaults to ${apiVersion})
 `);
 }
 
-function validateConfig(entries) {
+function validateConfig(config) {
+  let entries;
+  let categoryConfiguration = false;
+
+  if (Array.isArray(config)) {
+    entries = config;
+  } else if (Array.isArray(config?.departments) && config.departments.length > 0) {
+    categoryConfiguration = true;
+    const departmentIds = new Map([
+      ['Flowers', 'F'],
+      ['Roses', 'R'],
+      ['Greens', 'G'],
+      ['Plants', 'P'],
+    ]);
+    entries = [];
+
+    for (const [departmentIndex, department] of config.departments.entries()) {
+      if (
+        typeof department?.department !== 'string' ||
+        departmentIds.get(department.department) !== department.sourceCategoryId ||
+        !Array.isArray(department.categories) ||
+        department.categories.length === 0 ||
+        department.categoryCount !== department.categories.length
+      ) {
+        throw new Error(`Department configuration ${departmentIndex + 1} is invalid.`);
+      }
+
+      for (const [categoryIndex, category] of department.categories.entries()) {
+        if (
+          category?.department !== department.department ||
+          typeof category?.originalCategoryId !== 'string' ||
+          !/^[A-Za-z0-9.]+$/.test(category.originalCategoryId) ||
+          category.sourceUrl !==
+            `${department.sourceUrl}&productItem=${category.originalCategoryId}`
+        ) {
+          throw new Error(
+            `Category ${categoryIndex + 1} in ${department.department} has invalid source metadata.`
+          );
+        }
+        entries.push(category);
+      }
+    }
+  }
+
   if (!Array.isArray(entries) || entries.length === 0) {
-    throw new Error('Configuration must be a non-empty JSON array.');
+    throw new Error('Configuration must be a non-empty JSON array or department configuration.');
   }
 
   const handles = new Set();
@@ -96,12 +146,21 @@ function validateConfig(entries) {
       typeof entry?.name !== 'string' ||
       entry.name.trim() === '' ||
       typeof entry?.sourceUrl !== 'string' ||
-      typeof entry?.handle !== 'string'
+      typeof entry?.handle !== 'string' ||
+      (categoryConfiguration &&
+        (typeof entry.department !== 'string' ||
+          typeof entry.originalCategoryId !== 'string'))
     ) {
-      throw new Error(`Configuration entry ${index + 1} must include name, sourceUrl, and handle.`);
+      const fields = categoryConfiguration
+        ? 'name, sourceUrl, handle, department, and originalCategoryId'
+        : 'name, sourceUrl, and handle';
+      throw new Error(`Configuration entry ${index + 1} must include ${fields}.`);
     }
 
-    if (!/^https:\/\/www\.rjcarbone\.com\/gallery\?category=S&productItem=[A-Z0-9.]+$/.test(entry.sourceUrl)) {
+    const sourcePattern = categoryConfiguration
+      ? /^https:\/\/www\.rjcarbone\.com\/gallery\?category=[FRGP]&productItem=[A-Za-z0-9.]+$/
+      : /^https:\/\/www\.rjcarbone\.com\/gallery\?category=S&productItem=[A-Z0-9.]+$/;
+    if (!sourcePattern.test(entry.sourceUrl)) {
       throw new Error(`Configuration entry ${index + 1} has an invalid sourceUrl.`);
     }
 
@@ -115,6 +174,8 @@ function validateConfig(entries) {
 
     handles.add(entry.handle);
   }
+
+  return entries;
 }
 
 function validateEnvironment() {
@@ -252,8 +313,14 @@ async function main() {
     return;
   }
 
-  const entries = JSON.parse(await readFile(options.configPath, 'utf8'));
-  validateConfig(entries);
+  const config = JSON.parse(await readFile(options.configPath, 'utf8'));
+  const entries = validateConfig(config);
+
+  if (options.validateOnly) {
+    console.log(`Configuration valid: ${entries.length} entries; no Shopify requests made.`);
+    return;
+  }
+
   validateEnvironment();
 
   if (useClientCredentials) {
