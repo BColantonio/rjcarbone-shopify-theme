@@ -143,6 +143,7 @@
     "slider_label": "Slider"
   },
   "wholesale_application_preview": {
+    "header_link": "Wholesale application preview",
     "preview_notice": "Application preview — submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",

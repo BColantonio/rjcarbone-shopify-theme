@@ -720,6 +720,12 @@
             </drawer-localization-component>
           {% endif %}
         {%- endif -%}
+        <a
+          class="menu-drawer__wholesale-application-link"
+          href="/pages/wholesale-application?view=wholesale-application-preview"
+        >
+          {{ 'wholesale_application_preview.header_link' | t }}
+        </a>
       </div>
 
       {% liquid
@@ -1359,6 +1365,17 @@
     height: 44px;
     font-size: 1.4rem;
     color: rgb(var(--color-foreground));
+  }
+
+  .menu-drawer__wholesale-application-link {
+    display: block;
+    min-height: 44px;
+    padding-block: var(--padding-sm);
+    color: rgb(var(--color-foreground));
+    font-size: 1.4rem;
+    line-height: 1.3;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   .menu-drawer__account svg {

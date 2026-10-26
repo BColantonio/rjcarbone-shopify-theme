@@ -1,10 +1,16 @@
 
 
-{% liquid
-  if section.settings.background_color != blank
-    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
-  endif
-%}
+{% assign footer_text_color = blank %}
+{% if section.settings.background_color == '#0E9CA4' %}
+  {% assign footer_text_color = '#001E20' %}
+{% endif %}
+{% if section.settings.background_color != blank %}
+  {% render 'contrast-override',
+    background_color: section.settings.background_color,
+    text_color: footer_text_color,
+    section_id: section.id
+  %}
+{% endif %}
 
 <div
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"

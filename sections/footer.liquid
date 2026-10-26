@@ -1,10 +1,16 @@
 
 
-{% liquid
-  if section.settings.background_color != blank
-    render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
-  endif
-%}
+{% assign footer_text_color = blank %}
+{% if section.settings.background_color == '#0E9CA4' %}
+  {% assign footer_text_color = '#001E20' %}
+{% endif %}
+{% if section.settings.background_color != blank %}
+  {% render 'contrast-override',
+    background_color: section.settings.background_color,
+    text_color: footer_text_color,
+    section_id: section.id
+  %}
+{% endif %}
 
 <div
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
@@ -83,18 +89,60 @@
     }
   }
 
-  @media screen and (min-width: 990px) {
+  @media screen and (min-width: 750px) {
     .footer-content {
-      grid-template-columns: repeat(var(--grid-columns), 1fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     }
 
-    /* Single item centered */
-    .footer-content[style*='--grid-columns: 1'] {
-      justify-items: center;
+    .footer-content > :first-child {
+      grid-column: 1;
+      grid-row: 1;
+      min-width: 0;
+    }
+
+    .footer-content > :has(.footer-location) {
+      grid-column: 2;
+      grid-row: 1;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .footer-content > :has(.menu__details) {
+      grid-column: 1 / -1;
     }
 
     .footer-content--isolated-grid-item-desktop > :last-child {
       grid-column: 1 / -1;
+    }
+  }
+
+  .footer-content .group-block:has(.footer-location) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .footer-content .group-block-content.layout-panel-flex--row:has(.footer-location) {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: var(--gap-md);
+  }
+
+  .footer-content .group-block-content.layout-panel-flex--row:has(.footer-location) > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .footer-location {
+    min-width: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .footer-content .group-block-content.layout-panel-flex--row:has(.footer-location) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--gap-sm);
     }
   }
 {% endstylesheet %}
@@ -118,6 +166,9 @@
     },
     {
       "type": "group"
+    },
+    {
+      "type": "footer-location"
     },
     {
       "type": "icon"

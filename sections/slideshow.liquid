@@ -39,6 +39,10 @@
   if section.blocks.size == 1
     assign slideshow_class = slideshow_class | append: ' slideshow--single-media'
   endif
+  assign slideshow_attributes = ''
+  if template.name == 'index' and section.id contains 'wholesale_intro'
+    assign slideshow_attributes = 'data-inert-inactive-slides'
+  endif
   if section.settings.display_mode == 'with_hints'
     assign slideshow_class = slideshow_class | append: ' slideshow--with-hints'
     if section.settings.full_frame_on_mobile
@@ -75,7 +79,7 @@
   class="section-background{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
 ></div>
 <div
-  class="slideshow-section spacing-style section {{ section_width_class }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %} disable-section-top-offset"
+  class="slideshow-section spacing-style section {{ section_width_class }}{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}{% if template.name == 'index' and section.id contains 'wholesale_intro' %} homepage-promo-carousel{% endif %} disable-section-top-offset"
   style="{% render 'spacing-padding', settings: section.settings %}; --slideshow-gap: {{ section.settings.slideshow_gap }}px;{% if rounded_slide_corners %} --corner-radius: {{ section.settings.corner_radius }}px;{% endif %}"
 >
   <h2 class="visually-hidden">{{ 'accessibility.slideshow' | t }}</h2>
@@ -89,11 +93,43 @@
     autoplay_speed: section.settings.autoplay_speed,
     slides: slides,
     slide_count: section.blocks.size,
-    slide_size: section.settings.slide_height
+    slide_size: section.settings.slide_height,
+    attributes: slideshow_attributes
   %}
 </div>
 
 {% stylesheet %}
+  .homepage-promo-carousel slideshow-slides,
+  .homepage-promo-carousel slideshow-slide {
+    height: 400px;
+    min-height: 400px;
+    max-height: 400px;
+    aspect-ratio: auto;
+  }
+
+  .homepage-promo-carousel slideshow-slide .slide__image-container > .slide__image {
+    object-fit: cover;
+  }
+
+  .homepage-promo-carousel slideshow-container:is(:hover, :focus-within) > slideshow-arrows .slideshow-control {
+    opacity: 1;
+    animation: none;
+  }
+
+  .homepage-promo-carousel slideshow-component:focus-visible {
+    outline: 3px solid #001e20;
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .homepage-promo-carousel slideshow-slides,
+    .homepage-promo-carousel slideshow-slide {
+      height: 240px;
+      min-height: 240px;
+      max-height: 240px;
+    }
+  }
+
   .slideshow-section {
     slideshow-arrows .slideshow-control:first-of-type {
       margin-inline-start: var(--padding-xs);

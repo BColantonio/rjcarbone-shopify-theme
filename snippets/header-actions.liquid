@@ -113,6 +113,13 @@
     </div>
   {% endif %}
 
+  <a
+    class="wholesale-application-preview-header-link"
+    href="/pages/wholesale-application?view=wholesale-application-preview"
+  >
+    {{ 'wholesale_application_preview.header_link' | t }}
+  </a>
+
   {% if settings.cart_type == 'drawer' and template.name != 'cart' %}
     <button
       class="header-actions__action button-unstyled{% if display_style == 'text' %} header-actions__text-style{% endif %}"
@@ -152,6 +159,22 @@
 ></script>
 
 {% stylesheet %}
+  .wholesale-application-preview-header-link {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .wholesale-application-preview-header-link {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline: var(--padding-sm);
+      color: var(--color-foreground);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+  }
+
   .account-button {
     /* Remove the background color from the color scheme, we want to inherit the color of the header */
     background: transparent;

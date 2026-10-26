@@ -1,0 +1,242 @@
+{% assign has_tiles = false %}
+{% for block in section.blocks %}
+  {% if block.settings.image != blank or block.settings.heading != blank or block.settings.text != blank %}
+    {% assign has_tiles = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if has_tiles %}
+  <section
+    class="section section--{{ section.settings.section_width }} spacing-style homepage-promo-tiles"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <div class="homepage-promo-tiles__grid">
+      {% for block in section.blocks %}
+        {% if block.settings.image != blank or block.settings.heading != blank or block.settings.text != blank %}
+          <article class="homepage-promo-tile" {{ block.shopify_attributes }}>
+            {% if block.settings.image != blank %}
+              <div class="homepage-promo-tile__image">
+                {{
+                  block.settings.image
+                  | image_url: width: 1200
+                  | image_tag:
+                    widths: '320, 480, 640, 960, 1200',
+                    sizes: '(min-width: 990px) 30vw, (min-width: 750px) 45vw, 100vw',
+                    loading: 'lazy',
+                    alt: block.settings.image.alt
+                }}
+              </div>
+            {% else %}
+              <div class="homepage-promo-tile__image homepage-promo-tile__image--placeholder" aria-hidden="true">
+                {{ 'collection-apparel-1' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+            {% if block.settings.heading != blank %}
+              {% if block.settings.link != blank %}
+                <h2 class="homepage-promo-tile__heading">
+                  <a class="homepage-promo-tile__title-link" href="{{ block.settings.link }}">
+                    {{ block.settings.heading | escape }}
+                  </a>
+                </h2>
+              {% else %}
+                <h2 class="homepage-promo-tile__heading">{{ block.settings.heading | escape }}</h2>
+              {% endif %}
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <div class="homepage-promo-tile__text rte">{{ block.settings.text }}</div>
+            {% endif %}
+            {% if block.settings.link != blank and block.settings.link_label != blank %}
+              <a class="homepage-promo-tile__link" href="{{ block.settings.link }}">
+                {{ block.settings.link_label | escape }}
+              </a>
+            {% endif %}
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+{% stylesheet %}
+  .homepage-promo-tiles {
+    --homepage-promo-tiles-teal: #0E9CA4;
+    --homepage-promo-tiles-ink: #07545a;
+  }
+
+  .homepage-promo-tiles__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap-md);
+  }
+
+  .homepage-promo-tile {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-xs);
+    padding: var(--padding-sm);
+    border: 1px solid var(--color-border);
+    border-block-start: 3px solid var(--homepage-promo-tiles-teal);
+    border-radius: var(--style-border-radius-md);
+    overflow-wrap: anywhere;
+  }
+
+  .homepage-promo-tile__image {
+    display: grid;
+    width: 100%;
+    height: 180px;
+    aspect-ratio: 16 / 9;
+    place-items: center;
+    overflow: hidden;
+    background: #f4f8f8;
+    border-radius: var(--style-border-radius-sm);
+  }
+
+  .homepage-promo-tile__image img,
+  .homepage-promo-tile__image svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .homepage-promo-tile__heading,
+  .homepage-promo-tile__text {
+    margin: 0;
+  }
+
+  .homepage-promo-tile__heading {
+    font-size: 1.125rem;
+  }
+
+  .homepage-promo-tile__heading,
+  .homepage-promo-tile__text {
+    color: var(--color-foreground);
+  }
+
+  .homepage-promo-tile__title-link,
+  .homepage-promo-tile__link {
+    color: var(--homepage-promo-tiles-ink);
+    text-underline-offset: 0.2em;
+  }
+
+  .homepage-promo-tile__link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    font-weight: 600;
+  }
+
+  .homepage-promo-tile a:focus-visible {
+    outline: 3px solid var(--homepage-promo-tiles-ink);
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .homepage-promo-tiles__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .homepage-promo-tile__image {
+      height: 150px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.multicolumn",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "blocks": [
+    {
+      "type": "promo_tile",
+      "name": "t:names.card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:settings.image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:settings.heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:settings.text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:settings.link"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "t:settings.text"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.section_width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.multicolumn",
+      "blocks": [
+        {
+          "type": "promo_tile"
+        },
+        {
+          "type": "promo_tile"
+        },
+        {
+          "type": "promo_tile"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

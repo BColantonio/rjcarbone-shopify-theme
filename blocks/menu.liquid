@@ -5,12 +5,20 @@
   assign menu = block_settings.menu
   assign heading = block_settings.heading
   assign show_as_accordion = block_settings.show_as_accordion
+  assign render_menu = true
+  assign has_menu_content = false
+  if menu != blank or heading != blank
+    assign has_menu_content = true
+  endif
+  if block_settings.hide_when_menu_empty and menu == blank
+    assign render_menu = false
+  endif
   if show_as_accordion == true and block_settings.accordion_dividers == true
     assign dividers_enabled = true
   endif
 %}
 
-{% if menu != blank or heading != blank %}
+{% if render_menu and has_menu_content %}
   {% render 'contrast-override',
     background_color: block_settings.background_color,
     text_color: block_settings.text_color,
@@ -185,6 +193,12 @@
       "type": "checkbox",
       "id": "show_as_accordion",
       "label": "t:settings.show_as_accordion",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_menu_empty",
+      "label": "t:settings.visibility",
       "default": false
     },
     {

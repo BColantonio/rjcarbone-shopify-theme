@@ -423,6 +423,12 @@ export class Slideshow extends Component {
 
     this.#current = value;
 
+    if (this.hasAttribute('data-inert-inactive-slides')) {
+      slides?.forEach((slide, index) => {
+        slide.toggleAttribute('inert', index !== value);
+      });
+    }
+
     if (current) current.textContent = `${value + 1}`;
 
     for (const controls of [thumbnails, dots]) {

@@ -1,0 +1,292 @@
+{% comment %}
+  Homepage banner and wholesale account access for business customers.
+{% endcomment %}
+
+<section
+  class="section section--{{ section.settings.section_width }} spacing-style homepage-promotions"
+  style="{% render 'spacing-style', settings: section.settings %}"
+>
+  <div class="homepage-promotions__layout">
+    <div class="homepage-promotions__banner{% if section.settings.banner_image != blank %} homepage-promotions__banner--with-image{% endif %}">
+      <div class="homepage-promotions__banner-copy">
+        {% if section.settings.heading != blank %}
+          <h1 class="homepage-promotions__heading">{{ section.settings.heading | escape }}</h1>
+        {% endif %}
+        {% if section.settings.intro != blank %}
+          <div class="homepage-promotions__intro rte">{{ section.settings.intro }}</div>
+        {% endif %}
+      </div>
+      {% if section.settings.banner_image != blank %}
+        <div class="homepage-promotions__banner-image">
+          {{
+            section.settings.banner_image
+            | image_url: width: 1600
+            | image_tag:
+              widths: '480, 720, 960, 1200, 1600',
+              sizes: '(min-width: 750px) 35vw, 100vw',
+              loading: 'eager',
+              fetchpriority: 'high',
+              alt: section.settings.banner_image.alt
+          }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div
+      class="homepage-promotions__account"
+    >
+      {% if section.settings.account_heading != blank %}
+        <h2 id="HomepageAccount-{{ section.id }}" class="homepage-promotions__account-heading">
+          {{ section.settings.account_heading | escape }}
+        </h2>
+      {% endif %}
+      {% if section.settings.account_message != blank %}
+        <p class="homepage-promotions__account-message">{{ section.settings.account_message | escape }}</p>
+      {% endif %}
+      <a class="homepage-promotions__sign-in" href="{{ routes.account_login_url }}">
+        {{ 'actions.log_in' | t }}
+      </a>
+      <a
+        class="homepage-promotions__application-link"
+        href="/pages/wholesale-application?view=wholesale-application-preview"
+      >
+        {{ 'wholesale_application_preview.header_link' | t }}
+      </a>
+      <p class="homepage-promotions__preview-notice">
+        {{ 'wholesale_application_preview.preview_notice' | t }}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .homepage-promotions {
+    --homepage-promo-teal: #0e9ca4;
+    --homepage-promo-ink: #001e20;
+    --homepage-promo-support: #07545a;
+  }
+
+  .homepage-promotions__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(220px, 0.9fr);
+    gap: var(--gap-xl);
+    align-items: stretch;
+  }
+
+  .homepage-promotions__banner {
+    display: grid;
+    min-width: 0;
+    min-height: 210px;
+    align-content: center;
+    gap: var(--gap-lg);
+    padding: clamp(20px, 4vw, 44px);
+    color: var(--homepage-promo-ink);
+    background: var(--homepage-promo-teal);
+    border-radius: var(--style-border-radius-md);
+  }
+
+  .homepage-promotions__banner--with-image {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    align-items: center;
+  }
+
+  .homepage-promotions__banner-copy,
+  .homepage-promotions__intro {
+    min-width: 0;
+  }
+
+  .homepage-promotions__heading {
+    margin: 0;
+    max-width: 18ch;
+    color: inherit;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .homepage-promotions__intro {
+    margin-block-start: var(--gap-sm);
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  .homepage-promotions__intro > :first-child {
+    margin-block-start: 0;
+  }
+
+  .homepage-promotions__intro > :last-child {
+    margin-block-end: 0;
+  }
+
+  .homepage-promotions__banner-image {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: var(--style-border-radius-md);
+  }
+
+  .homepage-promotions__banner-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 240px;
+    object-fit: contain;
+  }
+
+  .homepage-promotions__account {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--gap-sm);
+    padding: clamp(18px, 2.5vw, 28px);
+    color: var(--color-foreground);
+    background: var(--color-background);
+    border: 1px solid var(--homepage-promo-teal);
+    border-radius: var(--style-border-radius-md);
+  }
+
+  .homepage-promotions__account-heading {
+    margin: 0;
+    font-size: 1.25rem;
+    text-wrap: balance;
+  }
+
+  .homepage-promotions__account-message,
+  .homepage-promotions__preview-notice {
+    margin: 0;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+  }
+
+  .homepage-promotions__sign-in,
+  .homepage-promotions__application-link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-underline-offset: 0.2em;
+  }
+
+  .homepage-promotions__sign-in {
+    width: 100%;
+    padding: var(--padding-sm) var(--padding-md);
+    color: var(--color-background);
+    background: var(--homepage-promo-support);
+    border-radius: var(--style-border-radius-buttons-primary);
+    text-decoration: none;
+  }
+
+  .homepage-promotions__application-link {
+    color: var(--homepage-promo-support);
+    font-weight: 600;
+  }
+
+  .homepage-promotions__preview-notice {
+    font-size: 0.875rem;
+  }
+
+  .homepage-promotions a:focus-visible {
+    outline: 3px solid var(--homepage-promo-ink);
+    outline-offset: 3px;
+    border-radius: var(--style-border-radius-buttons-primary);
+  }
+
+  @media screen and (max-width: 749px) {
+    .homepage-promotions__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--gap-md);
+    }
+
+    .homepage-promotions__banner {
+      min-height: 0;
+    }
+
+    .homepage-promotions__banner--with-image {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.custom_section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:settings.heading",
+      "default": "Wholesale flowers, plants & supplies"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "t:settings.text",
+      "default": "<p>Serving floral and trade professionals.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "t:settings.image"
+    },
+    {
+      "type": "text",
+      "id": "account_heading",
+      "label": "t:settings.account",
+      "default": "Wholesale account access"
+    },
+    {
+      "type": "text",
+      "id": "account_message",
+      "label": "t:settings.text",
+      "default": "For wholesale business customers only."
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.section_width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.custom_section"
+    }
+  ]
+}
+{% endschema %}

@@ -18,6 +18,126 @@
 {% if section.settings.supplies_only != true or collection.handle == 'supplies' %}
 {% unless section.settings.hide_when_empty and section.settings.collection_list == blank %}
 {% liquid
+  assign show_homepage_account_panel = false
+  if template.name == 'index' and section.id contains 'department_collections'
+    assign show_homepage_account_panel = true
+  endif
+%}
+{% if show_homepage_account_panel %}
+  {% style %}
+    #shopify-section-{{ section.id }} .collection-card__image .resource-image__image {
+      object-fit: contain;
+    }
+
+    #shopify-section-{{ section.id }} .collection-card__content {
+      height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-list .section-resource-list__content {
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-list .section-resource-list__content > h2 {
+      width: 100%;
+      margin: 0 0 var(--gap-sm);
+      text-align: start;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .collection-card__image {
+      height: 112px;
+      min-height: 112px;
+      aspect-ratio: auto;
+    }
+
+    #shopify-section-{{ section.id }} .collection-card__image .resource-image__image {
+      object-fit: contain;
+      aspect-ratio: auto;
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(210px, 0.32fr);
+      align-items: center;
+      gap: var(--gap-lg);
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-account {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--gap-sm);
+      padding: clamp(16px, 2vw, 24px);
+      color: var(--color-foreground);
+      background: var(--color-background);
+      border: 1px solid #0e9ca4;
+      border-radius: var(--style-border-radius-md);
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-account h2,
+    #shopify-section-{{ section.id }} .homepage-department-account p {
+      margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-account h2 {
+      font-size: 1.2rem;
+      text-wrap: balance;
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-account p {
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-account a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      color: #07545a;
+      font-weight: 600;
+      text-underline-offset: 0.2em;
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-account .homepage-department-account__sign-in {
+      width: 100%;
+      justify-content: center;
+      padding: var(--padding-sm) var(--padding-md);
+      color: #fff;
+      background: #07545a;
+      border-radius: var(--style-border-radius-buttons-primary);
+      text-decoration: none;
+    }
+
+    #shopify-section-{{ section.id }} .homepage-department-account a:focus-visible {
+      outline: 3px solid #001e20;
+      outline-offset: 3px;
+      border-radius: var(--style-border-radius-buttons-primary);
+    }
+
+    @media screen and (max-width: 749px) {
+      #shopify-section-{{ section.id }} .homepage-department-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      #shopify-section-{{ section.id }} .homepage-department-list .resource-list--grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      #shopify-section-{{ section.id }} .homepage-department-list .resource-list--grid > .resource-list__item:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        width: calc(50% - var(--resource-list-column-gap) / 2);
+        justify-self: center;
+      }
+
+      #shopify-section-{{ section.id }} .homepage-department-list .section-resource-list__content > h2 {
+        font-size: 24px;
+      }
+    }
+  {% endstyle %}
+{% endif %}
+{% liquid
   if section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
   endif
@@ -42,6 +162,10 @@
   "
   data-testid="collection-list"
 >
+  {% if show_homepage_account_panel %}
+    <div class="homepage-department-layout">
+      <div class="homepage-department-list">
+  {% endif %}
   <div class="section-resource-list__content">
     {%- content_for 'blocks' -%}
     {% if section.settings.heading != blank %}
@@ -82,6 +206,21 @@
     content_type: 'collections',
     test_id: 'collections-list-grid'
   %}
+  {% if show_homepage_account_panel %}
+      </div>
+      <aside class="homepage-department-account" aria-labelledby="HomepageAccount-{{ section.id }}">
+        <h2 id="HomepageAccount-{{ section.id }}">Wholesale account access</h2>
+        <p>Wholesale business customers only.</p>
+        <a class="homepage-department-account__sign-in" href="{{ routes.account_login_url }}">
+          {{ 'actions.log_in' | t }}
+        </a>
+        <a href="/pages/wholesale-application?view=wholesale-application-preview">
+          {{ 'wholesale_application_preview.header_link' | t }}
+        </a>
+        <p>{{ 'wholesale_application_preview.preview_notice' | t }}</p>
+      </aside>
+    </div>
+  {% endif %}
 </div>
 {% endunless %}
 {% endif %}

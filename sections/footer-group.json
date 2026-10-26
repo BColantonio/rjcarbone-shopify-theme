@@ -52,7 +52,7 @@
             "text_LWt8Pz": {
               "type": "text",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
+                "text": "<h2>Catalog &amp; Offer Alerts</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -76,7 +76,7 @@
             "text_f9CFLH": {
               "type": "text",
               "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "text": "<p>Get updates on catalogs, special offers, and seasonal availability.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -96,51 +96,155 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "email_signup_crihX7": {
+              "type": "email-signup",
+              "settings": {
+                "width": "fill",
+                "custom_width": 100,
+                "heading_preset": "h3",
+                "border_style": "all",
+                "input_style": "custom",
+                "border_width": 1,
+                "border_radius": 100,
+                "input_background_color": "{{ settings.color_palette.background }}",
+                "input_text_color": "{{ settings.color_palette.color1 }}",
+                "input_border_color": "{{ settings.color_palette.color2 }}",
+                "input_type_preset": "paragraph",
+                "style_class": "button-unstyled",
+                "display_type": "arrow",
+                "label": "Sign up",
+                "integrated_button": true,
+                "button_type_preset": "paragraph",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "text_LWt8Pz",
-            "text_f9CFLH"
+            "text_f9CFLH",
+            "email_signup_crihX7"
           ]
         },
-        "email_signup_crihX7": {
-          "type": "email-signup",
+        "customer_service_menu": {
+          "type": "menu",
           "settings": {
+            "menu": "",
+            "heading": "Customer Service",
+            "hide_when_menu_empty": true,
+            "show_as_accordion": false,
+            "menu_spacing": 10,
+            "heading_preset": "h4",
+            "link_preset": "paragraph"
+          }
+        },
+        "company_info_menu": {
+          "type": "menu",
+          "settings": {
+            "menu": "",
+            "heading": "Company Info",
+            "hide_when_menu_empty": true,
+            "show_as_accordion": false,
+            "menu_spacing": 10,
+            "heading_preset": "h4",
+            "link_preset": "paragraph"
+          }
+        },
+        "footer_locations": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "flex-start",
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "flex-start",
+            "gap": 10,
             "width": "fill",
-            "custom_width": 100,
-            "heading_preset": "h3",
-            "border_style": "all",
-            "input_style": "custom",
-            "border_width": 1,
-            "border_radius": 100,
-            "input_background_color": "{{ settings.color_palette.background }}",
-            "input_text_color": "{{ settings.color_palette.color1 }}",
-            "input_border_color": "{{ settings.color_palette.color2 }}",
-            "input_type_preset": "paragraph",
-            "style_class": "button-unstyled",
-            "display_type": "arrow",
-            "label": "Sign up",
-            "integrated_button": true,
-            "button_type_preset": "paragraph",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "width_mobile": "fill",
+            "height": "fit"
           },
-          "blocks": {}
+          "blocks": {
+            "locations_heading": {
+              "type": "text",
+              "settings": {
+                "text": "<h3>Our Locations</h3>",
+                "width": "100%",
+                "alignment": "left",
+                "type_preset": "h4"
+              },
+              "blocks": {}
+            },
+            "location_columns": {
+              "type": "group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "flex-start",
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "flex-start",
+                "gap": 16,
+                "width": "fill",
+                "width_mobile": "fill",
+                "height": "fit"
+              },
+              "blocks": {
+                "cranston_location": {
+                  "type": "footer-location",
+                  "settings": {
+                    "location_name": "Cranston",
+                    "address": "",
+                    "phone": ""
+                  }
+                },
+                "derry_location": {
+                  "type": "footer-location",
+                  "settings": {
+                    "location_name": "Derry",
+                    "address": "",
+                    "phone": ""
+                  }
+                },
+                "chelsea_location": {
+                  "type": "footer-location",
+                  "settings": {
+                    "location_name": "Chelsea",
+                    "address": "",
+                    "phone": ""
+                  }
+                }
+              },
+              "block_order": [
+                "cranston_location",
+                "derry_location",
+                "chelsea_location"
+              ]
+            }
+          },
+          "block_order": [
+            "locations_heading",
+            "location_columns"
+          ]
         }
       },
       "block_order": [
         "group_H6VpwJ",
-        "email_signup_crihX7"
+        "customer_service_menu",
+        "company_info_menu",
+        "footer_locations"
       ],
       "name": "t:names.footer",
       "settings": {
         "section_width": "page-width",
         "gap": 20,
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 30,
-        "padding-block-end": 30
+        "background_color": "#0E9CA4",
+        "padding-block-start": 20,
+        "padding-block-end": 24
       }
     },
     "footer_utilities_jLGE8U": {
@@ -150,6 +254,7 @@
           "type": "footer-copyright",
           "settings": {
             "show_powered_by": true,
+            "brand_label": "Carbone Floral Distributors",
             "font_size": "0.75rem",
             "case": "none"
           },
@@ -185,10 +290,10 @@
         "section_width": "page-width",
         "gap": 24,
         "divider_thickness": 1,
-        "divider_color": "{{ settings.color_palette.color2 }}",
-        "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 20,
-        "padding-block-end": 48
+        "divider_color": "#001E20",
+        "background_color": "#0E9CA4",
+        "padding-block-start": 12,
+        "padding-block-end": 18
       }
     }
   },
