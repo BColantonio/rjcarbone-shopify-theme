@@ -6,7 +6,7 @@
 {% liquid
   assign palette_lightest = '#ffffff'
   assign palette_lightest_brightness = -1
-  assign palette_darkest = '#000000'
+  assign palette_darkest = '#15191B'
   assign palette_darkest_brightness = 256
 
   for palette_color in settings.color_palette
@@ -32,9 +32,14 @@
     assign effective_primary_button_focus_outline = settings.palette_primary_button_background
   endif
 
-  capture effective_primary_button_hover_background
-    render 'util-palette-hover-shift', color: settings.palette_primary_button_background
-  endcapture
+  assign primary_button_background_hex = settings.palette_primary_button_background | color_to_hex | downcase
+  if primary_button_background_hex == '#0e9ca4'
+    assign effective_primary_button_hover_background = '#07545a'
+  else
+    capture effective_primary_button_hover_background
+      render 'util-palette-hover-shift', color: settings.palette_primary_button_background
+    endcapture
+  endif
   if settings.palette_primary_button_background.alpha == 1
     assign primary_hover_background_has_alpha = false
   else

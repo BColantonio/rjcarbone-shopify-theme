@@ -174,6 +174,14 @@
   {% render 'add-to-cart-button-styles' %}
 {% endif %}
 
+{% if request.page_type == 'product' %}
+  {% render 'breadcrumbs',
+    collection: collection,
+    product: closest.product,
+    section_settings: section.settings
+  %}
+{% endif %}
+
 {% render 'product-information-content',
   product: closest.product,
   section_id: section.id,

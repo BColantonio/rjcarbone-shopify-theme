@@ -3,6 +3,7 @@
     render 'supplies-category-data'
   endcapture
   assign category_entries = category_entry_data | strip | split: '^' | sort_natural
+  assign category_count = category_entries.size
   capture floral_category_links
     render 'floral-department-category-links', collection_handle: collection.handle
   endcapture
@@ -10,22 +11,28 @@
 
 {% if collection.handle == 'supplies' %}
   <div
-    class="section section--page-width spacing-style supplies-category-links"
+    class="section section--page-width spacing-style supplies-category-links supplies-category-links--supplies"
     style="{% render 'spacing-style', settings: section.settings %}"
   >
-    <h2 class="h2">{{ section.settings.heading | escape }}</h2>
-    <ul class="supplies-category-links__list" role="list">
-      {% for category_entry in category_entries %}
-        {% assign category_parts = category_entry | split: '|' %}
-        {% assign category_name = category_parts[0] %}
-        {% assign category_handle = category_parts[1] %}
-        <li class="supplies-category-links__item">
-          <a class="supplies-category-links__link" href="{{ routes.collections_url }}/{{ category_handle | escape }}">
-            {{ category_name | escape }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
+    <h2 class="h2 supplies-category-links__heading">{{ section.settings.heading | escape }}</h2>
+    <details class="supplies-category-links__disclosure">
+      <summary class="supplies-category-links__summary">
+        <span>Browse all {{ category_count }} categories</span>
+        <span class="supplies-category-links__indicator" aria-hidden="true"></span>
+      </summary>
+      <ul class="supplies-category-links__list" role="list">
+        {% for category_entry in category_entries %}
+          {% assign category_parts = category_entry | split: '|' %}
+          {% assign category_name = category_parts[0] %}
+          {% assign category_handle = category_parts[1] %}
+          <li class="supplies-category-links__item">
+            <a class="supplies-category-links__link" href="{{ routes.collections_url }}/{{ category_handle | escape }}">
+              {{ category_name | escape }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </details>
   </div>
 {% elsif floral_category_links != blank %}
   <div
@@ -37,22 +44,101 @@
 {% endif %}
 
 {% stylesheet %}
-  .supplies-category-links__list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--gap-md) var(--gap-2xl);
+  .supplies-category-links--supplies {
+    min-width: 0;
+  }
+
+  .supplies-category-links--supplies .supplies-category-links__heading.h2 {
+    margin-block: 0 0.75rem;
+    font-size: clamp(1.35rem, 2vw, 1.5rem);
+    line-height: 1.2;
+  }
+
+  .supplies-category-links--supplies .supplies-category-links__list {
+    columns: 4;
+    column-gap: var(--gap-2xl);
     list-style: none;
-    margin: 0;
+    margin: var(--gap-md) 0 0;
     padding: 0;
   }
 
-  .supplies-category-links__item {
-    min-width: 0;
-    overflow-wrap: anywhere;
+  .supplies-category-links--supplies .supplies-category-links__summary {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-md);
+    padding: var(--gap-sm) var(--gap-md);
+    border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
+    border-radius: var(--style-border-radius-buttons-primary);
+    color: #07545a;
+    cursor: pointer;
+    list-style: none;
   }
 
-  .supplies-category-links__link {
-    color: var(--color-foreground);
+  .supplies-category-links--supplies .supplies-category-links__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .supplies-category-links--supplies .supplies-category-links__summary:focus-visible {
+    outline: 3px solid #07545a;
+    outline-offset: 3px;
+  }
+
+  .supplies-category-links--supplies .supplies-category-links__indicator {
+    width: 0.65rem;
+    height: 0.65rem;
+    flex: 0 0 auto;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-0.15rem) rotate(45deg);
+    transition: transform 160ms ease;
+  }
+
+  .supplies-category-links--supplies details[open] .supplies-category-links__indicator {
+    transform: translateY(0.15rem) rotate(225deg);
+  }
+
+  .supplies-category-links--supplies .supplies-category-links__item {
+    min-width: 0;
+    margin-block-end: var(--gap-sm);
+    overflow-wrap: anywhere;
+    break-inside: avoid;
+  }
+
+  .supplies-category-links--supplies .supplies-category-links__link {
+    display: inline-block;
+    max-width: 100%;
+    color: #07545a;
+    text-underline-offset: 0.2em;
+  }
+
+  .supplies-category-links--supplies .supplies-category-links__link:hover {
+    text-decoration-color: #0e9ca4;
+  }
+
+  .supplies-category-links--supplies .supplies-category-links__link:focus-visible {
+    border-radius: 2px;
+    outline: 3px solid #07545a;
+    outline-offset: 3px;
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .supplies-category-links--supplies .supplies-category-links__list {
+      columns: 2;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .supplies-category-links--supplies .supplies-category-links__list {
+      columns: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .supplies-category-links--supplies .supplies-category-links__indicator {
+      transition: none;
+    }
   }
 {% endstylesheet %}
 

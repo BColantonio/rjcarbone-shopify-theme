@@ -2,7 +2,7 @@
 
 {% assign footer_text_color = blank %}
 {% if section.settings.background_color == '#0E9CA4' %}
-  {% assign footer_text_color = '#001E20' %}
+  {% assign footer_text_color = '#15191B' %}
 {% endif %}
 {% if section.settings.background_color != blank %}
   {% render 'contrast-override',
@@ -10,6 +10,14 @@
     text_color: footer_text_color,
     section_id: section.id
   %}
+{% endif %}
+
+{% if section.settings.background_color == '#0E9CA4' %}
+  {% style %}
+    .color-custom-{{ section.id }} .footer-content :is(h2, h3) {
+      color: #ffffff;
+    }
+  {% endstyle %}
 {% endif %}
 
 <div

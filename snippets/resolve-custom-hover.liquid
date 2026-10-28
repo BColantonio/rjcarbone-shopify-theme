@@ -36,9 +36,14 @@
       assign hover_bg_has_alpha = true
     endif
   else
-    capture effective_hover_bg
-      render 'util-palette-hover-shift', color: base_bg
-    endcapture
+    assign base_bg_hex = base_bg | color_to_hex | downcase
+    if base_bg_hex == '#0e9ca4'
+      assign effective_hover_bg = '#07545a'
+    else
+      capture effective_hover_bg
+        render 'util-palette-hover-shift', color: base_bg
+      endcapture
+    endif
     if base_bg.alpha == 1
       assign hover_bg_has_alpha = false
     else

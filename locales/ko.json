@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -116,6 +116,8 @@
     "view_pricing_info": "가격 정보 보기",
     "slideshow": "슬라이드 쇼",
     "header_navigation_label": "기본",
+    "home": "홈",
+    "breadcrumb_navigation": "경로 탐색",
     "home_logo_alt": "{{ store_name }} - 홈",
     "active_filters": "활성 필터:",
     "product_details": "제품 세부 정보",

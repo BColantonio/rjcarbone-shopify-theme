@@ -1,0 +1,22 @@
+{%- doc -%}
+  Returns a product URL scoped to a collection only when the product belongs to it.
+
+  @param {object} product - The product object.
+  @param {object} [collection] - Optional collection context.
+  @example
+  {% render 'product-link-url', product: product, collection: collection %}
+{%- enddoc -%}
+
+{%- liquid
+  assign product_link_url = product.url
+
+  if product != blank and collection != blank
+    for product_collection in product.collections
+      if product_collection.handle == collection.handle
+        assign product_link_url = product.url | within: collection
+        break
+      endif
+    endfor
+  endif
+-%}
+{{- product_link_url -}}

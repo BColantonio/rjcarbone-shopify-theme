@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -116,6 +116,8 @@
     "view_pricing_info": "Xem thông tin về giá",
     "slideshow": "Bản trình chiếu",
     "header_navigation_label": "Chính",
+    "home": "Trang chủ",
+    "breadcrumb_navigation": "Điều hướng đường dẫn",
     "home_logo_alt": "{{ store_name }} – Trang chủ",
     "active_filters": "Bộ lọc đang hoạt động:",
     "product_details": "Chi tiết sản phẩm",

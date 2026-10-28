@@ -36,7 +36,7 @@
 ></div>
 <collection-component view-event-payload="{{ collection | standard_event_data: 'view' | escape }}">
   <results-list
-    class="section product-grid-container{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
+    class="section product-grid-container collection-product-grid{% if section.settings.background_color != blank %} color-custom-{{ section.id }}{% endif %}"
     style="--padding-block-start: {{ section.settings.padding-block-start }}px; --padding-block-end: {{ section.settings.padding-block-end }}px;"
     section-id="{{ section.id }}"
     infinite-scroll="{{ section.settings.enable_infinite_scroll }}"
@@ -90,6 +90,49 @@
     </div>
   </results-list>
 </collection-component>
+
+{% stylesheet %}
+  .collection-product-grid .product-card__content {
+    min-width: 0;
+    min-height: 100%;
+  }
+
+  .collection-product-grid .card-gallery {
+    inline-size: 100%;
+    aspect-ratio: 1;
+    --gallery-aspect-ratio: 1;
+  }
+
+  .collection-product-grid .product-media-container {
+    aspect-ratio: 1;
+  }
+
+  .collection-product-grid .product-media-container.media-fit img {
+    object-fit: contain;
+  }
+
+  .collection-product-grid .product-card__content > a .text-block [role='heading'] {
+    display: block;
+    overflow: visible;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    white-space: normal;
+    -webkit-line-clamp: unset;
+  }
+
+  .collection-product-grid .product-card-quantity-controls {
+    margin-block-start: auto;
+  }
+
+  @media screen and (max-width: 420px) {
+    .collection-product-grid .product-card-quantity-controls__row > :is(
+        .quantity-selector-wrapper,
+        add-to-cart-component
+      ) {
+      flex-basis: 100%;
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

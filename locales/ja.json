@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -116,6 +116,8 @@
     "view_pricing_info": "価格情報を表示する",
     "slideshow": "スライドショー",
     "header_navigation_label": "メイン",
+    "home": "ホーム",
+    "breadcrumb_navigation": "パンくずリストナビゲーション",
     "home_logo_alt": "{{ store_name }} - ホーム",
     "product_details": "商品詳細",
     "show_product_details": "{{ product_name }} の商品詳細を表示",

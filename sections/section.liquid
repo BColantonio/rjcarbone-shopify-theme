@@ -4,6 +4,16 @@
   {% content_for 'blocks' %}
 {% endcapture %}
 
+{% if collection.handle == 'supplies' and section.id contains '__section' %}
+  {% style %}
+    #shopify-section-{{ section.id }} h1 {
+      margin-block: 0;
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      line-height: 1.15;
+    }
+  {% endstyle %}
+{% endif %}
+
 {% render 'section',
   section: section,
   children: children,

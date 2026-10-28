@@ -80,8 +80,8 @@
   <a
     id="{{ product_card_id | md5 }}"
     {% unless onboarding %}
-      {% # Link to product.url so algorithmic variant relevance and tracking params are maintained. %}
-      href="{{ product.url }}"
+      {% # Keep product relevance and tracking data while using a validated collection context. %}
+      href="{% render 'product-link-url', product: product, collection: collection %}"
     {% endunless %}
     class="product-card__link"
     ref="productCardLink"

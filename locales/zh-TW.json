@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -116,6 +116,8 @@
     "view_pricing_info": "檢視定價資訊",
     "slideshow": "素材輪播",
     "header_navigation_label": "主要",
+    "home": "首頁",
+    "breadcrumb_navigation": "麵包屑導覽",
     "home_logo_alt": "{{ store_name }} - 首頁",
     "active_filters": "啟用篩選條件：",
     "product_details": "商品詳情",

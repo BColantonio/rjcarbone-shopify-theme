@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -118,6 +118,8 @@
     "view_pricing_info": "Prikaži podatke o cenah",
     "slideshow": "Slikovni prikaz",
     "header_navigation_label": "Glavno",
+    "home": "Domov",
+    "breadcrumb_navigation": "Navigacija po drobtinicah",
     "home_logo_alt": "{{ store_name }} – Domov",
     "active_filters": "Aktivni filtri:",
     "product_details": "Podrobnosti o izdelku",

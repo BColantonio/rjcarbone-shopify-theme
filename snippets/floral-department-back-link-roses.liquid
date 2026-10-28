@@ -1,26 +1,26 @@
 {%- doc -%}
-  Renders the Back to Roses link for one of its confirmed category collections.
+  Returns the confirmed Roses department handle for one of its category collections.
   @param {string} collection_handle - The category collection handle.
   @example
   {% render 'floral-department-back-link-roses', collection_handle: collection.handle %}
 {%- enddoc -%}
 {%- case collection_handle -%}
   {%- when 'garden-roses' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
   {%- when 'rose-color-40cm' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
   {%- when 'rose-color-50cm' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
   {%- when 'rose-color-60cm' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
   {%- when 'rose-color-70cm' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
   {%- when 'rose-color-80cm' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
   {%- when 'rose-red-50cm' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
   {%- when 'rose-red-60cm' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
   {%- when 'spray-roses' -%}
-    <a href="{{ routes.collections_url }}/roses">{{ 'actions.back_to' | t: title: 'Roses' }}</a>
+    roses
 {%- endcase -%}

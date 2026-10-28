@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -118,6 +118,8 @@
     "view_pricing_info": "Peržiūrėti kainodaros informaciją",
     "slideshow": "Skaidrių demonstracija",
     "header_navigation_label": "Pagrindinis",
+    "home": "Pradžia",
+    "breadcrumb_navigation": "Naršymas pagal kelią",
     "home_logo_alt": "{{ store_name }} – Pradžia",
     "active_filters": "Aktyvūs filtrai:",
     "product_details": "Išsami produkto informacija",

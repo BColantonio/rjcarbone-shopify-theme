@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -118,6 +118,8 @@
     "view_pricing_info": "Посмотреть информацию о ценах",
     "slideshow": "Слайд-шоу",
     "header_navigation_label": "Основная",
+    "home": "Главная",
+    "breadcrumb_navigation": "Навигация по цепочке",
     "home_logo_alt": "{{ store_name }} — Главная",
     "active_filters": "Активные фильтры:",
     "product_details": "Подробности о товаре",

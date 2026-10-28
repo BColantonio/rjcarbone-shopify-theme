@@ -36,7 +36,15 @@
   endif
 
   if transparent and sticky
-    assign transparent = 'not-sticky'
+    assign transparent = false
+  endif
+
+  assign header_background_top = section.settings.background_color_top | default: settings.page_background_color
+  assign header_background_bottom = section.settings.background_color_bottom | default: settings.page_background_color
+
+  if sticky
+    assign header_background_top = header_background_top | color_modify: 'alpha', 1
+    assign header_background_bottom = header_background_bottom | color_modify: 'alpha', 1
   endif
 
   assign text_color_transparent = transparent_text_color_setting | default: settings.page_text_color
@@ -182,6 +190,11 @@
 
   assign bottom_row_blocks = bottom_row_blocks | split: ',' | compact
 
+  assign menu_only_bottom_row = false
+  if section.settings.menu_row == 'bottom' and bottom_row_blocks.size == 1
+    assign menu_only_bottom_row = true
+  endif
+
   assign has_second_row = false
   if bottom_row_blocks.size > 0
     assign has_second_row = true
@@ -210,8 +223,8 @@
   assign bottom_transparent = false
 
   # Only explicit colors make a row transparent
-  assign top_row_color = section.settings.background_color_top
-  assign bottom_row_color = section.settings.background_color_bottom
+  assign top_row_color = header_background_top
+  assign bottom_row_color = header_background_bottom
 
   if top_row_color != blank and top_row_color.alpha != 1
     assign top_transparent = true
@@ -340,7 +353,7 @@
 <header-component
   id="header-component"
   class="{{ class }}"
-  data-theme-color="rgb({{ section.settings.background_color_top.rgb | default: settings.page_background_color.rgb }})"
+  data-theme-color="rgb({{ header_background_top.rgb }})"
   data-bubble-style="{{ section.settings.bubble_style }}"
   {% if transparent %}
     transparent="{{ transparent }}"
@@ -360,8 +373,8 @@
     data-header-rows="single"
   {% endif %}
   style="
-    --color-background-top-row: rgba({{ section.settings.background_color_top.rgba | default: settings.page_background_color.rgba }});
-    --color-background-bottom-row: rgba({{ section.settings.background_color_bottom.rgba | default: settings.page_background_color.rgba }});
+    --color-background-top-row: rgba({{ header_background_top.rgba }});
+    --color-background-bottom-row: rgba({{ header_background_bottom.rgba }});
     {% if transparent and text_color_transparent != blank %}
       --color-transparent-text: {{ text_color_transparent }};
       --color-transparent-text-rgb: {{ text_color_transparent.rgb }};
@@ -413,6 +426,9 @@
         when 'bottom'
           assign first = ''
           assign class = class | append: ' mobile:hidden'
+          if menu_only_bottom_row
+            assign class = class | append: ' header__row--menu-only'
+          endif
 
           assign border_bottom_setting_id = 'border_width'
           assign border_bottom_color_setting_id = 'bottom_border_color'
@@ -516,17 +532,21 @@
     display: none;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 990px) {
     #header-component[data-menu-style='menu'] :is(.header-menu, .dropdown-localization) {
       display: flex;
     }
+  }
+
+  #header-component[data-menu-style='drawer'] .header__row--menu-only {
+    display: none;
   }
 
   #header-component[data-menu-style='drawer'] .header__column {
     display: contents;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 990px) {
     #header-component[data-menu-style='menu'] .header__navigation-bar-row {
       display: none;
     }
@@ -943,6 +963,7 @@
 
     .header-logo {
       grid-area: center;
+      align-self: center;
     }
 
     &:not(:has(header-actions)) .search-action {
@@ -966,6 +987,7 @@
     header-actions {
       grid-area: rightB;
       justify-content: flex-end;
+      align-self: center;
     }
   }
 

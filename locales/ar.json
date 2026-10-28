@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -66,6 +66,8 @@
     "discount_applied": "كود الخصم المطبق: {{ code }}",
     "featured_product": "المنتج المميز",
     "filters": "عوامل التصفية",
+    "home": "الصفحة الرئيسية",
+    "breadcrumb_navigation": "التنقل بين الصفحات",
     "home_logo_alt": "{{ store_name }} - الصفحة الرئيسية",
     "increase_quantity": "زيادة الكمية",
     "inventory_status": "حالة المخزون",

@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -116,6 +116,8 @@
     "view_pricing_info": "Προβολή πληροφοριών τιμολόγησης",
     "slideshow": "Προβολή διαφανειών",
     "header_navigation_label": "Κύρια",
+    "home": "Αρχική",
+    "breadcrumb_navigation": "Πλοήγηση διαδρομής",
     "home_logo_alt": "{{ store_name }} - Αρχική",
     "active_filters": "Ενεργά φίλτρα:",
     "product_details": "Λεπτομέρειες προϊόντος",

@@ -1,0 +1,230 @@
+{%- doc -%}
+  Renders breadcrumbs for confirmed department, category, and product paths.
+
+  @param {object} [collection] - The current collection, including product collection context.
+  @param {object} [product] - The current product.
+  @param {object} [section_settings] - Settings used for the breadcrumb section spacing.
+  @example
+  {% render 'breadcrumbs', collection: collection, section_settings: section.settings %}
+{%- enddoc -%}
+
+{% liquid
+  assign breadcrumb_department = blank
+  assign breadcrumb_category = blank
+  assign breadcrumb_title = blank
+  assign show_breadcrumb = false
+
+  capture supplies_category_data
+    render 'supplies-category-data'
+  endcapture
+  assign supplies_category_entries = supplies_category_data | strip | split: '^'
+
+  if product != blank
+    assign show_breadcrumb = true
+    assign breadcrumb_title = product.title
+    assign context_department_handle = blank
+    assign context_collection_handle = blank
+
+    if collection != blank
+      assign context_collection_handle = collection.handle
+    endif
+
+    if request.path contains '/collections/' and request.path contains '/products/'
+      assign collection_path = request.path | split: '/collections/' | last
+      assign context_collection_handle = collection_path | split: '/products/' | first
+    endif
+
+    if context_collection_handle != blank
+      capture context_department_handle
+        render 'floral-department-back-link-flowers', collection_handle: context_collection_handle
+        render 'floral-department-back-link-roses', collection_handle: context_collection_handle
+        render 'floral-department-back-link-greens', collection_handle: context_collection_handle
+        render 'floral-department-back-link-plants', collection_handle: context_collection_handle
+      endcapture
+      assign context_department_handle = context_department_handle | strip
+
+      if context_department_handle == blank
+        for category_entry in supplies_category_entries
+          assign category_parts = category_entry | split: '|'
+          if category_parts[1] == context_collection_handle
+            assign context_department_handle = 'supplies'
+            break
+          endif
+        endfor
+      endif
+
+      if context_department_handle != blank
+        for product_collection in product.collections
+          if product_collection.handle == context_collection_handle
+            assign breadcrumb_category = collections[context_collection_handle]
+            assign breadcrumb_department = collections[context_department_handle]
+            break
+          endif
+        endfor
+      endif
+    endif
+
+    if breadcrumb_category == blank
+      assign candidate_count = 0
+      assign department_count = 0
+      assign candidate_department_handles = '|'
+      assign only_department_handle = blank
+
+      for product_collection in product.collections
+        capture candidate_department_handle
+          render 'floral-department-back-link-flowers', collection_handle: product_collection.handle
+          render 'floral-department-back-link-roses', collection_handle: product_collection.handle
+          render 'floral-department-back-link-greens', collection_handle: product_collection.handle
+          render 'floral-department-back-link-plants', collection_handle: product_collection.handle
+        endcapture
+        assign candidate_department_handle = candidate_department_handle | strip
+
+        if candidate_department_handle == blank
+          for category_entry in supplies_category_entries
+            assign category_parts = category_entry | split: '|'
+            if category_parts[1] == product_collection.handle
+              assign candidate_department_handle = 'supplies'
+              break
+            endif
+          endfor
+        endif
+
+        if candidate_department_handle != blank
+          assign candidate_count = candidate_count | plus: 1
+          assign department_marker = '|' | append: candidate_department_handle | append: '|'
+
+          unless candidate_department_handles contains department_marker
+            assign candidate_department_handles = candidate_department_handles | append: candidate_department_handle | append: '|'
+            assign only_department_handle = candidate_department_handle
+            assign department_count = department_count | plus: 1
+          endunless
+
+          if candidate_count == 1
+            assign breadcrumb_category = product_collection
+            assign breadcrumb_department = collections[candidate_department_handle]
+          endif
+        endif
+      endfor
+
+      if candidate_count > 1
+        assign breadcrumb_category = blank
+        if department_count == 1
+          assign breadcrumb_department = collections[only_department_handle]
+        else
+          assign breadcrumb_department = blank
+        endif
+      endif
+    endif
+  elsif collection != blank
+    assign breadcrumb_title = collection.title
+
+    case collection.handle
+      when 'flowers', 'roses', 'greens', 'plants', 'supplies'
+        assign breadcrumb_department = collection
+      else
+        assign collection_department_handle = blank
+        capture collection_department_handle
+          render 'floral-department-back-link-flowers', collection_handle: collection.handle
+          render 'floral-department-back-link-roses', collection_handle: collection.handle
+          render 'floral-department-back-link-greens', collection_handle: collection.handle
+          render 'floral-department-back-link-plants', collection_handle: collection.handle
+        endcapture
+        assign collection_department_handle = collection_department_handle | strip
+
+        if collection_department_handle == blank
+          for category_entry in supplies_category_entries
+            assign category_parts = category_entry | split: '|'
+            if category_parts[1] == collection.handle
+              assign collection_department_handle = 'supplies'
+              break
+            endif
+          endfor
+        endif
+
+        if collection_department_handle != blank
+          assign breadcrumb_department = collections[collection_department_handle]
+          assign breadcrumb_category = collection
+        endif
+    endcase
+
+    if breadcrumb_department != blank or breadcrumb_category != blank
+      assign show_breadcrumb = true
+    endif
+  endif
+%}
+
+{% if show_breadcrumb and breadcrumb_title != blank %}
+  <nav
+    class="section section--page-width spacing-style breadcrumbs"
+    style="{% if section_settings != blank %}{% render 'spacing-style', settings: section_settings %}{% endif %}"
+    aria-label="{{ 'accessibility.breadcrumb_navigation' | t }}"
+  >
+    <ol class="breadcrumbs__list">
+      <li class="breadcrumbs__item">
+        <a href="{{ routes.root_url }}">{{ 'accessibility.home' | t | escape }}</a>
+      </li>
+      {% if breadcrumb_department != blank %}
+        <li class="breadcrumbs__item">
+          <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+          {% if product == blank and breadcrumb_category == blank %}
+            <span aria-current="page">{{ breadcrumb_department.title | escape }}</span>
+          {% else %}
+            <a href="{{ breadcrumb_department.url }}">{{ breadcrumb_department.title | escape }}</a>
+          {% endif %}
+        </li>
+      {% endif %}
+      {% if breadcrumb_category != blank %}
+        <li class="breadcrumbs__item">
+          <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+          {% if product == blank %}
+            <span aria-current="page">{{ breadcrumb_category.title | escape }}</span>
+          {% else %}
+            <a href="{{ breadcrumb_category.url }}">{{ breadcrumb_category.title | escape }}</a>
+          {% endif %}
+        </li>
+      {% endif %}
+      {% if product != blank %}
+        <li class="breadcrumbs__item">
+          <span class="breadcrumbs__separator" aria-hidden="true">/</span>
+          <span aria-current="page">{{ breadcrumb_title | escape }}</span>
+        </li>
+      {% endif %}
+    </ol>
+  </nav>
+{% endif %}
+
+{% stylesheet %}
+  .breadcrumbs {
+    min-width: 0;
+  }
+
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap-xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--font-paragraph-small--size);
+    line-height: 1.4;
+  }
+
+  .breadcrumbs__item {
+    display: inline-flex;
+    min-width: 0;
+    max-width: 100%;
+    align-items: center;
+    gap: var(--gap-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .breadcrumbs__separator {
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  }
+
+  .breadcrumbs a {
+    color: var(--color-foreground);
+    text-underline-offset: 0.15em;
+  }
+{% endstylesheet %}

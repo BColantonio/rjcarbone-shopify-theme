@@ -91,7 +91,7 @@
     <a
       class="contents"
       ref="cardGalleryLink"
-      href="{{ product.url }}"
+      href="{% render 'product-link-url', product: product, collection: collection %}"
       aria-label="{{- product.title -}}"
     >
       {% liquid

@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -117,6 +117,8 @@
     "view_pricing_info": "Vezi informațiile de tarifare",
     "slideshow": "Prezentare de diapozitive",
     "header_navigation_label": "Principală",
+    "home": "Acasă",
+    "breadcrumb_navigation": "Navigare breadcrumb",
     "home_logo_alt": "{{ store_name }} - Acasă",
     "active_filters": "Filtre active:",
     "product_details": "Detalii produs",

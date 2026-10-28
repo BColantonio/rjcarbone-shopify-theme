@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -66,6 +66,8 @@
     "discount_applied": "لاگو کردہ ڈسکاؤنٹ کوڈ: {{ code }}",
     "featured_product": "نمایاں پروڈکٹ",
     "filters": "فلٹر",
+    "home": "گھر",
+    "breadcrumb_navigation": "بریڈ کرمب نیویگیشن",
     "home_logo_alt": "{{ store_name }} - ہوم",
     "increase_quantity": "مقدار بڑھائیں",
     "inventory_status": "انوینٹری کا سٹیٹس",

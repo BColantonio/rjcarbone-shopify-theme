@@ -146,6 +146,8 @@ class HeaderComponent extends Component {
    * so cached bindings from initialization become stale after a resize.
    */
   #handleBreakpointChange = () => {
+    setHeaderMenuStyle();
+
     const stickyMode = this.getAttribute('sticky');
     if (!stickyMode) return;
 
@@ -234,9 +236,9 @@ class HeaderComponent extends Component {
         this.#scrollContainer = getScrollEventTarget();
         this.#scrollContainer.addEventListener('scroll', this.#handleWindowScroll);
       }
-
-      scrollContainerMediaQuery.addEventListener('change', this.#handleBreakpointChange);
     }
+
+    scrollContainerMediaQuery.addEventListener('change', this.#handleBreakpointChange);
   }
 
   disconnectedCallback() {

@@ -127,6 +127,7 @@ class HeaderDrawer extends Component {
         reset(details);
         if (details === this.refs.details) {
           removeTrapFocus();
+          summary.focus();
           const openDetails = this.querySelectorAll('details[open]:not(accordion-custom > details)');
           openDetails.forEach(reset);
         } else {

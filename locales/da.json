@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -116,6 +116,8 @@
     "view_pricing_info": "Vis prisoplysninger",
     "slideshow": "Diasshow",
     "header_navigation_label": "Primær",
+    "home": "Hjem",
+    "breadcrumb_navigation": "Brødkrummenavigation",
     "home_logo_alt": "{{ store_name }} - Start",
     "active_filters": "Aktive filtre:",
     "product_details": "Produktoplysninger",

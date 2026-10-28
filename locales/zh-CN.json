@@ -9,7 +9,7 @@
  */
 {
   "wholesale_application_preview": {
-    "header_link": "Wholesale application preview",
+    "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",
     "heading": "Wholesale application",
     "intro": "Review the proposed application fields below. This preview validates the required fields and displays a local summary only.",
@@ -116,6 +116,8 @@
     "view_pricing_info": "查看定价信息",
     "slideshow": "幻灯片",
     "header_navigation_label": "主要",
+    "home": "首页",
+    "breadcrumb_navigation": "面包屑导航",
     "home_logo_alt": "{{ store_name }} - 主页",
     "active_filters": "有效筛选条件：",
     "product_details": "产品详细信息",
