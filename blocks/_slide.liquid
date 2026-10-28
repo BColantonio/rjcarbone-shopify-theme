@@ -16,6 +16,10 @@
     if block_settings.media_type_1 == 'video'
       assign preview_image = block_settings.video_1.preview_image
     endif
+    assign external_image_url = block_settings.external_image_url | strip
+    if block_settings.media_type_1 != 'image'
+      assign external_image_url = ''
+    endif
     assign placeholder_name = 'hero-apparel-1'
     unless section.id contains 'wholesale_intro'
       assign modulo_result = block_index | modulo: 2
@@ -54,7 +58,7 @@
     {%- if block_settings.toggle_overlay -%}
       {% render 'overlay', settings: block_settings %}
     {%- endif -%}
-    {%- if preview_image -%}
+    {%- if external_image_url == blank and preview_image -%}
       {%- liquid
         assign height = preview_image.width | divided_by: preview_image.aspect_ratio | round
         assign media_width_desktop = '100vw'
@@ -109,6 +113,54 @@
           block_settings.video_1
           | video_tag: poster: nil, autoplay: true, loop: true, controls: false, muted: true, class: 'slide__video'
         }}
+      {%- endif -%}
+    {%- elsif external_image_url != blank -%}
+      {%- liquid
+        assign cache_version = 'now' | date: '%Y%m%d%H'
+        assign cache_separator = '?'
+        if external_image_url contains '?'
+          assign cache_separator = '&'
+        endif
+        assign external_image_url = external_image_url | append: cache_separator | append: 'v=' | append: cache_version
+
+        assign external_image_loading = 'eager'
+        if block_index > 0 or section_index > 3
+          assign external_image_loading = 'lazy'
+        endif
+
+        assign external_image_fetchpriority = 'low'
+        if block_index == 0 and section_index == 1
+          assign external_image_fetchpriority = 'high'
+        endif
+
+        assign external_image_alt = block_settings.external_image_alt | default: 'Promotional banner'
+      -%}
+      {%- if block_settings.external_link_url != blank -%}
+        <a
+          class="homepage-promo-carousel__image-link"
+          href="{{ block_settings.external_link_url | escape }}"
+          aria-label="{{ external_image_alt | escape }}"
+        >
+          <img
+            class="slide__image homepage-promo-carousel__external-image"
+            src="{{ external_image_url | escape }}"
+            alt=""
+            width="{{ block_settings.external_image_width }}"
+            height="{{ block_settings.external_image_height }}"
+            loading="{{ external_image_loading }}"
+            fetchpriority="{{ external_image_fetchpriority }}"
+          >
+        </a>
+      {%- else -%}
+        <img
+          class="slide__image homepage-promo-carousel__external-image"
+          src="{{ external_image_url | escape }}"
+          alt="{{ external_image_alt | escape }}"
+          width="{{ block_settings.external_image_width }}"
+          height="{{ block_settings.external_image_height }}"
+          loading="{{ external_image_loading }}"
+          fetchpriority="{{ external_image_fetchpriority }}"
+        >
       {%- endif -%}
     {%- else -%}
       {{ placeholder_name | placeholder_svg_tag: 'slide__image' }}
@@ -265,6 +317,38 @@
       "id": "video_1",
       "label": "t:settings.video",
       "visible_if": "{{ block.settings.media_type_1 == 'video' }}"
+    },
+    {
+      "type": "url",
+      "id": "external_image_url",
+      "label": "t:settings.external_image_url",
+      "visible_if": "{{ block.settings.media_type_1 == 'image' }}"
+    },
+    {
+      "type": "text",
+      "id": "external_image_alt",
+      "label": "t:settings.external_image_alt",
+      "visible_if": "{{ block.settings.external_image_url != blank }}"
+    },
+    {
+      "type": "number",
+      "id": "external_image_width",
+      "label": "t:settings.external_image_width",
+      "default": 1920,
+      "visible_if": "{{ block.settings.external_image_url != blank }}"
+    },
+    {
+      "type": "number",
+      "id": "external_image_height",
+      "label": "t:settings.external_image_height",
+      "default": 300,
+      "visible_if": "{{ block.settings.external_image_url != blank }}"
+    },
+    {
+      "type": "url",
+      "id": "external_link_url",
+      "label": "t:settings.external_link_url",
+      "visible_if": "{{ block.settings.external_image_url != blank }}"
     },
     {
       "type": "header",

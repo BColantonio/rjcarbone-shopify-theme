@@ -99,6 +99,10 @@
 </div>
 
 {% stylesheet %}
+  .homepage-promo-carousel {
+    --homepage-promo-carousel-backdrop: #0e9ca4;
+  }
+
   .homepage-promo-carousel slideshow-slides,
   .homepage-promo-carousel slideshow-slide {
     height: 400px;
@@ -107,8 +111,29 @@
     aspect-ratio: auto;
   }
 
-  .homepage-promo-carousel slideshow-slide .slide__image-container > .slide__image {
-    object-fit: cover;
+  .homepage-promo-carousel .slide__image-container {
+    align-items: center;
+    justify-content: center;
+    background-color: var(--homepage-promo-carousel-backdrop);
+  }
+
+  .homepage-promo-carousel slideshow-slide .slide__image-container > .slide__image,
+  .homepage-promo-carousel slideshow-slide .slide__image-container > .slide__video-poster {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .homepage-promo-carousel .homepage-promo-carousel__image-link {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+  }
+
+  .homepage-promo-carousel slideshow-slide .slide__image-container .homepage-promo-carousel__external-image {
+    object-fit: contain;
+    object-position: center;
   }
 
   .homepage-promo-carousel slideshow-container:is(:hover, :focus-within) > slideshow-arrows .slideshow-control {

@@ -14,7 +14,12 @@
         "promo_slide_1": {
           "type": "_slide",
           "settings": {
-            "media_type_1": "image"
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg7.png",
+            "external_image_alt": "Web specials. Save big on cases of fresh flowers.",
+            "external_image_width": 1920,
+            "external_image_height": 300,
+            "external_link_url": "https://www.rjcarbone.com/OrderPortal/Order?catalogId=8"
           },
           "blocks": {},
           "block_order": []
@@ -22,7 +27,12 @@
         "promo_slide_2": {
           "type": "_slide",
           "settings": {
-            "media_type_1": "image"
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg9.png",
+            "external_image_alt": "Christmas Greens and Wreaths Catalogue",
+            "external_image_width": 1920,
+            "external_image_height": 300,
+            "external_link_url": "https://www.rjcarbone.com/OrderPortal/Order?catalogId=7"
           },
           "blocks": {},
           "block_order": []
@@ -30,7 +40,84 @@
         "promo_slide_3": {
           "type": "_slide",
           "settings": {
-            "media_type_1": "image"
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg13.png",
+            "external_image_alt": "Sphagnum moss, 3.5 cubic foot bale. Ideal for plants, retains moisture, and perfect for wreaths.",
+            "external_image_width": 1920,
+            "external_image_height": 300
+          },
+          "blocks": {},
+          "block_order": []
+        },
+        "promo_slide_4": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg14.png",
+            "external_image_alt": "Flower of the Year: Delphinium.",
+            "external_image_width": 2000,
+            "external_image_height": 300
+          },
+          "blocks": {},
+          "block_order": []
+        },
+        "promo_slide_5": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg15.png",
+            "external_image_alt": "Summer sale: vintage bottles and bud vases.",
+            "external_image_width": 2160,
+            "external_image_height": 300
+          },
+          "blocks": {},
+          "block_order": []
+        },
+        "promo_slide_6": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg17.png",
+            "external_image_alt": "Summer sale: 6 by 6 inch clear glass cylinder.",
+            "external_image_width": 2160,
+            "external_image_height": 300
+          },
+          "blocks": {},
+          "block_order": []
+        },
+        "promo_slide_7": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg24.png",
+            "external_image_alt": "Flash sale: cobalt blue glass.",
+            "external_image_width": 1920,
+            "external_image_height": 300
+          },
+          "blocks": {},
+          "block_order": []
+        },
+        "promo_slide_8": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg26.png",
+            "external_image_alt": "Carbone Floral Distributors headquarters.",
+            "external_image_width": 2400,
+            "external_image_height": 800
+          },
+          "blocks": {},
+          "block_order": []
+        },
+        "promo_slide_9": {
+          "type": "_slide",
+          "settings": {
+            "media_type_1": "image",
+            "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg29.png",
+            "external_image_alt": "Florist. Fresh. Dutch Direct.",
+            "external_image_width": 2000,
+            "external_image_height": 300,
+            "external_link_url": "https://store.flowerwebshop.com/flowerwebshop/en_US/login"
           },
           "blocks": {},
           "block_order": []
@@ -39,7 +126,13 @@
       "block_order": [
         "promo_slide_1",
         "promo_slide_2",
-        "promo_slide_3"
+        "promo_slide_3",
+        "promo_slide_4",
+        "promo_slide_5",
+        "promo_slide_6",
+        "promo_slide_7",
+        "promo_slide_8",
+        "promo_slide_9"
       ],
       "name": "t:names.slideshow",
       "settings": {
@@ -140,25 +233,38 @@
         "promo_tile_1": {
           "type": "promo_tile",
           "settings": {
-            "heading": "Seasonal Supplies"
+            "external_image_url": "https://www.rjcarbone.com/uploads/NewArrivals.png",
+            "external_image_alt": "New seasonal floral supplies and accessories.",
+            "heading": "Seasonal Supplies",
+            "link": "https://www.rjcarbone.com/Shopping?filter=3"
           }
         },
         "promo_tile_2": {
           "type": "promo_tile",
           "settings": {
-            "heading": "Weekly Specials"
+            "external_image_url": "https://www.rjcarbone.com/uploads/hptoprightimage.png",
+            "external_image_alt": "Weekly specials.",
+            "heading": "Weekly Specials",
+            "link": "https://www.rjcarbone.com/Home/WeeklySpecials"
           }
         },
         "promo_tile_3": {
           "type": "promo_tile",
           "settings": {
-            "heading": "Dutch Fresh Direct"
+            "external_image_url": "https://www.rjcarbone.com/uploads/vendorimg12.png",
+            "external_image_alt": "Dutch Fresh Direct.",
+            "heading": "Dutch Fresh Direct",
+            "link": "https://www.rjcarbone.com/Home/BuyDirect"
           }
         },
         "promo_tile_4": {
           "type": "promo_tile",
           "settings": {
-            "heading": "Floral Event Space"
+            "external_image_url": "https://www.rjcarbone.com/uploads/hpbottomrightimage.png",
+            "external_image_alt": "Floral event preparation space available for rent.",
+            "heading": "Floral Event Space",
+            "link": "https://www.rjcarbone.com/uploads/weeklyspecialpdf217.pdf",
+            "open_in_new_tab": true
           }
         }
       },
