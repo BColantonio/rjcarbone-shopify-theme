@@ -9,6 +9,7 @@
  */
 {
   "names": {
+    "weekly_specials": "Weekly Specials",
     "wholesale_application_preview": "Wholesale application",
     "404": "404",
     "colors": "调色板",
@@ -177,6 +178,7 @@
     "contact_location": "Location details"
   },
   "settings": {
+    "weekly_specials_feed_url": "Weekly Specials feed URL",
     "alignment": "对齐方式",
     "autoplay": "自动播放",
     "background": "背景",
@@ -895,6 +897,7 @@
     "direction_top_start": "左上方"
   },
   "content": {
+    "weekly_specials_feed_url_info": "Use the HTTPS feed URL on the approved legacy hostname. Leave blank until the hostname and feed are configured.",
     "advanced": "高级",
     "background_image": "背景图片",
     "background_video": "背景视频",

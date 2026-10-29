@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": {
+      "type": "weekly-specials"
+    }
+  },
+  "order": ["main"]
+}

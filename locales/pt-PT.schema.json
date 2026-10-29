@@ -9,6 +9,7 @@
  */
 {
   "names": {
+    "weekly_specials": "Weekly Specials",
     "wholesale_application_preview": "Wholesale application",
     "404": "404",
     "colors": "Paleta de cores",
@@ -177,6 +178,7 @@
     "contact_location": "Location details"
   },
   "settings": {
+    "weekly_specials_feed_url": "Weekly Specials feed URL",
     "alignment": "Alinhamento",
     "autoplay": "Reprodução automática",
     "background": "Fundo",
@@ -895,6 +897,7 @@
     "direction_top_start": "Superior esquerdo"
   },
   "content": {
+    "weekly_specials_feed_url_info": "Use the HTTPS feed URL on the approved legacy hostname. Leave blank until the hostname and feed are configured.",
     "advanced": "Avançado",
     "background_image": "Imagem de fundo",
     "background_video": "Vídeo de fundo",

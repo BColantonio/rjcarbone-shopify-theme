@@ -197,6 +197,14 @@
     "removed_status": "Removed from favorites.",
     "storage_error": "Favorites are unavailable because this browser could not access local storage."
   },
+  "weekly_specials": {
+    "heading": "Weekly Specials",
+    "loading": "Loading weekly specials…",
+    "empty": "There are no weekly specials available right now.",
+    "not_configured": "Weekly Specials are not configured yet.",
+    "load_error": "Weekly Specials could not be loaded. Please try again later.",
+    "image_error": "Some Weekly Specials images are unavailable."
+  },
   "contact_page": {
     "website_information": "For website information",
     "locations_heading": "Our locations",

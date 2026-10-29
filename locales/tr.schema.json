@@ -9,6 +9,7 @@
  */
 {
   "names": {
+    "weekly_specials": "Weekly Specials",
     "wholesale_application_preview": "Wholesale application",
     "404": "404",
     "custom_section": "Özel bölüm",
@@ -177,6 +178,7 @@
     "contact_location": "Location details"
   },
   "settings": {
+    "weekly_specials_feed_url": "Weekly Specials feed URL",
     "autoplay": "Otomatik oynatma",
     "background": "Arka plan",
     "border_radius": "Köşe yarıçapı",
@@ -895,6 +897,7 @@
     "input_field": "Giriş alanı"
   },
   "content": {
+    "weekly_specials_feed_url_info": "Use the HTTPS feed URL on the approved legacy hostname. Leave blank until the hostname and feed are configured.",
     "background_video": "Arka plan videosu",
     "describe_the_video_for": "Ekran okuyucu kullanan müşteriler için videoyu açıklayın. [Daha fazla bilgi edinin](https://help.shopify.com/manual/online-store/themes/theme-structure/theme-features#video-block)",
     "width_is_automatically_optimized": "Genişlik, mobil cihazlar için otomatik olarak optimize edilir.",

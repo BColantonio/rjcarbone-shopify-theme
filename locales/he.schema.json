@@ -30,6 +30,7 @@
     "text": "טקסט"
   },
   "content": {
+    "weekly_specials_feed_url_info": "Use the HTTPS feed URL on the approved legacy hostname. Leave blank until the hostname and feed are configured.",
     "visible_if_collection_has_more_products": "גלוי אם באוסף יש יותר מוצרים ממה שמוצג",
     "advanced": "מתקדם",
     "appearance": "מראה",
@@ -245,6 +246,7 @@
     "media_type_info": "התכונות מאוכלסות מקישורי התפריט שלך"
   },
   "names": {
+    "weekly_specials": "Weekly Specials",
     "wholesale_application_preview": "Wholesale application",
     "column": "עמודה",
     "product_title": "כותרת מוצר",
@@ -695,6 +697,7 @@
     "direction_top_start": "למעלה, התחלה"
   },
   "settings": {
+    "weekly_specials_feed_url": "Weekly Specials feed URL",
     "accordion": "אקורדיון",
     "account": "חשבון",
     "actions_display_style": "סגנון תפריט",

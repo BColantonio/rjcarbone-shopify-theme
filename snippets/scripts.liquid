@@ -57,6 +57,13 @@
   defer
 ></script>
 
+{% if template.name == 'page' and template.suffix == 'weekly-specials' %}
+  <script
+    src="{{ 'weekly-specials.js' | asset_url }}"
+    type="module"
+  ></script>
+{% endif %}
+
 {% if settings.transition_to_main_product or settings.page_transition_enabled %}
   {%- comment -%}
     Inlined to avoid a network round trip for a render blocking asset.

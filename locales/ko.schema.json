@@ -9,6 +9,7 @@
  */
 {
   "names": {
+    "weekly_specials": "Weekly Specials",
     "wholesale_application_preview": "Wholesale application",
     "404": "404",
     "custom_section": "사용자 지정 섹션",
@@ -177,6 +178,7 @@
     "contact_location": "Location details"
   },
   "settings": {
+    "weekly_specials_feed_url": "Weekly Specials feed URL",
     "autoplay": "자동 재생",
     "background": "배경",
     "border_radius": "모서리 반경",
@@ -895,6 +897,7 @@
     "direction_top_start": "왼쪽 상단"
   },
   "content": {
+    "weekly_specials_feed_url_info": "Use the HTTPS feed URL on the approved legacy hostname. Leave blank until the hostname and feed are configured.",
     "background_video": "배경 비디오",
     "describe_the_video_for": "스크린리더를 사용하는 고객에게 슬라이드 쇼를 설명합니다. [자세히 알아보기](https://help.shopify.com/manual/online-store/themes/theme-structure/theme-features#video-block)",
     "width_is_automatically_optimized": "너비는 모바일에 맞게 자동으로 최적화됩니다.",
