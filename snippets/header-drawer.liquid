@@ -721,6 +721,12 @@
           {% endif %}
         {%- endif -%}
         <a
+          class="menu-drawer__favorites-link"
+          href="{{ routes.root_url }}pages/favorites?view=favorites"
+        >
+          {{ 'favorites.link' | t }}
+        </a>
+        <a
           class="menu-drawer__wholesale-application-link"
           href="/pages/wholesale-application?view=wholesale-application-preview"
         >
@@ -1367,6 +1373,7 @@
     color: rgb(var(--color-foreground));
   }
 
+  .menu-drawer__favorites-link,
   .menu-drawer__wholesale-application-link {
     display: block;
     min-height: 44px;

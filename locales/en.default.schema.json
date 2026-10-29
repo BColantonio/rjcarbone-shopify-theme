@@ -253,6 +253,7 @@
     "media_type_info": "Features are populated from your menu links"
   },
   "names": {
+    "favorites_page": "Favorites page",
     "column": "Column",
     "product_title": "Product title",
     "custom_liquid": "Custom Liquid",

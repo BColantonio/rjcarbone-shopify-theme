@@ -1,0 +1,104 @@
+{%- doc -%}
+  Renders a browser-stored favorite toggle for a product.
+
+  @param {object} product - The product to save.
+  @param {string} [context] - Use "card" for an overlay control on a product card.
+
+  @example
+  {% render 'favorite-toggle', product: product, context: 'card' %}
+{%- enddoc -%}
+
+{%- if product != blank and product.id != blank -%}
+  {%- assign favorite_product_url = product.url -%}
+  {%- if context == 'card' -%}
+    {%- capture favorite_product_url -%}
+      {%- render 'product-link-url', product: product, collection: collection -%}
+    {%- endcapture -%}
+    {%- assign favorite_product_url = favorite_product_url | strip -%}
+  {%- endif -%}
+  <favorite-toggle
+    class="favorite-toggle{% if context == 'card' %} favorite-toggle--card{% else %} favorite-toggle--product{% endif %}"
+    data-card-interactive
+    data-product-id="{{ product.id }}"
+    data-product-title="{{ product.title | escape }}"
+    data-product-url="{{ favorite_product_url | escape }}"
+    data-product-image="{% if product.featured_image != blank %}{{ product.featured_image | image_url: width: 600 | escape }}{% endif %}"
+    data-add-label="{{ 'favorites.add' | t: title: product.title | escape }}"
+    data-remove-label="{{ 'favorites.remove' | t: title: product.title | escape }}"
+    data-added-status="{{ 'favorites.added_status' | t | escape }}"
+    data-removed-status="{{ 'favorites.removed_status' | t | escape }}"
+    data-storage-error="{{ 'favorites.storage_error' | t | escape }}"
+  >
+    <button
+      class="favorite-toggle__button"
+      type="button"
+      aria-label="{{ 'favorites.add' | t: title: product.title | escape }}"
+      aria-pressed="false"
+      disabled
+      ref="favoriteButton"
+    >
+      <svg
+        class="favorite-toggle__icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" />
+      </svg>
+    </button>
+    <span class="visually-hidden" role="status" aria-live="polite" aria-atomic="true" ref="favoriteStatus"></span>
+  </favorite-toggle>
+{% endif %}
+
+{% stylesheet %}
+  .favorite-toggle {
+    display: inline-flex;
+  }
+
+  .favorite-toggle--card {
+    position: absolute;
+    inset-block-start: var(--padding-xs);
+    inset-inline-end: var(--padding-xs);
+    z-index: var(--layer-raised);
+  }
+
+  .favorite-toggle--product {
+    align-self: flex-start;
+  }
+
+  .favorite-toggle__button {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 44px;
+    block-size: 44px;
+    padding: var(--padding-xs);
+    border: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
+    border-radius: 50%;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    cursor: pointer;
+  }
+
+  .favorite-toggle__button:disabled {
+    cursor: not-allowed;
+    opacity: var(--opacity-50);
+  }
+
+  .favorite-toggle__button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .favorite-toggle__icon {
+    inline-size: 22px;
+    block-size: 22px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    transition: fill var(--animation-speed) var(--animation-easing);
+  }
+
+  .favorite-toggle__button[aria-pressed='true'] .favorite-toggle__icon {
+    fill: currentColor;
+  }
+{% endstylesheet %}

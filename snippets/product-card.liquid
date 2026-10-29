@@ -87,6 +87,7 @@
     ref="productCardLink"
     aria-label="{{ product.title | escape }}"
   ></a>
+  {% render 'favorite-toggle', product: product, context: 'card' %}
   <div
     class="
       product-card__content

@@ -404,5 +404,18 @@
       "success_moderated": "Comentario publicado y a la espera de moderación",
       "success": "Comentario publicado"
     }
+  },
+  "favorites": {
+    "link": "Favorites",
+    "heading": "Favorites",
+    "browser_notice": "Favorites are saved on this browser only.",
+    "empty": "You haven't saved any favorites yet.",
+    "add": "Add {{ title }} to favorites",
+    "remove": "Remove {{ title }} from favorites",
+    "remove_action": "Remove",
+    "remove_saved": "Remove {{ title }} from favorites",
+    "added_status": "Added to favorites.",
+    "removed_status": "Removed from favorites.",
+    "storage_error": "Favorites are unavailable because this browser could not access local storage."
   }
 }

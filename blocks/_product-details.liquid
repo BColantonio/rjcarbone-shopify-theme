@@ -26,6 +26,7 @@
         {{- closest.product.title }}
       </a>
     </div>
+    {% render 'favorite-toggle', product: closest.product %}
     {% content_for 'blocks' %}
   {% endcapture %}
 

@@ -1,0 +1,115 @@
+{% comment %}
+  Favorites page. Lists browser-stored product snapshots without prices or purchase controls.
+{% endcomment %}
+
+<section
+  class="favorites-page section section--page-width spacing-style"
+  style="--padding-block-start: 16px; --padding-block-end: 16px;"
+  aria-labelledby="FavoritesHeading-{{ section.id }}"
+>
+  <favorites-page
+    class="favorites-page__content"
+    data-remove-action="{{ 'favorites.remove_action' | t | escape }}"
+    data-remove-label="{{ 'favorites.remove_saved' | t: title: '__title__' | escape }}"
+    data-removed-status="{{ 'favorites.removed_status' | t | escape }}"
+    data-storage-error="{{ 'favorites.storage_error' | t | escape }}"
+  >
+    <div class="favorites-page__heading text-block h2">
+      <h1 id="FavoritesHeading-{{ section.id }}" tabindex="-1" ref="favoriteHeading">
+        {{ 'favorites.heading' | t }}
+      </h1>
+    </div>
+    <p class="favorites-page__notice">{{ 'favorites.browser_notice' | t }}</p>
+    <p class="favorites-page__status" role="status" aria-live="polite" aria-atomic="true" ref="favoriteStatus"></p>
+    <p class="favorites-page__empty" ref="favoriteEmpty">{{ 'favorites.empty' | t }}</p>
+    <ul class="favorites-page__list" hidden ref="favoriteList"></ul>
+  </favorites-page>
+</section>
+
+{% stylesheet %}
+  .favorites-page__content {
+    display: block;
+    width: 100%;
+    max-width: var(--page-width);
+    margin-inline: auto;
+  }
+
+  .favorites-page__heading {
+    margin-block-end: var(--gap-sm);
+  }
+
+  .favorites-page__notice {
+    margin-block: 0 var(--gap-md);
+  }
+
+  .favorites-page__status {
+    color: var(--color-error);
+  }
+
+  .favorites-page__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: var(--gap-lg);
+    padding: 0;
+    list-style: none;
+  }
+
+  .favorites-page__item {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--gap-xs);
+  }
+
+  .favorites-page__product {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    gap: var(--gap-xs);
+    color: var(--color-foreground);
+    text-decoration: none;
+  }
+
+  .favorites-page__product:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .favorites-page__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    height: auto;
+    background: var(--color-background);
+    object-fit: contain;
+  }
+
+  .favorites-page__title {
+    overflow-wrap: anywhere;
+    font-size: var(--font-size--sm);
+  }
+
+  .favorites-page__remove {
+    align-self: flex-start;
+    min-height: var(--minimum-touch-target);
+    padding-block: var(--padding-xs);
+    padding-inline: var(--padding-sm);
+  }
+
+  @media screen and (max-width: 749px) {
+    .favorites-page__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--gap-md);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.favorites_page",
+  "class": "section-wrapper",
+  "settings": []
+}
+{% endschema %}

@@ -66,6 +66,9 @@
   >
     {% content_for 'blocks' %}
   </div>
+  <div class="footer-favorites-link">
+    <a href="{{ routes.root_url }}pages/favorites?view=favorites">{{ 'favorites.link' | t }}</a>
+  </div>
 </div>
 
 {% stylesheet %}
@@ -76,6 +79,16 @@
     grid-template-columns: 1fr;
     gap: var(--footer-gap);
     align-items: start;
+  }
+
+  .footer-favorites-link {
+    margin-block-start: var(--gap-md);
+    text-align: center;
+  }
+
+  .footer-favorites-link a {
+    color: var(--color-foreground);
+    text-underline-offset: 0.2em;
   }
 
   .footer-content .menu__heading__default {

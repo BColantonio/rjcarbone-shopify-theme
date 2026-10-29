@@ -171,7 +171,8 @@
     "product_sku": "SKU",
     "layered_slideshow": "สไลด์โชว์แบบซ้อน",
     "cart_drawer": "ตะกร้าสินค้าแบบเลื่อนด้านข้าง",
-    "disclosures": "การเปิดเผยข้อมูล"
+    "disclosures": "การเปิดเผยข้อมูล",
+    "favorites_page": "Favorites page"
   },
   "settings": {
     "alignment": "การจัดตำแหน่ง",

@@ -171,7 +171,8 @@
     "product_sku": "SKU-koodi",
     "layered_slideshow": "Kerroksittainen diaesitys",
     "cart_drawer": "Veto-ostoskori",
-    "disclosures": "Ilmoitukset"
+    "disclosures": "Ilmoitukset",
+    "favorites_page": "Favorites page"
   },
   "settings": {
     "alignment": "Tasaus",
