@@ -1,0 +1,49 @@
+{% render 'location-details',
+  location_name: block.settings.location_name,
+  location_region: block.settings.location_region,
+  address: block.settings.address,
+  phone: block.settings.phone,
+  toll_free_phone: block.settings.toll_free_phone,
+  hours: block.settings.hours,
+  block: block
+%}
+
+{% schema %}
+{
+  "name": "t:names.contact_location",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "location_name",
+      "label": "t:settings.location_name",
+      "default": "Location"
+    },
+    {
+      "type": "text",
+      "id": "location_region",
+      "label": "t:settings.location_region"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "t:settings.location_address"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "t:settings.location_phone"
+    },
+    {
+      "type": "text",
+      "id": "toll_free_phone",
+      "label": "t:settings.location_toll_free_phone"
+    },
+    {
+      "type": "textarea",
+      "id": "hours",
+      "label": "t:settings.location_hours"
+    }
+  ]
+}
+{% endschema %}

@@ -82,7 +82,7 @@
           <ul class="list-unstyled">
             {% for link in menu.links %}
               <li class="menu__item {{ block_settings.link_preset }}">
-                <a href="{{ link.url }}">
+                <a href="{% render 'menu-link-url', link: link %}">
                   {{ link.title }}{% if link.data_sharing_opt_out_icon %}{{ link.data_sharing_opt_out_icon }}{% endif %}
                 </a>
               </li>

@@ -162,7 +162,7 @@
                           >
                             <a
                               id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                              href="{{ childlink.url }}"
+                              href="{% render 'menu-link-url', link: childlink %}"
                               class="menu-drawer__menu-item menu-drawer__menu-item--child{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                               {% if childlink.current %}
                                 aria-current="page"
@@ -192,7 +192,7 @@
                   {%- endcomment -%}
                   <a
                     id="HeaderDrawer-{{ link.handle }}"
-                    href="{{ link.url }}"
+                    href="{% render 'menu-link-url', link: link %}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
                     {% if link.current %}
                       aria-current="page"
@@ -222,7 +222,7 @@
                         style="--menu-drawer-animation-index: {{ animation_index }};"
                       >
                         <a
-                          href="{{ childlink.url }}"
+                          href="{% render 'menu-link-url', link: childlink %}"
                           class="menu-drawer__menu-item menu-drawer__menu-item--child menu-drawer__animated-element{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                           {% if childlink.current %}
                             aria-current="page"
@@ -246,7 +246,7 @@
                   {%- endcomment -%}
                   <a
                     id="HeaderDrawer-{{ link.handle }}"
-                    href="{{ link.url }}"
+                    href="{% render 'menu-link-url', link: link %}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
                     {% if link.current %}
                       aria-current="page"
@@ -304,7 +304,7 @@
                             </span>
                           </button>
                           <a
-                            href="{{ link.url }}"
+                            href="{% render 'menu-link-url', link: link %}"
                             class="menu-drawer__title focus-inset"
                             {% if link.current %}
                               aria-current="page"
@@ -357,7 +357,7 @@
                                 {%- endcomment -%}
                                 <a
                                   id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                  href="{{ childlink.url }}"
+                                  href="{% render 'menu-link-url', link: childlink %}"
                                   class="menu-drawer__menu-item menu-drawer__menu-item--parent{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                                   {% if childlink.current %}
                                     aria-current="page"
@@ -424,7 +424,7 @@
                                           >
                                             <a
                                               id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                              href="{{ grandchildlink.url }}"
+                                              href="{% render 'menu-link-url', link: grandchildlink %}"
                                               class="menu-drawer__menu-item menu-drawer__menu-item--child{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
                                               {% if grandchildlink.current %}
                                                 aria-current="page"
@@ -456,7 +456,7 @@
                                   {%- endcomment -%}
                                   <a
                                     id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                    href="{{ childlink.url }}"
+                                    href="{% render 'menu-link-url', link: childlink %}"
                                     class="menu-drawer__menu-item menu-drawer__menu-item--parent{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                                     {% if childlink.current %}
                                       aria-current="page"
@@ -489,7 +489,7 @@
                                       >
                                         <a
                                           id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                          href="{{ grandchildlink.url }}"
+                                          href="{% render 'menu-link-url', link: grandchildlink %}"
                                           class="menu-drawer__menu-item menu-drawer__menu-item--child{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
                                           {% if grandchildlink.current %}
                                             aria-current="page"
@@ -575,7 +575,7 @@
                   {%- endcomment -%}
                   <a
                     id="HeaderDrawer-{{ link.handle }}"
-                    href="{{ link.url }}"
+                    href="{% render 'menu-link-url', link: link %}"
                     class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element"
                     {% if link.current %}
                       aria-current="page"

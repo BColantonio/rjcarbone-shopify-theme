@@ -172,7 +172,9 @@
     "layered_slideshow": "Presentazione a livelli",
     "cart_drawer": "Finestra del carrello",
     "disclosures": "Informative",
-    "favorites_page": "Favorites page"
+    "favorites_page": "Favorites page",
+    "contact_locations": "Contact locations",
+    "contact_location": "Location details"
   },
   "settings": {
     "alignment": "Allineamento",
@@ -598,7 +600,17 @@
     "selected_button_style": "Stile pulsante selezionato",
     "open_by_default": "Aperto per impostazione predefinita",
     "title_preset": "Preimpostazione titolo",
-    "customer_account_menu": "Menu dell’account cliente"
+    "customer_account_menu": "Menu dell’account cliente",
+    "website_contact_name": "Website contact name",
+    "website_toll_free_phone": "Website toll-free phone",
+    "website_local_phone": "Website local phone",
+    "website_extension": "Extension",
+    "location_name": "Location name",
+    "location_region": "Region or location descriptor",
+    "location_address": "Address",
+    "location_phone": "Local phone",
+    "location_toll_free_phone": "Toll-free phone",
+    "location_hours": "Showroom hours"
   },
   "options": {
     "apple": "Mela",

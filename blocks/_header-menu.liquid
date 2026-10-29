@@ -48,7 +48,7 @@
             {% for link in block_settings.menu.links %}
               <li>
                 <a
-                  href="{{ link.url }}"
+                  href="{% render 'menu-link-url', link: link %}"
                   id="MenuItem-{{ link.handle }}"
                   class="menu-list__item"
                   {% if link.current %}
@@ -104,7 +104,7 @@
             <span class="menu-list__trigger">
           {%- endif -%}
           <a
-            href="{{ link.url }}"
+            href="{% render 'menu-link-url', link: link %}"
             data-skip-node-update="true"
             class="menu-list__link{% if link.active %} menu-list__link--active{% endif %}"
             {% if link.current %}

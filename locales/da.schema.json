@@ -172,7 +172,9 @@
     "layered_slideshow": "Diasshow i lag",
     "cart_drawer": "Indkøbskurvskuffe",
     "disclosures": "Oplysninger",
-    "favorites_page": "Favorites page"
+    "favorites_page": "Favorites page",
+    "contact_locations": "Contact locations",
+    "contact_location": "Location details"
   },
   "settings": {
     "alignment": "Justering",
@@ -598,7 +600,17 @@
     "selected_button_style": "Valgt knapstil",
     "open_by_default": "Åben som standard",
     "title_preset": "Forudindstilling for titel",
-    "customer_account_menu": "Kundekontomenu"
+    "customer_account_menu": "Kundekontomenu",
+    "website_contact_name": "Website contact name",
+    "website_toll_free_phone": "Website toll-free phone",
+    "website_local_phone": "Website local phone",
+    "website_extension": "Extension",
+    "location_name": "Location name",
+    "location_region": "Region or location descriptor",
+    "location_address": "Address",
+    "location_phone": "Local phone",
+    "location_toll_free_phone": "Toll-free phone",
+    "location_hours": "Showroom hours"
   },
   "options": {
     "apple": "Apple",

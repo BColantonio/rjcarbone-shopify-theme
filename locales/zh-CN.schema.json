@@ -172,7 +172,9 @@
     "layered_slideshow": "分层幻灯片",
     "cart_drawer": "购物车抽屉",
     "disclosures": "披露信息",
-    "favorites_page": "Favorites page"
+    "favorites_page": "Favorites page",
+    "contact_locations": "Contact locations",
+    "contact_location": "Location details"
   },
   "settings": {
     "alignment": "对齐方式",
@@ -598,7 +600,17 @@
     "selected_button_style": "所选按钮样式",
     "open_by_default": "默认展开",
     "title_preset": "标题预设",
-    "customer_account_menu": "客户账户菜单"
+    "customer_account_menu": "客户账户菜单",
+    "website_contact_name": "Website contact name",
+    "website_toll_free_phone": "Website toll-free phone",
+    "website_local_phone": "Website local phone",
+    "website_extension": "Extension",
+    "location_name": "Location name",
+    "location_region": "Region or location descriptor",
+    "location_address": "Address",
+    "location_phone": "Local phone",
+    "location_toll_free_phone": "Toll-free phone",
+    "location_hours": "Showroom hours"
   },
   "options": {
     "apple": "Apple",

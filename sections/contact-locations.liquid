@@ -1,0 +1,194 @@
+{% comment %}
+  Contact details and published showroom information for all three locations.
+{% endcomment %}
+
+<section class="contact-locations section section--page-width" aria-labelledby="ContactLocationsHeading-{{ section.id }}">
+  <div class="contact-locations__content">
+    <div class="contact-locations__intro">
+      <h1 class="contact-locations__page-title">{{ page.title | escape }}</h1>
+      {% if page.content != blank %}
+        <div class="contact-locations__page-content rte">{{ page.content }}</div>
+      {% endif %}
+    </div>
+
+    <div class="contact-locations__locations">
+      <h2 class="contact-locations__heading" id="ContactLocationsHeading-{{ section.id }}">
+        {{ 'contact_page.locations_heading' | t }}
+      </h2>
+      <div class="contact-locations__grid">
+        {% content_for 'blocks' %}
+      </div>
+    </div>
+
+    <div class="contact-locations__website">
+      <h3 class="contact-locations__subheading">{{ 'contact_page.website_information' | t }}</h3>
+      <p class="contact-locations__name">{{ section.settings.website_contact_name | escape }}</p>
+      <p>
+        {{ 'contact_page.toll_free_phone' | t }}:
+        <a href="tel:{{ section.settings.website_toll_free_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | escape }}">
+          {{ section.settings.website_toll_free_phone | escape }}
+        </a>
+      </p>
+      <p>
+        {{ 'contact_page.local_phone' | t }}:
+        <a href="tel:{{ section.settings.website_local_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | escape }}">
+          {{ section.settings.website_local_phone | escape }}
+        </a>
+        {{ 'contact_page.extension' | t }} {{ section.settings.website_extension | escape }}
+      </p>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .contact-locations {
+    padding-block-start: var(--padding-xl);
+    padding-block-end: var(--padding-6xl);
+  }
+
+  .contact-locations__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-2xl);
+    max-width: var(--page-width);
+    margin-inline: auto;
+  }
+
+  .contact-locations__page-title {
+    margin: 0;
+    font-family: var(--font-h2--family);
+    font-style: var(--font-h2--style);
+    font-weight: var(--font-h2--weight);
+    font-size: var(--font-h2--size);
+    line-height: var(--font-h2--line-height);
+    letter-spacing: var(--font-h2--letter-spacing);
+    text-transform: var(--font-h2--case);
+  }
+
+  .contact-locations__intro {
+    display: grid;
+    gap: var(--gap-xs);
+  }
+
+  .contact-locations__page-content {
+    min-width: 0;
+  }
+
+  .contact-locations__locations {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-lg);
+  }
+
+  .contact-locations__heading,
+  .contact-locations__subheading,
+  .contact-locations__name {
+    margin: 0;
+  }
+
+  .contact-locations__heading {
+    font-family: var(--font-h3--family);
+    font-style: var(--font-h3--style);
+    font-weight: var(--font-h3--weight);
+    font-size: var(--font-h3--size);
+    line-height: var(--font-h3--line-height);
+    letter-spacing: var(--font-h3--letter-spacing);
+    text-transform: var(--font-h3--case);
+  }
+
+  .contact-locations__website {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-xs);
+    max-width: 40rem;
+    padding-block-start: var(--padding-lg);
+    border-block-start: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
+  }
+
+  .contact-locations__website p {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .contact-locations__subheading {
+    font-size: var(--font-size--h4);
+    line-height: var(--line-height--heading-normal);
+    grid-column: 1 / -1;
+  }
+
+  .contact-locations__name {
+    font-weight: var(--font-h4--weight);
+  }
+
+  .contact-locations a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+  }
+
+  .contact-locations a:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 3px;
+  }
+
+  .contact-locations__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-lg);
+  }
+
+  .contact-locations__grid > * {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    padding: var(--padding-xl);
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
+    border-radius: var(--style-border-radius-md);
+    background: var(--color-background);
+  }
+
+  @media screen and (min-width: 750px) {
+    .contact-locations__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .contact-locations__website {
+      grid-template-columns: repeat(3, max-content);
+      column-gap: var(--gap-xl);
+      row-gap: var(--gap-xs);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.contact_locations",
+  "class": "section-wrapper",
+  "blocks": [
+    {
+      "type": "contact-location"
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "website_contact_name",
+      "label": "t:settings.website_contact_name"
+    },
+    {
+      "type": "text",
+      "id": "website_toll_free_phone",
+      "label": "t:settings.website_toll_free_phone"
+    },
+    {
+      "type": "text",
+      "id": "website_local_phone",
+      "label": "t:settings.website_local_phone"
+    },
+    {
+      "type": "text",
+      "id": "website_extension",
+      "label": "t:settings.website_extension"
+    }
+  ]
+}
+{% endschema %}

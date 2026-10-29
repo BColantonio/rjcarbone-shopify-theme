@@ -172,7 +172,9 @@
     "layered_slideshow": "レイヤースライドショー",
     "cart_drawer": "カートドロワー",
     "disclosures": "開示情報",
-    "favorites_page": "Favorites page"
+    "favorites_page": "Favorites page",
+    "contact_locations": "Contact locations",
+    "contact_location": "Location details"
   },
   "settings": {
     "alignment": "配置",
@@ -598,7 +600,17 @@
     "selected_button_style": "選択されたボタンのスタイル",
     "open_by_default": "デフォルトで開く",
     "title_preset": "タイトルプリセット",
-    "customer_account_menu": "お客様アカウントメニュー"
+    "customer_account_menu": "お客様アカウントメニュー",
+    "website_contact_name": "Website contact name",
+    "website_toll_free_phone": "Website toll-free phone",
+    "website_local_phone": "Website local phone",
+    "website_extension": "Extension",
+    "location_name": "Location name",
+    "location_region": "Region or location descriptor",
+    "location_address": "Address",
+    "location_phone": "Local phone",
+    "location_toll_free_phone": "Toll-free phone",
+    "location_hours": "Showroom hours"
   },
   "options": {
     "apple": "Apple",

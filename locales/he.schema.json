@@ -408,7 +408,9 @@
     "disclosures": "גילוי נאות",
     "pills": "גלולות",
     "comparison_slider": "מחוון השוואה",
-    "favorites_page": "Favorites page"
+    "favorites_page": "Favorites page",
+    "contact_locations": "Contact locations",
+    "contact_location": "Location details"
   },
   "options": {
     "above_carousel": "מעל הקרוסלה",
@@ -1116,7 +1118,17 @@
     "top_row_text": "טקסט לשורה העליונה",
     "bottom_row_background": "רקע לשורה התחתונה",
     "bottom_row_text": "טקסט לשורה התחתונה",
-    "customer_account_menu": "תפריט חשבון לקוח"
+    "customer_account_menu": "תפריט חשבון לקוח",
+    "website_contact_name": "Website contact name",
+    "website_toll_free_phone": "Website toll-free phone",
+    "website_local_phone": "Website local phone",
+    "website_extension": "Extension",
+    "location_name": "Location name",
+    "location_region": "Region or location descriptor",
+    "location_address": "Address",
+    "location_phone": "Local phone",
+    "location_toll_free_phone": "Toll-free phone",
+    "location_hours": "Showroom hours"
   },
   "text_defaults": {
     "accordion_heading": "כותרת אקורדיון",

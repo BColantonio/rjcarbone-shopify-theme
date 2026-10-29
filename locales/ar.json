@@ -438,5 +438,15 @@
     "added_status": "Added to favorites.",
     "removed_status": "Removed from favorites.",
     "storage_error": "Favorites are unavailable because this browser could not access local storage."
+  },
+  "contact_page": {
+    "website_information": "For website information",
+    "locations_heading": "Our locations",
+    "local_phone": "Phone",
+    "toll_free_phone": "Toll-free",
+    "showroom_hours": "Showroom hours",
+    "directions": "Get directions",
+    "email_not_published": "An email address is not published on the current contact page.",
+    "extension": "Ext."
   }
 }

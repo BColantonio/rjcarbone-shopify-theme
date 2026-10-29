@@ -408,7 +408,9 @@
     "disclosures": "ڈسکلوزر",
     "pills": "پل",
     "comparison_slider": "موازنہ کرنے والا سلائیڈر",
-    "favorites_page": "Favorites page"
+    "favorites_page": "Favorites page",
+    "contact_locations": "Contact locations",
+    "contact_location": "Location details"
   },
   "options": {
     "above_carousel": "کیرول کے اوپر",
@@ -1116,7 +1118,17 @@
     "top_row_text": "اوپری قطار کا متن",
     "bottom_row_background": "نچلی قطار کا پس منظر",
     "bottom_row_text": "نچلی قطار کا متن",
-    "customer_account_menu": "کسٹمر اکاؤنٹ مینو"
+    "customer_account_menu": "کسٹمر اکاؤنٹ مینو",
+    "website_contact_name": "Website contact name",
+    "website_toll_free_phone": "Website toll-free phone",
+    "website_local_phone": "Website local phone",
+    "website_extension": "Extension",
+    "location_name": "Location name",
+    "location_region": "Region or location descriptor",
+    "location_address": "Address",
+    "location_phone": "Local phone",
+    "location_toll_free_phone": "Toll-free phone",
+    "location_hours": "Showroom hours"
   },
   "text_defaults": {
     "accordion_heading": "ایکارڈین کی سرخی",

@@ -198,24 +198,24 @@
                   "type": "footer-location",
                   "settings": {
                     "location_name": "Cranston",
-                    "address": "",
-                    "phone": ""
+                    "address": "One Goddard Road\nCranston, RI 02920",
+                    "phone": "(401) 463-3333"
                   }
                 },
                 "derry_location": {
                   "type": "footer-location",
                   "settings": {
                     "location_name": "Derry",
-                    "address": "",
-                    "phone": ""
+                    "address": "3 Corporate Park Drive\nDerry, NH 03038",
+                    "phone": "(603) 432-3500"
                   }
                 },
                 "chelsea_location": {
                   "type": "footer-location",
                   "settings": {
                     "location_name": "Chelsea",
-                    "address": "",
-                    "phone": ""
+                    "address": "260 2nd Street\nChelsea, MA 02150",
+                    "phone": "(617) 728-7979"
                   }
                 }
               },

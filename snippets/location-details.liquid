@@ -1,0 +1,137 @@
+{%- doc -%}
+  Renders published location contact details with phone and map links.
+
+  @param {string} location_name - Location name.
+  @param {string} [location_region] - Published state or location descriptor.
+  @param {string} address - Published postal address.
+  @param {string} phone - Published local phone number.
+  @param {string} [toll_free_phone] - Published toll-free phone number.
+  @param {string} [hours] - Published showroom hours.
+  @param {block} [block] - Optional theme block for editor selection.
+  @param {string} [context] - Use "footer" for compact footer presentation.
+{%- enddoc -%}
+
+{%- liquid
+  assign phone_link = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+  assign toll_free_link = toll_free_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+  assign map_query = address
+-%}
+
+<address class="location-details{% if context == 'footer' %} location-details--footer{% endif %}"{% if block %} {{ block.shopify_attributes }}{% endif %}>
+  <h3 class="location-details__name">{{ location_name | escape }}</h3>
+  {% if location_region != blank and context != 'footer' %}
+    <p class="location-details__region">{{ location_region | escape }}</p>
+  {% endif %}
+  <p class="location-details__address">{{ address | escape | newline_to_br }}</p>
+  {% if phone != blank %}
+    <p>
+      {% unless context == 'footer' %}<span>{{ 'contact_page.local_phone' | t }}:</span>{% endunless %}
+      <a href="tel:{{ phone_link | escape }}">{{ phone | escape }}</a>
+    </p>
+  {% endif %}
+  {% if toll_free_phone != blank and context != 'footer' %}
+    <p>
+      <span>{{ 'contact_page.toll_free_phone' | t }}:</span>
+      <a href="tel:{{ toll_free_link | escape }}">{{ toll_free_phone | escape }}</a>
+    </p>
+  {% endif %}
+  {% if hours != blank and context != 'footer' %}
+    {% assign hours_rows = hours | split: ' | ' %}
+    <div class="location-details__hours">
+      <span class="location-details__hours-label">{{ 'contact_page.showroom_hours' | t }}:</span>
+      <dl class="location-details__hours-list">
+        {% for hours_row in hours_rows %}
+          {% assign hours_parts = hours_row | split: ': ' %}
+          <div class="location-details__hours-row">
+            <dt>{{ hours_parts.first | strip | escape }}</dt>
+            <dd>{{ hours_parts.last | strip | escape }}</dd>
+          </div>
+        {% endfor %}
+      </dl>
+    </div>
+  {% endif %}
+  {% if address != blank %}
+    <a
+      class="location-details__map-link"
+      href="https://www.google.com/maps/search/?api=1&query={{ map_query | url_encode }}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {{ 'contact_page.directions' | t }}
+      <span class="visually-hidden">{{ 'accessibility.new_window' | t }}</span>
+    </a>
+  {% endif %}
+</address>
+
+{% stylesheet %}
+  .location-details {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-xs);
+    margin: 0;
+    font-style: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .location-details__name,
+  .location-details p,
+  .location-details__hours-list {
+    margin: 0;
+  }
+
+  .location-details__name {
+    font-size: var(--font-size--h4);
+    line-height: var(--line-height--heading-normal);
+  }
+
+  .location-details a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+  }
+
+  .location-details a:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 3px;
+  }
+
+  .location-details__map-link {
+    margin-block-start: auto;
+  }
+
+  .location-details__hours {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: var(--gap-2xs);
+  }
+
+  .location-details__hours-list {
+    display: grid;
+    gap: var(--gap-2xs);
+  }
+
+  .location-details__hours-row {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, auto) minmax(0, 1fr);
+    gap: var(--gap-xs);
+  }
+
+  .location-details__hours-row dt {
+    font-weight: var(--font-paragraph--weight);
+  }
+
+  .location-details__hours-row dd {
+    margin: 0;
+  }
+
+  .location-details--footer {
+    gap: var(--gap-xs);
+  }
+
+  .location-details--footer .location-details__map-link {
+    margin-block-start: var(--gap-xs);
+  }
+{% endstylesheet %}

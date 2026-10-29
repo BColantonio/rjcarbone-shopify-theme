@@ -172,7 +172,9 @@
     "layered_slideshow": "Katmanlı slayt gösterisi",
     "cart_drawer": "Sepet çekmecesi",
     "disclosures": "Bildirimler",
-    "favorites_page": "Favorites page"
+    "favorites_page": "Favorites page",
+    "contact_locations": "Contact locations",
+    "contact_location": "Location details"
   },
   "settings": {
     "autoplay": "Otomatik oynatma",
@@ -598,7 +600,17 @@
     "selected_button_style": "Seçili düğme stili",
     "open_by_default": "Varsayılan olarak açık",
     "title_preset": "Başlık ön ayarı",
-    "customer_account_menu": "Müşteri hesabı menüsü"
+    "customer_account_menu": "Müşteri hesabı menüsü",
+    "website_contact_name": "Website contact name",
+    "website_toll_free_phone": "Website toll-free phone",
+    "website_local_phone": "Website local phone",
+    "website_extension": "Extension",
+    "location_name": "Location name",
+    "location_region": "Region or location descriptor",
+    "location_address": "Address",
+    "location_phone": "Local phone",
+    "location_toll_free_phone": "Toll-free phone",
+    "location_hours": "Showroom hours"
   },
   "options": {
     "apple": "Apple",

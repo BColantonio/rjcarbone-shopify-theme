@@ -1,0 +1,15 @@
+{%- doc -%}
+  Returns a menu link URL, routing the Contact item to the Shopify Contact page.
+
+  @param {object} link - A Shopify navigation link.
+
+  @example
+  {% render 'menu-link-url', link: link %}
+{%- enddoc -%}
+
+{%- assign link_title_handle = link.title | handleize -%}
+{%- if link.handle == 'contact' or link_title_handle == 'contact' -%}
+  {{- pages.contact.url | default: '/pages/contact' -}}
+{%- else -%}
+  {{- link.url -}}
+{%- endif -%}

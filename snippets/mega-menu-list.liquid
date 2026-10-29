@@ -108,7 +108,7 @@
     %}
     <div>
       <a
-        href="{{ link.url }}"
+        href="{% render 'menu-link-url', link: link %}"
         class="mega-menu__link {% if link.links != blank %}mega-menu__link--parent{% endif %}"
       >
         {% if menu_content_type == 'collection_images' %}
