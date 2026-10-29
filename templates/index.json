@@ -104,7 +104,8 @@
             "external_image_url": "https://www.rjcarbone.com/uploads/sliderimg26.png",
             "external_image_alt": "Carbone Floral Distributors headquarters.",
             "external_image_width": 2400,
-            "external_image_height": 800
+            "external_image_height": 800,
+            "external_link_url": "/pages/contact"
           },
           "blocks": {},
           "block_order": []
@@ -236,7 +237,7 @@
             "external_image_url": "https://www.rjcarbone.com/uploads/NewArrivals.png",
             "external_image_alt": "New seasonal floral supplies and accessories.",
             "heading": "Seasonal Supplies",
-            "link": "https://www.rjcarbone.com/Shopping?filter=3"
+            "link": "/collections/supplies"
           }
         },
         "promo_tile_2": {
@@ -254,7 +255,7 @@
             "external_image_url": "https://www.rjcarbone.com/uploads/vendorimg12.png",
             "external_image_alt": "Dutch Fresh Direct.",
             "heading": "Dutch Fresh Direct",
-            "link": "https://www.rjcarbone.com/Home/BuyDirect"
+            "link": "https://store.flowerwebshop.com/flowerwebshop/en_US/login"
           }
         },
         "promo_tile_4": {
