@@ -4,9 +4,11 @@
   @example
   {% render 'floral-department-category-links', collection_handle: collection.handle %}
 {%- enddoc -%}
+{% capture category_links %}
 {%- case collection_handle -%}
   {%- when 'flowers' -%}
     <ul class="supplies-category-links__list" role="list">
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/flowers"{% if collection.handle == 'flowers' %} aria-current="page"{% endif %}>{{ collections['flowers'].title | escape }}</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/alstroemeria">Alstroemeria</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/amaranthus">Amaranthus</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/anemones">Anemones</a></li>
@@ -76,6 +78,7 @@
     </ul>
   {%- when 'roses' -%}
     <ul class="supplies-category-links__list" role="list">
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/roses"{% if collection.handle == 'roses' %} aria-current="page"{% endif %}>{{ collections['roses'].title | escape }}</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/garden-roses">Garden Roses</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-color-40cm">Rose Color 40Cm</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/rose-color-50cm">Rose Color 50Cm</a></li>
@@ -88,6 +91,7 @@
     </ul>
   {%- when 'greens' -%}
     <ul class="supplies-category-links__list" role="list">
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/greens"{% if collection.handle == 'greens' %} aria-current="page"{% endif %}>{{ collections['greens'].title | escape }}</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/aspidistra">Aspidistra</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/bear-grass">Bear Grass</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/curly-willow">Curly Willow</a></li>
@@ -119,6 +123,7 @@
     </ul>
   {%- when 'plants' -%}
     <ul class="supplies-category-links__list" role="list">
+      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/plants"{% if collection.handle == 'plants' %} aria-current="page"{% endif %}>{{ collections['plants'].title | escape }}</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/2-flowering-plants">2&quot; Flowering Plants</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/2-2-5-foliage-plants">2&quot;/2.5&quot; Foliage Plants</a></li>
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/3-foliage-plants">3&quot; Foliage Plants</a></li>
@@ -171,3 +176,13 @@
       <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/tropical-plants">Tropical Plants</a></li>
     </ul>
 {%- endcase -%}
+{% endcapture %}
+
+{% if collection_handle == 'plants' or collection_handle == 'flowers' or collection_handle == 'roses' or collection_handle == 'greens' %}
+  {% liquid
+    assign current_category_link = '<a class="supplies-category-links__link" href="' | append: collection.url | append: '">'
+    assign active_category_link = '<a class="supplies-category-links__link" href="' | append: collection.url | append: '" aria-current="page">'
+    assign category_links = category_links | replace: current_category_link, active_category_link
+  %}
+{% endif %}
+{{ category_links }}

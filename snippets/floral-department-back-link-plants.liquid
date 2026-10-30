@@ -1,10 +1,12 @@
 {%- doc -%}
-  Returns the confirmed Plants department handle for one of its category collections.
+  Returns the Plants department handle for Plants and its confirmed category collections.
   @param {string} collection_handle - The category collection handle.
   @example
   {% render 'floral-department-back-link-plants', collection_handle: collection.handle %}
 {%- enddoc -%}
 {%- case collection_handle -%}
+  {%- when 'plants' -%}
+    plants
   {%- when '2-flowering-plants' -%}
     plants
   {%- when '2-2-5-foliage-plants' -%}

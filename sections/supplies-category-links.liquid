@@ -4,9 +4,51 @@
   endcapture
   assign category_entries = category_entry_data | strip | split: '^' | sort_natural
   assign category_count = category_entries.size
-  capture floral_category_links
-    render 'floral-department-category-links', collection_handle: collection.handle
+  capture plants_department
+    render 'floral-department-back-link-plants', collection_handle: collection.handle
   endcapture
+  assign plants_department = plants_department | strip
+  assign floral_department = plants_department
+  if floral_department == blank
+    if collection.handle == 'flowers'
+      assign floral_department = 'flowers'
+    else
+      capture floral_department
+        render 'floral-department-back-link-flowers', collection_handle: collection.handle
+      endcapture
+      assign floral_department = floral_department | strip
+    endif
+  endif
+  if floral_department == blank
+    if collection.handle == 'roses'
+      assign floral_department = 'roses'
+    else
+      capture floral_department
+        render 'floral-department-back-link-roses', collection_handle: collection.handle
+      endcapture
+      assign floral_department = floral_department | strip
+    endif
+  endif
+  if floral_department == blank
+    if collection.handle == 'greens'
+      assign floral_department = 'greens'
+    else
+      capture floral_department
+        render 'floral-department-back-link-greens', collection_handle: collection.handle
+      endcapture
+      assign floral_department = floral_department | strip
+    endif
+  endif
+  if floral_department == 'plants' or floral_department == 'flowers' or floral_department == 'roses' or floral_department == 'greens'
+    capture floral_category_links
+      render 'floral-department-category-links', collection_handle: floral_department
+    endcapture
+    assign category_count = floral_category_links | split: '<li' | size | minus: 1
+  else
+    capture floral_category_links
+      render 'floral-department-category-links', collection_handle: collection.handle
+    endcapture
+  endif
 %}
 
 {% if collection.handle == 'supplies' %}
@@ -32,6 +74,20 @@
           </li>
         {% endfor %}
       </ul>
+    </details>
+  </div>
+{% elsif floral_department == 'plants' or floral_department == 'flowers' or floral_department == 'roses' or floral_department == 'greens' %}
+  <div
+    class="section section--page-width spacing-style supplies-category-links supplies-category-links--supplies"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <h2 class="h2 supplies-category-links__heading">All {{ collections[floral_department].title | escape }} Categories</h2>
+    <details class="supplies-category-links__disclosure">
+      <summary class="supplies-category-links__summary">
+        <span>Browse all {{ category_count }} categories</span>
+        <span class="supplies-category-links__indicator" aria-hidden="true"></span>
+      </summary>
+      {{ floral_category_links }}
     </details>
   </div>
 {% elsif floral_category_links != blank %}
