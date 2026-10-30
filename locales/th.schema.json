@@ -9,6 +9,7 @@
  */
 {
   "names": {
+    "returns_request": "Returns request prototype",
     "weekly_specials": "Weekly Specials",
     "wholesale_application_preview": "Wholesale application",
     "404": "404",

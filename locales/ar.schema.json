@@ -246,6 +246,7 @@
     "media_type_info": "تمت تعبئة الميزات من روابط القائمة الخاصة بك"
   },
   "names": {
+    "returns_request": "Returns request prototype",
     "weekly_specials": "Weekly Specials",
     "wholesale_application_preview": "Wholesale application",
     "column": "عمود",

@@ -1,0 +1,457 @@
+{% comment %}
+  Section contract.
+  Provides a local-only returns-request prototype backed by fictional sample orders.
+  @example
+  <!-- Add to the returns-request page template; this section never submits customer data. -->
+{% endcomment %}
+
+<script
+  src="{{ 'returns-request.js' | asset_url }}"
+  type="module"
+></script>
+
+<returns-request-component
+  class="returns-request section page-width-content"
+  data-section-id="{{ section.id }}"
+  data-order-error="{{ 'returns_request.order_error' | t | escape }}"
+  data-item-selection-error="{{ 'returns_request.item_selection_error' | t | escape }}"
+  data-quantity-label="{{ 'returns_request.quantity_label' | t | escape }}"
+  data-purchased-quantity-label="{{ 'returns_request.purchased_quantity_label' | t: title: '__title__', quantity: '__quantity__' | escape }}"
+  data-quantity-help="{{ 'returns_request.quantity_help' | t: quantity: '__quantity__' | escape }}"
+  data-quantity-error="{{ 'returns_request.quantity_error' | t: quantity: '__quantity__' | escape }}"
+  data-reason-error="{{ 'returns_request.reason_error' | t | escape }}"
+  data-photo-type-error="{{ 'returns_request.photo_type_error' | t: name: '__name__' | escape }}"
+  data-photo-size-error="{{ 'returns_request.photo_size_error' | t: name: '__name__' | escape }}"
+  data-photo-limit-error="{{ 'returns_request.photo_limit_error' | t: name: '__name__' | escape }}"
+  data-remove-button="{{ 'returns_request.remove_button' | t | escape }}"
+  data-remove-photo-label="{{ 'returns_request.remove_photo_label' | t: name: '__name__' | escape }}"
+  data-photo-preview-alt="{{ 'returns_request.photo_preview_alt' | t: name: '__name__' | escape }}"
+  data-review-order="{{ 'returns_request.review_order' | t | escape }}"
+  data-review-items="{{ 'returns_request.review_items' | t | escape }}"
+  data-review-item-line="{{ 'returns_request.review_item_line' | t: title: '__title__', quantity: '__quantity__' | escape }}"
+  data-review-reason="{{ 'returns_request.review_reason' | t | escape }}"
+  data-review-notes="{{ 'returns_request.review_notes' | t | escape }}"
+  data-review-no-notes="{{ 'returns_request.review_no_notes' | t | escape }}"
+  data-review-photos="{{ 'returns_request.review_photos' | t | escape }}"
+  data-review-no-photos="{{ 'returns_request.review_no_photos' | t | escape }}"
+>
+  <div class="returns-request__content">
+    <p class="returns-request__notice">{{ 'returns_request.prototype_notice' | t }}</p>
+    <h1 class="returns-request__title">{{ 'returns_request.heading' | t }}</h1>
+    <p class="returns-request__intro">{{ 'returns_request.intro' | t }}</p>
+
+    <ol class="returns-request__progress" aria-label="{{ 'returns_request.progress_label' | t | escape }}">
+      <li data-progress-step="1" aria-current="step">{{ 'returns_request.step_order' | t }}</li>
+      <li data-progress-step="2">{{ 'returns_request.step_items' | t }}</li>
+      <li data-progress-step="3">{{ 'returns_request.step_details' | t }}</li>
+      <li data-progress-step="4">{{ 'returns_request.step_review' | t }}</li>
+    </ol>
+
+    <div class="returns-request__step" data-step="1">
+      <h2 tabindex="-1">{{ 'returns_request.order_heading' | t }}</h2>
+      <p>{{ 'returns_request.sample_orders_note' | t }}</p>
+      <div class="returns-request__field">
+        <label for="returns-order-{{ section.id }}">{{ 'returns_request.order_label' | t }}</label>
+        <select
+          id="returns-order-{{ section.id }}"
+          ref="orderSelect"
+          aria-describedby="returns-order-help-{{ section.id }} returns-order-error-{{ section.id }}"
+          on:change="/handleOrderChange"
+        >
+          <option value="">{{ 'returns_request.order_placeholder' | t }}</option>
+          <option value="DEMO-1042">{{ 'returns_request.sample_order_option' | t: id: 'DEMO-1042' }}</option>
+          <option value="DEMO-2087">{{ 'returns_request.sample_order_option' | t: id: 'DEMO-2087' }}</option>
+        </select>
+        <p class="returns-request__help" id="returns-order-help-{{ section.id }}">
+          {{ 'returns_request.order_help' | t }}
+        </p>
+        <p class="returns-request__error" id="returns-order-error-{{ section.id }}" ref="orderError" role="alert" hidden></p>
+      </div>
+      <button class="button returns-request__button" type="button" on:click="/showItems">
+        {{ 'returns_request.continue' | t }}
+      </button>
+    </div>
+
+    <div class="returns-request__step" data-step="2" hidden>
+      <h2 tabindex="-1">{{ 'returns_request.items_heading' | t }}</h2>
+      <p>{{ 'returns_request.items_help' | t }}</p>
+      <fieldset
+        class="returns-request__items-group"
+        aria-describedby="returns-items-error-{{ section.id }}"
+      >
+        <legend>{{ 'returns_request.items_legend' | t }}</legend>
+        <ul class="returns-request__items" ref="itemsList"></ul>
+      </fieldset>
+      <p
+        class="returns-request__error"
+        id="returns-items-error-{{ section.id }}"
+        ref="itemsError"
+        role="alert"
+        hidden
+      ></p>
+      <div class="returns-request__actions">
+        <button class="button button-secondary returns-request__button" type="button" on:click="/backToOrder">
+          {{ 'returns_request.back' | t }}
+        </button>
+        <button class="button returns-request__button" type="button" on:click="/showDetails">
+          {{ 'returns_request.continue' | t }}
+        </button>
+      </div>
+    </div>
+
+    <div class="returns-request__step" data-step="3" hidden>
+      <h2 tabindex="-1">{{ 'returns_request.details_heading' | t }}</h2>
+      <div class="returns-request__field">
+        <label for="returns-reason-{{ section.id }}">{{ 'returns_request.reason_label' | t }}</label>
+        <select
+          id="returns-reason-{{ section.id }}"
+          ref="reason"
+          aria-describedby="returns-reason-error-{{ section.id }}"
+          on:change="/clearFieldError"
+        >
+          <option value="">{{ 'returns_request.reason_placeholder' | t }}</option>
+          <option value="damaged">{{ 'returns_request.reason_damaged' | t }}</option>
+          <option value="incorrect">{{ 'returns_request.reason_incorrect' | t }}</option>
+          <option value="quality">{{ 'returns_request.reason_quality' | t }}</option>
+          <option value="wrong_quantity_received">{{ 'returns_request.reason_wrong_quantity_received' | t }}</option>
+          <option value="other">{{ 'returns_request.reason_other' | t }}</option>
+        </select>
+        <p class="returns-request__error" id="returns-reason-error-{{ section.id }}" role="alert" hidden></p>
+      </div>
+
+      <div class="returns-request__field">
+        <label for="returns-notes-{{ section.id }}">{{ 'returns_request.notes_label' | t }}</label>
+        <textarea id="returns-notes-{{ section.id }}" ref="notes" rows="4"></textarea>
+      </div>
+
+      <div class="returns-request__field">
+        <label for="returns-photos-{{ section.id }}">{{ 'returns_request.photos_label' | t }}</label>
+        <p class="returns-request__help" id="returns-photos-help-{{ section.id }}">
+          {{ 'returns_request.photos_help' | t }}
+        </p>
+        <input
+          id="returns-photos-{{ section.id }}"
+          class="returns-request__file-input"
+          ref="photoInput"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          multiple
+          aria-describedby="returns-photos-help-{{ section.id }} returns-photos-error-{{ section.id }}"
+          on:change="/handlePhotoSelection"
+        >
+        <p class="returns-request__error" id="returns-photos-error-{{ section.id }}" ref="photoError" role="alert" hidden></p>
+        <ul class="returns-request__photos" ref="photoPreviews" aria-label="{{ 'returns_request.photos_preview_label' | t | escape }}"></ul>
+      </div>
+
+      <div class="returns-request__actions">
+        <button class="button button-secondary returns-request__button" type="button" on:click="/backToItems">
+          {{ 'returns_request.back' | t }}
+        </button>
+        <button class="button returns-request__button" type="button" on:click="/showReview">
+          {{ 'returns_request.review_button' | t }}
+        </button>
+      </div>
+    </div>
+
+    <div class="returns-request__step" data-step="4" hidden>
+      <h2 tabindex="-1">{{ 'returns_request.review_heading' | t }}</h2>
+      <p>{{ 'returns_request.review_note' | t }}</p>
+      <dl class="returns-request__summary" ref="reviewSummary"></dl>
+      <ul class="returns-request__photos" ref="reviewPhotos" aria-label="{{ 'returns_request.photos_preview_label' | t | escape }}"></ul>
+      <div class="returns-request__actions">
+        <button class="button button-secondary returns-request__button" type="button" on:click="/backToDetails">
+          {{ 'returns_request.back_to_details' | t }}
+        </button>
+        <button class="button returns-request__button" type="button" on:click="/submitDemo">
+          {{ 'returns_request.submit_demo' | t }}
+        </button>
+      </div>
+    </div>
+
+    <section class="returns-request__confirmation" ref="confirmation" aria-labelledby="returns-confirmation-heading-{{ section.id }}" hidden>
+      <h2 id="returns-confirmation-heading-{{ section.id }}" tabindex="-1">{{ 'returns_request.confirmation_heading' | t }}</h2>
+      <p>{{ 'returns_request.confirmation_notice' | t }}</p>
+      <p>{{ 'returns_request.confirmation_detail' | t }}</p>
+    </section>
+
+    <p class="returns-request__status" ref="status" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
+</returns-request-component>
+
+{% stylesheet %}
+  .returns-request {
+    padding-block: var(--padding-4xl);
+  }
+
+  .returns-request__content {
+    width: 100%;
+    max-width: var(--normal-content-width);
+    margin-inline: auto;
+  }
+
+  .returns-request__notice {
+    display: inline-flex;
+    margin-block: 0 var(--gap-md);
+    padding: var(--padding-sm) var(--padding-md);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    font-weight: 600;
+  }
+
+  .returns-request__title {
+    margin-block: 0 var(--gap-sm);
+  }
+
+  .returns-request__intro {
+    margin-block: 0 var(--gap-xl);
+  }
+
+  .returns-request__progress {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--gap-xs);
+    margin: 0 0 var(--gap-2xl);
+    padding: 0;
+    list-style: none;
+  }
+
+  .returns-request__progress li {
+    padding-block: var(--padding-sm);
+    border-block-end: var(--style-border-width-inputs) solid var(--color-input-border);
+    color: var(--color-foreground);
+    font-size: var(--font-paragraph--size);
+    overflow-wrap: anywhere;
+  }
+
+  .returns-request__progress li[aria-current='step'] {
+    border-color: var(--color-foreground);
+    font-weight: 700;
+  }
+
+  .returns-request__step > h2,
+  .returns-request__confirmation h2 {
+    margin-block: 0 var(--gap-md);
+  }
+
+  .returns-request__step > p,
+  .returns-request__confirmation p {
+    margin-block: 0 var(--gap-md);
+  }
+
+  .returns-request__field {
+    display: grid;
+    gap: var(--gap-2xs);
+    min-width: 0;
+    margin-block-end: var(--gap-lg);
+  }
+
+  .returns-request__field label,
+  .returns-request__items-group legend {
+    font-weight: 600;
+  }
+
+  .returns-request__field select,
+  .returns-request__field textarea,
+  .returns-request__field input[type='file'],
+  .returns-request__quantity {
+    width: 100%;
+    min-width: 0;
+    padding: var(--padding-md) var(--padding-lg);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    color: var(--color-input-text);
+    background: var(--color-input-background);
+  }
+
+  .returns-request__field textarea {
+    resize: vertical;
+  }
+
+  .returns-request__field :focus-visible,
+  .returns-request__quantity:focus-visible,
+  .returns-request__item-choice:focus-within,
+  .returns-request__button:focus-visible,
+  .returns-request__remove:focus-visible {
+    outline: var(--focus-outline-width) solid currentcolor;
+    outline-offset: var(--focus-outline-offset);
+  }
+
+  .returns-request [aria-invalid='true'] {
+    border-color: var(--color-foreground);
+  }
+
+  .returns-request__help {
+    margin: 0;
+    color: var(--color-foreground);
+    font-size: var(--font-paragraph--size);
+    overflow-wrap: anywhere;
+  }
+
+  .returns-request__error {
+    margin: 0;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .returns-request__items-group {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .returns-request__items-group legend {
+    margin-block-end: var(--gap-sm);
+  }
+
+  .returns-request__items,
+  .returns-request__photos {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-md);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .returns-request__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-sm);
+    min-width: 0;
+    padding: var(--padding-lg);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    background: var(--color-input-background);
+  }
+
+  .returns-request__item-choice {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+    min-width: 0;
+    min-height: var(--minimum-touch-target);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .returns-request__item-choice input {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-block-start: 0.125rem;
+    accent-color: var(--color-foreground);
+  }
+
+  .returns-request__quantity-field {
+    display: grid;
+    gap: var(--gap-2xs);
+  }
+
+  .returns-request__quantity {
+    max-width: 10rem;
+  }
+
+  .returns-request__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+    margin-block-start: var(--gap-xl);
+  }
+
+  .returns-request__button,
+  .returns-request__remove {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .returns-request__photos {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+    margin-block-start: var(--gap-md);
+  }
+
+  .returns-request__photo {
+    display: grid;
+    gap: var(--gap-xs);
+    min-width: 0;
+    padding: var(--padding-sm);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    overflow-wrap: anywhere;
+  }
+
+  .returns-request__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    background: var(--color-background);
+    object-fit: contain;
+  }
+
+  .returns-request__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-xs) var(--gap-xl);
+    margin: 0;
+  }
+
+  .returns-request__summary dt {
+    font-weight: 600;
+  }
+
+  .returns-request__summary dd {
+    min-width: 0;
+    margin: 0 0 var(--gap-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .returns-request__confirmation {
+    margin-block-start: var(--gap-xl);
+    padding: var(--padding-lg);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    background: var(--color-input-background);
+  }
+
+  .returns-request__status:empty {
+    display: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .returns-request__item {
+      grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.4fr);
+      align-items: center;
+    }
+
+    .returns-request__summary {
+      grid-template-columns: minmax(10rem, 1fr) minmax(0, 2fr);
+    }
+
+    .returns-request__summary dd {
+      margin-block-end: 0;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .returns-request__progress {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .returns-request__actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .returns-request__button {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.returns_request",
+  "class": "section-wrapper"
+}
+{% endschema %}
