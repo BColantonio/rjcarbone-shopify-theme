@@ -35,36 +35,46 @@
     endif
 
     if context_collection_handle != blank
-      capture context_department_handle
-        render 'floral-department-back-link-flowers', collection_handle: context_collection_handle
-        render 'floral-department-back-link-roses', collection_handle: context_collection_handle
-        render 'floral-department-back-link-greens', collection_handle: context_collection_handle
-        render 'floral-department-back-link-plants', collection_handle: context_collection_handle
-      endcapture
-      assign context_department_handle = context_department_handle | strip
+      case context_collection_handle
+        when 'flowers', 'roses', 'greens', 'plants', 'supplies'
+          for product_collection in product.collections
+            if product_collection.handle == context_collection_handle
+              assign breadcrumb_department = product_collection
+              break
+            endif
+          endfor
+        else
+          capture context_department_handle
+            render 'floral-department-back-link-flowers', collection_handle: context_collection_handle
+            render 'floral-department-back-link-roses', collection_handle: context_collection_handle
+            render 'floral-department-back-link-greens', collection_handle: context_collection_handle
+            render 'floral-department-back-link-plants', collection_handle: context_collection_handle
+          endcapture
+          assign context_department_handle = context_department_handle | strip
 
-      if context_department_handle == blank
-        for category_entry in supplies_category_entries
-          assign category_parts = category_entry | split: '|'
-          if category_parts[1] == context_collection_handle
-            assign context_department_handle = 'supplies'
-            break
+          if context_department_handle == blank
+            for category_entry in supplies_category_entries
+              assign category_parts = category_entry | split: '|'
+              if category_parts[1] == context_collection_handle
+                assign context_department_handle = 'supplies'
+                break
+              endif
+            endfor
           endif
-        endfor
-      endif
 
-      if context_department_handle != blank
-        for product_collection in product.collections
-          if product_collection.handle == context_collection_handle
-            assign breadcrumb_category = collections[context_collection_handle]
-            assign breadcrumb_department = collections[context_department_handle]
-            break
+          if context_department_handle != blank
+            for product_collection in product.collections
+              if product_collection.handle == context_collection_handle
+                assign breadcrumb_category = collections[context_collection_handle]
+                assign breadcrumb_department = collections[context_department_handle]
+                break
+              endif
+            endfor
           endif
-        endfor
-      endif
+      endcase
     endif
 
-    if breadcrumb_category == blank
+    if breadcrumb_department == blank and breadcrumb_category == blank
       assign candidate_count = 0
       assign department_count = 0
       assign candidate_department_handles = '|'
