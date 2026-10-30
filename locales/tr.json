@@ -69,6 +69,19 @@
     },
     "slider_label": "Kaydırıcı"
   },
+  "collection_links": {
+    "all_flower_types": "All Flower Types",
+    "browse_flower_types": "Browse Flower Types ({{ count }})",
+    "all_rose_types": "All Rose Types",
+    "browse_rose_types": "Browse Rose Types ({{ count }})",
+    "all_greenery_types": "All Greenery Types",
+    "browse_greenery_types": "Browse Greenery Types ({{ count }})",
+    "all_plant_types": "All Plant Types",
+    "browse_plant_types": "Browse Plant Types ({{ count }})",
+    "all_supply_types": "All Supply Types",
+    "browse_supply_types": "Browse Supply Types ({{ count }})",
+    "browse_categories": "Kategorilere g?z at ({{ count }})"
+  },
   "accessibility": {
     "play_model": "3B modeli oynat",
     "play_video": "Videoyu oynat",

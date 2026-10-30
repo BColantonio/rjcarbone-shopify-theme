@@ -100,7 +100,7 @@
       }
     },
     "popular_categories": {
-      "type": "collection-list",
+      "type": "supplies-category-links",
       "blocks": {
         "static-collection-card": {
           "type": "_collection-card",
@@ -156,6 +156,7 @@
       "block_order": [],
       "settings": {
         "heading": "Featured Categories",
+        "category_heading": "All Supply Types",
         "collection_list": [
           "christmas-items",
           "vases",
@@ -176,16 +177,10 @@
         "section_width": "page-width",
         "gap": 8,
         "background_color": "{{ settings.color_palette.background }}",
-        "padding-block-start": 12,
-        "padding-block-end": 8
-      }
-    },
-    "supply_categories": {
-      "type": "supplies-category-links",
-      "settings": {
-        "heading": "All Supplies Categories",
         "padding-block-start": 8,
-        "padding-block-end": 16
+        "padding-block-end": 16,
+        "featured_padding_block_start": 12,
+        "featured_padding_block_end": 8
       }
     },
     "main": {
@@ -357,7 +352,6 @@
     "supplies_back_link",
     "section",
     "popular_categories",
-    "supply_categories",
     "main"
   ]
 }
