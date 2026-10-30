@@ -1,4 +1,10 @@
 import { Component } from '@theme/component';
+import { sampleOrders } from './sample-orders.js';
+
+/**
+ * @typedef {{ id: string, title: string, purchasedQuantity: number }} SampleItem
+ * @typedef {{ id: string, date: string, items: SampleItem[] }} SampleOrder
+ */
 
 const MAX_PHOTOS = 3;
 const MAX_PHOTO_BYTES = 5 * 1024 * 1024;
@@ -6,8 +12,6 @@ const ALLOWED_PHOTO_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
 const ALLOWED_REASONS = new Set(['damaged', 'incorrect', 'quality', 'wrong_quantity_received', 'other']);
 
 /**
- * @typedef {{ id: string, title: string, purchasedQuantity: number }} SampleItem
- * @typedef {{ id: string, items: SampleItem[] }} SampleOrder
  * @typedef {object} ReturnsRequestRefs
  * @property {HTMLSelectElement} orderSelect
  * @property {HTMLParagraphElement} orderError
@@ -23,26 +27,6 @@ const ALLOWED_REASONS = new Set(['damaged', 'incorrect', 'quality', 'wrong_quant
  * @property {HTMLElement} confirmation
  * @property {HTMLParagraphElement} status
  */
-
-/** @type {SampleOrder[]} */
-const sampleOrders = [
-  {
-    id: 'DEMO-1042',
-    items: [
-      { id: 'rose-color-50cm', title: 'Rose Color 50Cm', purchasedQuantity: 3 },
-      { id: 'hydrangea-white-blue', title: 'Hydrangea White/Blue', purchasedQuantity: 2 },
-      { id: 'monstera', title: 'Monstera', purchasedQuantity: 1 },
-    ],
-  },
-  {
-    id: 'DEMO-2087',
-    items: [
-      { id: 'tulips-cut', title: 'Tulips Cut', purchasedQuantity: 5 },
-      { id: 'foliage-plants', title: 'Foliage Plants', purchasedQuantity: 2 },
-      { id: 'spray-roses', title: 'Spray Roses', purchasedQuantity: 4 },
-    ],
-  },
-];
 
 /**
  * Runs a returns-request walkthrough using fictional order data only.

@@ -1,0 +1,305 @@
+{% comment %}
+  Section contract.
+  Provides a browser-only saved-orders and reorder prototype using fictional sample orders.
+  @example
+  <!-- Add this section to the saved-orders page template; it never reads real customer orders. -->
+{% endcomment %}
+
+{% liquid
+  assign saved_order_product_handles = 'sample-roscass5047,sample-yarass10,sample-gco,sample-ssofp213144gop,sample-sxm683gd,sample-sxmdvp1325re' | split: ','
+  assign saved_order_rule_comma = false
+  assign saved_orders_currency = cart.currency.iso_code | default: localization.country.currency.iso_code | default: shop.currency
+%}
+{% capture saved_order_quantity_rules %}
+  [
+    {%- for handle in saved_order_product_handles -%}
+      {%- assign quantity_product = all_products[handle] -%}
+      {%- if quantity_product != blank -%}
+        {%- for variant in quantity_product.variants -%}
+          {%- if saved_order_rule_comma -%},{%- endif -%}
+          {
+            "handle": {{ handle | json }},
+            "variantId": {{ variant.id | append: '' | json }},
+            "minimum": {{ variant.quantity_rule.min | default: 1 }},
+            "maximum": {{ variant.quantity_rule.max | default: 'null' }},
+            "increment": {{ variant.quantity_rule.increment | default: 1 }}
+          }
+          {%- assign saved_order_rule_comma = true -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+{% endcapture %}
+
+<script
+  src="{{ 'saved-orders.js' | asset_url }}"
+  type="module"
+></script>
+
+<section
+  class="saved-orders section section--page-width spacing-style"
+  style="--padding-block-start: 16px; --padding-block-end: 16px;"
+  aria-labelledby="SavedOrdersHeading-{{ section.id }}"
+>
+  <saved-orders-component
+    class="saved-orders__content"
+    data-section-id="{{ section.id }}"
+    data-currency="{{ saved_orders_currency | escape }}"
+    data-locale="{{ request.locale.iso_code | escape }}"
+    data-quantity-rules="{{ saved_order_quantity_rules | strip | escape }}"
+    data-sample-heading="{{ 'saved_orders.sample_heading' | t | escape }}"
+    data-saved-heading="{{ 'saved_orders.saved_heading' | t | escape }}"
+    data-order-label="{{ 'saved_orders.order_label' | t: id: '__id__' | escape }}"
+    data-items-label="{{ 'saved_orders.items_label' | t: items: '__items__' | escape }}"
+    data-review-save="{{ 'saved_orders.review_save' | t | escape }}"
+    data-review-order="{{ 'saved_orders.review_order' | t | escape }}"
+    data-close-review="{{ 'saved_orders.close_review' | t | escape }}"
+    data-save-order="{{ 'saved_orders.save_order' | t | escape }}"
+    data-name-label="{{ 'saved_orders.name_label' | t | escape }}"
+    data-name-placeholder="{{ 'saved_orders.name_placeholder' | t | escape }}"
+    data-rename-label="{{ 'saved_orders.rename_label' | t | escape }}"
+    data-save-name="{{ 'saved_orders.save_name' | t | escape }}"
+    data-remove-list="{{ 'saved_orders.remove_list' | t | escape }}"
+    data-remove-item="{{ 'saved_orders.remove_item' | t | escape }}"
+    data-quantity-label="{{ 'saved_orders.quantity_label' | t | escape }}"
+    data-variant-label="{{ 'saved_orders.variant_label' | t | escape }}"
+    data-choose-variant="{{ 'saved_orders.choose_variant' | t | escape }}"
+    data-add-to-cart="{{ 'saved_orders.add_to_cart' | t | escape }}"
+    data-loading="{{ 'saved_orders.loading' | t | escape }}"
+    data-price-check="{{ 'saved_orders.price_check' | t | escape }}"
+    data-unavailable="{{ 'saved_orders.unavailable' | t | escape }}"
+    data-lookup-error="{{ 'saved_orders.lookup_error' | t | escape }}"
+    data-variant-error="{{ 'saved_orders.variant_error' | t | escape }}"
+    data-selling-plan="{{ 'saved_orders.selling_plan' | t | escape }}"
+    data-product-link="{{ 'saved_orders.product_link' | t | escape }}"
+    data-quantity-error="{{ 'saved_orders.quantity_error' | t: minimum: '__minimum__', maximum: '__maximum__', increment: '__increment__' | escape }}"
+    data-quantity-rule-error="{{ 'saved_orders.quantity_rule_error' | t | escape }}"
+    data-name-error="{{ 'saved_orders.name_error' | t | escape }}"
+    data-duplicate-name="{{ 'saved_orders.duplicate_name' | t | escape }}"
+    data-storage-error="{{ 'saved_orders.storage_error' | t | escape }}"
+    data-browser-notice="{{ 'saved_orders.browser_notice' | t | escape }}"
+    data-no-saved-orders="{{ 'saved_orders.no_saved_orders' | t | escape }}"
+    data-current-price="{{ 'saved_orders.current_price' | t: price: '__price__' | escape }}"
+    data-available-price="{{ 'saved_orders.available_price' | t: price: '__price__' | escape }}"
+    data-price-changed="{{ 'saved_orders.price_changed' | t | escape }}"
+    data-cart-success="{{ 'saved_orders.cart_success' | t: items: '__items__' | escape }}"
+    data-cart-partial="{{ 'saved_orders.cart_partial' | t: added: '__added__', failed: '__failed__' | escape }}"
+    data-cart-refresh-error="{{ 'saved_orders.cart_refresh_error' | t | escape }}"
+    data-cart-none="{{ 'saved_orders.cart_none' | t: items: '__items__' | escape }}"
+    data-item-removed="{{ 'saved_orders.item_removed' | t | escape }}"
+    data-list-removed="{{ 'saved_orders.list_removed' | t | escape }}"
+    data-name-saved="{{ 'saved_orders.name_saved' | t | escape }}"
+    data-sample-saved="{{ 'saved_orders.sample_saved' | t | escape }}"
+  >
+    <div class="saved-orders__heading text-block h2">
+      <h1 id="SavedOrdersHeading-{{ section.id }}" tabindex="-1" ref="savedOrdersHeading">
+        {{ 'saved_orders.heading' | t }}
+      </h1>
+    </div>
+    <p class="saved-orders__notice">{{ 'saved_orders.prototype_notice' | t }}</p>
+    <p class="saved-orders__notice">{{ 'saved_orders.browser_notice' | t }}</p>
+    <p class="saved-orders__notice">{{ 'saved_orders.wholesale_notice' | t }}</p>
+    <p class="saved-orders__status" role="status" aria-live="polite" aria-atomic="true" ref="savedOrdersStatus"></p>
+
+    <section class="saved-orders__group" aria-labelledby="SavedOrdersSamples-{{ section.id }}">
+      <h2 id="SavedOrdersSamples-{{ section.id }}">{{ 'saved_orders.sample_heading' | t }}</h2>
+      <p>{{ 'saved_orders.sample_help' | t }}</p>
+      <ul class="saved-orders__list" ref="sampleList"></ul>
+    </section>
+
+    <section class="saved-orders__group" aria-labelledby="SavedOrdersSaved-{{ section.id }}">
+      <h2 id="SavedOrdersSaved-{{ section.id }}">{{ 'saved_orders.saved_heading' | t }}</h2>
+      <ul class="saved-orders__list" ref="savedList"></ul>
+      <p class="saved-orders__empty" ref="savedEmpty">{{ 'saved_orders.no_saved_orders' | t }}</p>
+    </section>
+  </saved-orders-component>
+</section>
+
+{% stylesheet %}
+  .saved-orders__content {
+    display: block;
+    width: 100%;
+    max-width: var(--page-width);
+    margin-inline: auto;
+  }
+
+  .saved-orders__heading {
+    margin-block-end: var(--gap-sm);
+  }
+
+  .saved-orders__notice {
+    margin-block: 0 var(--gap-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .saved-orders__status {
+    min-height: 1.5em;
+    margin-block: var(--gap-md);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .saved-orders__group {
+    margin-block-start: var(--gap-2xl);
+  }
+
+  .saved-orders__group h2 {
+    margin-block: 0 var(--gap-sm);
+  }
+
+  .saved-orders__list,
+  .saved-orders__items {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-md);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .saved-orders__card,
+  .saved-orders__item {
+    min-width: 0;
+    padding: var(--padding-lg);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    background: var(--color-input-background);
+  }
+
+  .saved-orders__card-heading,
+  .saved-orders__item-heading,
+  .saved-orders__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--gap-sm);
+  }
+
+  .saved-orders__card-heading {
+    justify-content: space-between;
+  }
+
+  .saved-orders__card h3,
+  .saved-orders__item h3 {
+    min-width: 0;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .saved-orders__card p,
+  .saved-orders__item p {
+    margin-block: var(--gap-xs);
+    overflow-wrap: anywhere;
+  }
+
+  .saved-orders__field {
+    display: grid;
+    gap: var(--gap-2xs);
+    min-width: 0;
+    margin-block-start: var(--gap-md);
+  }
+
+  .saved-orders__field input,
+  .saved-orders__field select,
+  .saved-orders__quantity {
+    width: 100%;
+    min-width: 0;
+    min-height: var(--minimum-touch-target);
+    padding: var(--padding-sm) var(--padding-md);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    color: var(--color-input-text);
+    background: var(--color-input-background);
+  }
+
+  .saved-orders__quantity {
+    max-width: 10rem;
+  }
+
+  .saved-orders__quantity-controls {
+    display: grid;
+    justify-items: start;
+    gap: var(--gap-md);
+  }
+
+  .saved-orders__quantity-controls > .saved-orders__field {
+    margin-block-start: 0;
+  }
+
+  .saved-orders__item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-sm);
+  }
+
+  .saved-orders__item[aria-invalid='true'],
+  .saved-orders [aria-invalid='true'] {
+    border-color: var(--color-foreground);
+  }
+
+  .saved-orders__item-status,
+  .saved-orders__error {
+    margin: 0;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .saved-orders__error:empty {
+    display: none;
+  }
+
+  .saved-orders__actions {
+    margin-block-start: var(--gap-md);
+  }
+
+  .saved-orders__editor {
+    display: grid;
+    gap: var(--gap-md);
+    margin-block-start: var(--gap-md);
+  }
+
+  .saved-orders__editor > .saved-orders__field {
+    margin-block-start: 0;
+  }
+
+  .saved-orders__actions > * {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .saved-orders__product-link {
+    min-height: var(--minimum-touch-target);
+    align-content: center;
+    overflow-wrap: anywhere;
+  }
+
+  .saved-orders__empty {
+    margin-block: var(--gap-md);
+  }
+
+  @media screen and (min-width: 750px) {
+    .saved-orders__item {
+      grid-template-columns: minmax(0, 1fr) minmax(10rem, 0.35fr);
+      align-items: start;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .saved-orders__actions {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .saved-orders__actions > button {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.saved_orders",
+  "class": "section-wrapper",
+  "settings": []
+}
+{% endschema %}

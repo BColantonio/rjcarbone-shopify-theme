@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": {
+      "type": "saved-orders"
+    }
+  },
+  "order": ["main"]
+}
