@@ -10,6 +10,17 @@
   data-not-provided="{{ 'wholesale_application_preview.not_provided' | t | escape }}"
   data-validation-error="{{ 'wholesale_application_preview.validation_error' | t | escape }}"
   data-preview-success="{{ 'wholesale_application_preview.preview_success' | t | escape }}"
+  data-step-label="{{ 'wholesale_application_preview.step_label' | t | escape }}"
+  data-step-of="{{ 'wholesale_application_preview.step_of' | t | escape }}"
+  data-required-error="{{ 'wholesale_application_preview.validation_required' | t | escape }}"
+  data-email-error="{{ 'wholesale_application_preview.validation_email' | t | escape }}"
+  data-phone-error="{{ 'wholesale_application_preview.validation_us_phone' | t | escape }}"
+  data-postal-error="{{ 'wholesale_application_preview.validation_us_postal' | t | escape }}"
+  data-name-error="{{ 'wholesale_application_preview.validation_personal_name' | t | escape }}"
+  data-buyer-names-error="{{ 'wholesale_application_preview.validation_buyer_names' | t | escape }}"
+  data-number-name-error="{{ 'wholesale_application_preview.validation_numeric_name' | t | escape }}"
+  data-state-error="{{ 'wholesale_application_preview.validation_us_state' | t | escape }}"
+  on:keydown="/handleKeydown"
 >
   <div class="wholesale-application__content">
     <p class="wholesale-application__notice">
@@ -21,6 +32,9 @@
     <p>{{ 'wholesale_application_preview.intro' | t }}</p>
     <p class="wholesale-application__required-note">
       {{ 'wholesale_application_preview.required_note' | t }}
+    </p>
+    <p class="wholesale-application__format-note">
+      {{ 'wholesale_application_preview.format_note' | t }}
     </p>
 
     <div class="wholesale-application__information">
@@ -42,7 +56,13 @@
       class="wholesale-application__form"
       ref="applicationFields"
     >
-      <div class="wholesale-application__fields">
+      <div class="wholesale-application__fields wholesale-application__step-panel" data-step-panel="1">
+        <h2 class="wholesale-application__step-heading" data-step-heading tabindex="-1">
+          {{ 'wholesale_application_preview.business_details_step_title' | t }}
+        </h2>
+        <h3 class="wholesale-application__fields-heading">
+          {{ 'wholesale_application_preview.purchasing_firm_heading' | t }}
+        </h3>
         <div class="wholesale-application__field">
           <label for="wholesale-company-{{ section.id }}">
             {{ 'wholesale_application_preview.company_name' | t }} <span aria-hidden="true">*</span>
@@ -68,6 +88,7 @@
             name="first_name"
             type="text"
             autocomplete="given-name"
+            data-validation-type="personal-name"
             data-summary-label="{{ 'wholesale_application_preview.first_name' | t | escape }}"
             required
           >
@@ -83,6 +104,7 @@
             name="last_name"
             type="text"
             autocomplete="family-name"
+            data-validation-type="personal-name"
             data-summary-label="{{ 'wholesale_application_preview.last_name' | t | escape }}"
             required
           >
@@ -101,6 +123,8 @@
             autocapitalize="off"
             spellcheck="false"
             data-summary-label="{{ 'wholesale_application_preview.email' | t | escape }}"
+            data-validation-type="email"
+            on:blur="/validateField"
             required
           >
         </div>
@@ -116,8 +140,16 @@
             type="tel"
             autocomplete="tel"
             data-summary-label="{{ 'wholesale_application_preview.phone' | t | escape }}"
+            data-validation-type="us-phone"
+            inputmode="tel"
+            on:blur="/formatPhone"
             required
           >
+        </div>
+
+        <div class="wholesale-application__field">
+          <label for="wholesale-business-fax-{{ section.id }}">{{ 'wholesale_application_preview.business_fax' | t }}</label>
+          <input class="wholesale-application__input" id="wholesale-business-fax-{{ section.id }}" name="business_fax" type="tel" inputmode="tel" data-validation-type="us-phone" data-summary-label="{{ 'wholesale_application_preview.business_fax' | t | escape }}" on:blur="/formatPhone">
         </div>
 
         <div class="wholesale-application__field wholesale-application__field--wide">
@@ -144,22 +176,28 @@
             name="city"
             type="text"
             autocomplete="address-level2"
+            data-validation-type="city"
             data-summary-label="{{ 'wholesale_application_preview.city' | t | escape }}"
           >
         </div>
 
-        <div class="wholesale-application__field">
-          <label for="wholesale-region-{{ section.id }}">
-            {{ 'wholesale_application_preview.region' | t }}
-          </label>
-          <input
-            class="wholesale-application__input"
-            id="wholesale-region-{{ section.id }}"
-            name="region"
-            type="text"
-            autocomplete="address-level1"
-            data-summary-label="{{ 'wholesale_application_preview.region' | t | escape }}"
-          >
+        <div class="wholesale-application__field wholesale-application__region-group" data-us-region-group>
+          <div class="wholesale-application__field" data-us-region>
+            <label for="wholesale-region-us-{{ section.id }}">{{ 'wholesale_application_preview.region' | t }}</label>
+            <select class="wholesale-application__input" id="wholesale-region-us-{{ section.id }}" name="region_us" autocomplete="address-level1" data-validation-type="us-state" data-summary-label="{{ 'wholesale_application_preview.region' | t | escape }}">
+              <option value="">{{ 'wholesale_application_preview.state_placeholder' | t }}</option>
+              {%- assign us_states = 'alabama:AL,alaska:AK,arizona:AZ,arkansas:AR,california:CA,colorado:CO,connecticut:CT,delaware:DE,district_of_columbia:DC,florida:FL,georgia:GA,hawaii:HI,idaho:ID,illinois:IL,indiana:IN,iowa:IA,kansas:KS,kentucky:KY,louisiana:LA,maine:ME,maryland:MD,massachusetts:MA,michigan:MI,minnesota:MN,mississippi:MS,missouri:MO,montana:MT,nebraska:NE,nevada:NV,new_hampshire:NH,new_jersey:NJ,new_mexico:NM,new_york:NY,north_carolina:NC,north_dakota:ND,ohio:OH,oklahoma:OK,oregon:OR,pennsylvania:PA,rhode_island:RI,south_carolina:SC,south_dakota:SD,tennessee:TN,texas:TX,utah:UT,vermont:VT,virginia:VA,washington:WA,west_virginia:WV,wisconsin:WI,wyoming:WY' | split: ',' -%}
+              {%- for state in us_states -%}
+                {%- assign state_parts = state | split: ':' -%}
+                {%- assign state_key = 'wholesale_application_preview.us_state_' | append: state_parts[0] -%}
+                <option value="{{ state_parts[1] }}">{{ state_key | t }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+          <div class="wholesale-application__field" data-international-region>
+            <label for="wholesale-region-international-{{ section.id }}">{{ 'wholesale_application_preview.international_region' | t }}</label>
+            <input class="wholesale-application__input" id="wholesale-region-international-{{ section.id }}" name="region" type="text" autocomplete="address-level1" data-validation-type="international-region" data-summary-label="{{ 'wholesale_application_preview.region' | t | escape }}">
+          </div>
         </div>
 
         <div class="wholesale-application__field">
@@ -173,6 +211,7 @@
             type="text"
             autocomplete="postal-code"
             data-summary-label="{{ 'wholesale_application_preview.postal_code' | t | escape }}"
+            data-validation-type="us-postal"
           >
         </div>
 
@@ -180,121 +219,404 @@
           <label for="wholesale-country-{{ section.id }}">
             {{ 'wholesale_application_preview.country' | t }}
           </label>
-          <input
+          <select
             class="wholesale-application__input"
             id="wholesale-country-{{ section.id }}"
             name="country"
-            type="text"
-            autocomplete="country-name"
+            autocomplete="country"
             data-summary-label="{{ 'wholesale_application_preview.country' | t | escape }}"
+            on:change="/updateCountryFields"
           >
+            {%- for country in localization.available_countries -%}
+              <option
+                value="{{ country.iso_code }}"
+                {% if country.iso_code == localization.country.iso_code %}selected{% endif %}
+              >
+                {{ country.name }}
+              </option>
+            {%- endfor -%}
+          </select>
         </div>
       </div>
 
-      <fieldset class="wholesale-application__choice-group">
-        <legend>{{ 'wholesale_application_preview.purchased_before' | t }}</legend>
-        <div class="wholesale-application__choices">
-          <label class="wholesale-application__choice" for="wholesale-purchased-yes-{{ section.id }}">
-            <input
-              id="wholesale-purchased-yes-{{ section.id }}"
-              name="purchased_before"
-              type="radio"
-              value="yes"
-              data-summary-label="{{ 'wholesale_application_preview.purchased_before' | t | escape }}"
-            >
-            {{ 'wholesale_application_preview.yes' | t }}
+      <div class="wholesale-application__fields wholesale-application__step-panel" data-step-panel="2">
+        <h2 class="wholesale-application__step-heading" data-step-heading tabindex="-1">
+          {{ 'wholesale_application_preview.business_profile_heading' | t }}
+        </h2>
+        <div class="wholesale-application__field wholesale-application__field--wide">
+          <label for="wholesale-products-sold-{{ section.id }}">
+            {{ 'wholesale_application_preview.products_sold' | t }}
           </label>
-          <label class="wholesale-application__choice" for="wholesale-purchased-no-{{ section.id }}">
-            <input
-              id="wholesale-purchased-no-{{ section.id }}"
-              name="purchased_before"
-              type="radio"
-              value="no"
-              data-summary-label="{{ 'wholesale_application_preview.purchased_before' | t | escape }}"
-            >
-            {{ 'wholesale_application_preview.no' | t }}
-          </label>
+          <textarea
+            class="wholesale-application__input"
+            id="wholesale-products-sold-{{ section.id }}"
+            name="products_sold"
+            rows="4"
+            data-summary-label="{{ 'wholesale_application_preview.products_sold' | t | escape }}"
+          ></textarea>
         </div>
-      </fieldset>
 
-      <fieldset class="wholesale-application__choice-group">
-        <legend>{{ 'wholesale_application_preview.departments' | t }}</legend>
-        <div class="wholesale-application__choices wholesale-application__choices--grid">
-          {%- assign departments = 'fresh_flowers,roses,cut_greens,christmas_greenery,hardgoods,plants' | split: ',' -%}
-          {%- for department in departments -%}
-            {%- assign option_key = 'wholesale_application_preview.department_' | append: department -%}
-            <label class="wholesale-application__choice" for="wholesale-department-{{ department }}-{{ section.id }}">
-              <input
-                id="wholesale-department-{{ department }}-{{ section.id }}"
-                name="department"
-                type="checkbox"
-                value="{{ department }}"
-                data-summary-label="{{ 'wholesale_application_preview.departments' | t | escape }}"
-              >
-              {{ option_key | t }}
+        <div class="wholesale-application__field">
+          <label for="wholesale-tax-permit-number-{{ section.id }}">
+            {{ 'wholesale_application_preview.tax_permit_number' | t }}
+          </label>
+          <input
+            class="wholesale-application__input"
+            id="wholesale-tax-permit-number-{{ section.id }}"
+            name="tax_permit_number"
+            type="text"
+            data-summary-label="{{ 'wholesale_application_preview.tax_permit_number' | t | escape }}"
+          >
+        </div>
+
+        <div class="wholesale-application__field wholesale-application__region-group" data-us-region-group>
+          <div class="wholesale-application__field" data-us-region>
+            <label for="wholesale-tax-permit-state-us-{{ section.id }}">{{ 'wholesale_application_preview.tax_permit_state' | t }}</label>
+            <select class="wholesale-application__input" id="wholesale-tax-permit-state-us-{{ section.id }}" name="tax_permit_state_us" data-validation-type="us-state" data-summary-label="{{ 'wholesale_application_preview.tax_permit_state' | t | escape }}">
+              <option value="">{{ 'wholesale_application_preview.state_placeholder' | t }}</option>
+              {%- for state in us_states -%}
+                {%- assign state_parts = state | split: ':' -%}
+                {%- assign state_key = 'wholesale_application_preview.us_state_' | append: state_parts[0] -%}
+                <option value="{{ state_parts[1] }}">{{ state_key | t }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+          <div class="wholesale-application__field" data-international-region>
+            <label for="wholesale-tax-permit-state-international-{{ section.id }}">{{ 'wholesale_application_preview.international_region' | t }}</label>
+            <input class="wholesale-application__input" id="wholesale-tax-permit-state-international-{{ section.id }}" name="tax_permit_state" type="text" autocomplete="address-level1" data-validation-type="international-region" data-summary-label="{{ 'wholesale_application_preview.tax_permit_state' | t | escape }}">
+          </div>
+        </div>
+
+        <fieldset
+          class="wholesale-application__choice-group wholesale-application__choice-group--wide"
+          data-conditional-fields
+          on:change="/updateConditionalFields"
+        >
+          <legend>{{ 'wholesale_application_preview.business_type' | t }}</legend>
+          <div class="wholesale-application__choices wholesale-application__choices--grid">
+            {%- assign business_types = 'florist,gift_shop,garden_center,greenhouse,craft_shop,manufacturer,other' | split: ',' -%}
+            {%- for business_type in business_types -%}
+              {%- assign option_key = 'wholesale_application_preview.business_type_' | append: business_type -%}
+              <label class="wholesale-application__choice" for="wholesale-business-type-{{ business_type }}-{{ section.id }}">
+                <input
+                  id="wholesale-business-type-{{ business_type }}-{{ section.id }}"
+                  name="business_type"
+                  type="radio"
+                  value="{{ business_type }}"
+                  data-summary-label="{{ 'wholesale_application_preview.business_type' | t | escape }}"
+                >
+                {{ option_key | t }}
+              </label>
+            {%- endfor -%}
+          </div>
+          <div class="wholesale-application__field wholesale-application__field--conditional" data-conditional-value="other">
+            <label for="wholesale-business-type-other-{{ section.id }}">
+              {{ 'wholesale_application_preview.business_type_other_detail' | t }}
             </label>
-          {%- endfor -%}
-        </div>
-      </fieldset>
+            <input
+              class="wholesale-application__input"
+              id="wholesale-business-type-other-{{ section.id }}"
+              name="business_type_other"
+              type="text"
+              data-summary-label="{{ 'wholesale_application_preview.business_type_other_detail' | t | escape }}"
+            >
+          </div>
+        </fieldset>
 
-      <fieldset class="wholesale-application__choice-group">
-        <legend>{{ 'wholesale_application_preview.location_type' | t }}</legend>
-        <div class="wholesale-application__choices">
-          <label class="wholesale-application__choice" for="wholesale-location-commercial-{{ section.id }}">
-            <input
-              id="wholesale-location-commercial-{{ section.id }}"
-              name="location_type"
-              type="radio"
-              value="commercial"
-              data-summary-label="{{ 'wholesale_application_preview.location_type' | t | escape }}"
-            >
-            {{ 'wholesale_application_preview.location_commercial' | t }}
-          </label>
-          <label class="wholesale-application__choice" for="wholesale-location-retail-{{ section.id }}">
-            <input
-              id="wholesale-location-retail-{{ section.id }}"
-              name="location_type"
-              type="radio"
-              value="retail"
-              data-summary-label="{{ 'wholesale_application_preview.location_type' | t | escape }}"
-            >
-            {{ 'wholesale_application_preview.location_retail' | t }}
-          </label>
-          <label class="wholesale-application__choice" for="wholesale-location-home-{{ section.id }}">
-            <input
-              id="wholesale-location-home-{{ section.id }}"
-              name="location_type"
-              type="radio"
-              value="home"
-              data-summary-label="{{ 'wholesale_application_preview.location_type' | t | escape }}"
-            >
-            {{ 'wholesale_application_preview.location_home' | t }}
-          </label>
-        </div>
-      </fieldset>
+        <fieldset class="wholesale-application__choice-group">
+          <legend>{{ 'wholesale_application_preview.purchased_before' | t }}</legend>
+          <div class="wholesale-application__choices">
+            <label class="wholesale-application__choice" for="wholesale-purchased-yes-{{ section.id }}">
+              <input
+                id="wholesale-purchased-yes-{{ section.id }}"
+                name="purchased_before"
+                type="radio"
+                value="yes"
+                data-summary-label="{{ 'wholesale_application_preview.purchased_before' | t | escape }}"
+              >
+              {{ 'wholesale_application_preview.yes' | t }}
+            </label>
+            <label class="wholesale-application__choice" for="wholesale-purchased-no-{{ section.id }}">
+              <input
+                id="wholesale-purchased-no-{{ section.id }}"
+                name="purchased_before"
+                type="radio"
+                value="no"
+                data-summary-label="{{ 'wholesale_application_preview.purchased_before' | t | escape }}"
+              >
+              {{ 'wholesale_application_preview.no' | t }}
+            </label>
+          </div>
+        </fieldset>
 
-      <button
-        class="button wholesale-application__preview-button"
-        type="button"
-        on:click="/previewApplication"
-      >
-        {{ 'wholesale_application_preview.preview_button' | t }}
-      </button>
+        <fieldset class="wholesale-application__choice-group wholesale-application__choice-group--wide">
+          <legend>{{ 'wholesale_application_preview.departments' | t }}</legend>
+          <div class="wholesale-application__choices wholesale-application__choices--grid">
+            {%- assign departments = 'fresh_flowers,roses,cut_greens,christmas_greenery,hardgoods,plants' | split: ',' -%}
+            {%- for department in departments -%}
+              {%- assign option_key = 'wholesale_application_preview.department_' | append: department -%}
+              <label class="wholesale-application__choice" for="wholesale-department-{{ department }}-{{ section.id }}">
+                <input
+                  id="wholesale-department-{{ department }}-{{ section.id }}"
+                  name="department"
+                  type="checkbox"
+                  value="{{ department }}"
+                  data-summary-label="{{ 'wholesale_application_preview.departments' | t | escape }}"
+                >
+                {{ option_key | t }}
+              </label>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+
+        <fieldset class="wholesale-application__choice-group wholesale-application__choice-group--wide">
+          <legend>{{ 'wholesale_application_preview.location_type' | t }}</legend>
+          <div class="wholesale-application__choices">
+            <label class="wholesale-application__choice" for="wholesale-location-commercial-{{ section.id }}">
+              <input
+                id="wholesale-location-commercial-{{ section.id }}"
+                name="location_type"
+                type="radio"
+                value="commercial"
+                data-summary-label="{{ 'wholesale_application_preview.location_type' | t | escape }}"
+              >
+              {{ 'wholesale_application_preview.location_commercial' | t }}
+            </label>
+            <label class="wholesale-application__choice" for="wholesale-location-retail-{{ section.id }}">
+              <input
+                id="wholesale-location-retail-{{ section.id }}"
+                name="location_type"
+                type="radio"
+                value="retail"
+                data-summary-label="{{ 'wholesale_application_preview.location_type' | t | escape }}"
+              >
+              {{ 'wholesale_application_preview.location_retail' | t }}
+            </label>
+            <label class="wholesale-application__choice" for="wholesale-location-home-{{ section.id }}">
+              <input
+                id="wholesale-location-home-{{ section.id }}"
+                name="location_type"
+                type="radio"
+                value="home"
+                data-summary-label="{{ 'wholesale_application_preview.location_type' | t | escape }}"
+              >
+              {{ 'wholesale_application_preview.location_home' | t }}
+            </label>
+          </div>
+        </fieldset>
+
+        <h2 class="wholesale-application__fields-heading">
+          {{ 'wholesale_application_preview.business_structure_heading' | t }}
+        </h2>
+        <fieldset
+          class="wholesale-application__choice-group wholesale-application__choice-group--wide"
+          data-conditional-fields
+          on:change="/updateConditionalFields"
+        >
+          <legend>{{ 'wholesale_application_preview.business_structure' | t }}</legend>
+          <div class="wholesale-application__choices">
+            {%- assign business_structures = 'corporation,partnership,sole_proprietorship' | split: ',' -%}
+            {%- for business_structure in business_structures -%}
+              {%- assign option_key = 'wholesale_application_preview.structure_' | append: business_structure -%}
+              <label class="wholesale-application__choice" for="wholesale-structure-{{ business_structure }}-{{ section.id }}">
+                <input
+                  id="wholesale-structure-{{ business_structure }}-{{ section.id }}"
+                  name="business_structure"
+                  type="radio"
+                  value="{{ business_structure }}"
+                  data-summary-label="{{ 'wholesale_application_preview.business_structure' | t | escape }}"
+                >
+                {{ option_key | t }}
+              </label>
+            {%- endfor -%}
+          </div>
+
+          <div class="wholesale-application__fields wholesale-application__fields--conditional" data-conditional-value="corporation">
+            <div class="wholesale-application__field">
+              <label for="wholesale-president-{{ section.id }}">{{ 'wholesale_application_preview.president' | t }}</label>
+              <input class="wholesale-application__input" id="wholesale-president-{{ section.id }}" name="president" type="text" data-validation-type="personal-name" data-summary-label="{{ 'wholesale_application_preview.president' | t | escape }}">
+            </div>
+            <div class="wholesale-application__field">
+              <label for="wholesale-vice-president-{{ section.id }}">{{ 'wholesale_application_preview.vice_president' | t }}</label>
+              <input class="wholesale-application__input" id="wholesale-vice-president-{{ section.id }}" name="vice_president" type="text" data-validation-type="personal-name" data-summary-label="{{ 'wholesale_application_preview.vice_president' | t | escape }}">
+            </div>
+            <div class="wholesale-application__field">
+              <label for="wholesale-treasurer-{{ section.id }}">{{ 'wholesale_application_preview.treasurer' | t }}</label>
+              <input class="wholesale-application__input" id="wholesale-treasurer-{{ section.id }}" name="treasurer" type="text" data-validation-type="personal-name" data-summary-label="{{ 'wholesale_application_preview.treasurer' | t | escape }}">
+            </div>
+          </div>
+          <div class="wholesale-application__field wholesale-application__field--conditional" data-conditional-value="partnership">
+            <label for="wholesale-partner-names-{{ section.id }}">{{ 'wholesale_application_preview.partner_names' | t }}</label>
+            <textarea class="wholesale-application__input" id="wholesale-partner-names-{{ section.id }}" name="partner_names" rows="3" data-validation-type="personal-name-lines" data-summary-label="{{ 'wholesale_application_preview.partner_names' | t | escape }}" ></textarea>
+          </div>
+          <div class="wholesale-application__field wholesale-application__field--conditional" data-conditional-value="sole_proprietorship">
+            <label for="wholesale-sole-proprietor-{{ section.id }}">{{ 'wholesale_application_preview.sole_proprietor' | t }}</label>
+            <input class="wholesale-application__input" id="wholesale-sole-proprietor-{{ section.id }}" name="sole_proprietor" type="text" data-validation-type="personal-name" data-summary-label="{{ 'wholesale_application_preview.sole_proprietor' | t | escape }}">
+          </div>
+        </fieldset>
+
+      </div>
+
+      <div class="wholesale-application__fields wholesale-application__step-panel" data-step-panel="3">
+        <h2 class="wholesale-application__step-heading" data-step-heading tabindex="-1">
+          {{ 'wholesale_application_preview.buyers_owner_step_title' | t }}
+        </h2>
+        <h3 class="wholesale-application__fields-heading">
+          {{ 'wholesale_application_preview.authorized_buyers_heading' | t }}
+        </h3>
+        <div class="wholesale-application__field wholesale-application__field--wide">
+          <label for="wholesale-authorized-buyers-{{ section.id }}">{{ 'wholesale_application_preview.authorized_buyers' | t }}</label>
+          <textarea
+            class="wholesale-application__input"
+            id="wholesale-authorized-buyers-{{ section.id }}"
+            name="authorized_buyers"
+            rows="4"
+            aria-describedby="wholesale-authorized-buyers-help-{{ section.id }}"
+            data-validation-type="personal-name-lines"
+            data-summary-label="{{ 'wholesale_application_preview.authorized_buyers' | t | escape }}"
+          ></textarea>
+          <p id="wholesale-authorized-buyers-help-{{ section.id }}">
+            {{ 'wholesale_application_preview.authorized_buyers_help' | t }}
+          </p>
+        </div>
+
+        <h3 class="wholesale-application__fields-heading">
+          {{ 'wholesale_application_preview.owner_heading' | t }}
+        </h3>
+        <p class="wholesale-application__fields-note">
+          {{ 'wholesale_application_preview.home_contact_note' | t }}
+        </p>
+        <div class="wholesale-application__field">
+          <label for="wholesale-owner-name-{{ section.id }}">{{ 'wholesale_application_preview.owner_name' | t }}</label>
+          <input class="wholesale-application__input" id="wholesale-owner-name-{{ section.id }}" name="owner_name" type="text" autocomplete="name" data-validation-type="personal-name" data-summary-label="{{ 'wholesale_application_preview.owner_name' | t | escape }}">
+        </div>
+        <div class="wholesale-application__field wholesale-application__field--wide">
+          <label for="wholesale-owner-home-address-{{ section.id }}">{{ 'wholesale_application_preview.owner_home_address' | t }}</label>
+          <input class="wholesale-application__input" id="wholesale-owner-home-address-{{ section.id }}" name="owner_home_address" type="text" autocomplete="street-address" data-summary-label="{{ 'wholesale_application_preview.owner_home_address' | t | escape }}">
+        </div>
+        <div class="wholesale-application__field">
+          <label for="wholesale-owner-home-city-{{ section.id }}">{{ 'wholesale_application_preview.owner_home_city' | t }}</label>
+          <input class="wholesale-application__input" id="wholesale-owner-home-city-{{ section.id }}" name="owner_home_city" type="text" autocomplete="address-level2" data-validation-type="city" data-summary-label="{{ 'wholesale_application_preview.owner_home_city' | t | escape }}">
+        </div>
+        <div class="wholesale-application__field wholesale-application__region-group" data-us-region-group>
+          <div class="wholesale-application__field" data-us-region>
+            <label for="wholesale-owner-home-state-us-{{ section.id }}">{{ 'wholesale_application_preview.owner_home_state' | t }}</label>
+            <select class="wholesale-application__input" id="wholesale-owner-home-state-us-{{ section.id }}" name="owner_home_state_us" autocomplete="address-level1" data-validation-type="us-state" data-summary-label="{{ 'wholesale_application_preview.owner_home_state' | t | escape }}">
+              <option value="">{{ 'wholesale_application_preview.state_placeholder' | t }}</option>
+              {%- for state in us_states -%}
+                {%- assign state_parts = state | split: ':' -%}
+                {%- assign state_key = 'wholesale_application_preview.us_state_' | append: state_parts[0] -%}
+                <option value="{{ state_parts[1] }}">{{ state_key | t }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+          <div class="wholesale-application__field" data-international-region>
+            <label for="wholesale-owner-home-state-international-{{ section.id }}">{{ 'wholesale_application_preview.international_region' | t }}</label>
+            <input class="wholesale-application__input" id="wholesale-owner-home-state-international-{{ section.id }}" name="owner_home_state" type="text" autocomplete="address-level1" data-validation-type="international-region" data-summary-label="{{ 'wholesale_application_preview.owner_home_state' | t | escape }}">
+          </div>
+        </div>
+        <div class="wholesale-application__field">
+          <label for="wholesale-owner-home-zip-{{ section.id }}">{{ 'wholesale_application_preview.owner_home_zip' | t }}</label>
+          <input class="wholesale-application__input" id="wholesale-owner-home-zip-{{ section.id }}" name="owner_home_zip" type="text" autocomplete="postal-code" data-validation-type="us-postal" data-summary-label="{{ 'wholesale_application_preview.owner_home_zip' | t | escape }}">
+        </div>
+        <div class="wholesale-application__field">
+          <label for="wholesale-owner-home-phone-{{ section.id }}">{{ 'wholesale_application_preview.owner_home_phone' | t }}</label>
+          <input class="wholesale-application__input" id="wholesale-owner-home-phone-{{ section.id }}" name="owner_home_phone" type="tel" autocomplete="tel" inputmode="tel" data-validation-type="us-phone" data-summary-label="{{ 'wholesale_application_preview.owner_home_phone' | t | escape }}" on:blur="/formatPhone">
+        </div>
+
+      </div>
+
+      <div class="wholesale-application__fields wholesale-application__step-panel" data-step-panel="4">
+        <h2 class="wholesale-application__step-heading" data-step-heading tabindex="-1">
+          {{ 'wholesale_application_preview.applicant_acknowledgment_heading' | t }}
+        </h2>
+        <p class="wholesale-application__fields-note wholesale-application__field--wide">
+          {{ 'wholesale_application_preview.signature_prototype_note' | t }}
+        </p>
+        <div class="wholesale-application__acknowledgment-fields">
+          <div class="wholesale-application__field">
+            <label for="wholesale-signature-name-{{ section.id }}">{{ 'wholesale_application_preview.signature_name' | t }}</label>
+            <input class="wholesale-application__input" id="wholesale-signature-name-{{ section.id }}" name="signature_name" type="text" autocomplete="name" data-validation-type="personal-name" data-summary-label="{{ 'wholesale_application_preview.signature_name' | t | escape }}">
+          </div>
+          <div class="wholesale-application__field">
+            <label for="wholesale-signature-title-{{ section.id }}">{{ 'wholesale_application_preview.signature_title' | t }}</label>
+            <input class="wholesale-application__input" id="wholesale-signature-title-{{ section.id }}" name="signature_title" type="text" data-summary-label="{{ 'wholesale_application_preview.signature_title' | t | escape }}">
+          </div>
+        </div>
+        <div class="wholesale-application__field">
+          <label for="wholesale-signature-date-{{ section.id }}">{{ 'wholesale_application_preview.signature_date' | t }}</label>
+          <output class="wholesale-application__input wholesale-application__date-display" id="wholesale-signature-date-{{ section.id }}" name="signature_date" data-summary-label="{{ 'wholesale_application_preview.signature_date' | t | escape }}" aria-live="polite"></output>
+        </div>
+
+      </div>
+
+      <div class="wholesale-application__step-navigation" ref="navigation" role="group" aria-label="{{ 'wholesale_application_preview.step_navigation_label' | t | escape }}" hidden>
+        <p class="wholesale-application__step-progress" ref="progress" aria-live="polite" aria-atomic="true"></p>
+        <button class="button button--secondary wholesale-application__navigation-button" type="button" data-step-back on:click="/goBack">
+          {{ 'wholesale_application_preview.step_back' | t }}
+        </button>
+        <button class="button wholesale-application__navigation-button" type="button" data-step-continue on:click="/goForward">
+          {{ 'wholesale_application_preview.step_continue' | t }}
+        </button>
+      </div>
+
+      <div class="wholesale-application__step-panel" data-step-panel="5">
+        <h2
+          class="wholesale-application__step-heading"
+          id="wholesale-review-heading-{{ section.id }}"
+          data-step-heading
+          tabindex="-1"
+        >
+          {{ 'wholesale_application_preview.summary_heading' | t }}
+        </h2>
+        <section
+          class="wholesale-application__review"
+          ref="review"
+          aria-labelledby="wholesale-review-heading-{{ section.id }}"
+        >
+          <div class="wholesale-application__summary" ref="summary">
+            <section class="wholesale-application__summary-group">
+              <h3>
+                {{ 'wholesale_application_preview.business_details_step_title' | t }}
+                <button class="button button--secondary wholesale-application__edit-button" type="button" data-edit-step="1" on:click="/editStep">
+                  {{ 'wholesale_application_preview.edit_business_details' | t }}
+                </button>
+              </h3>
+              <dl class="wholesale-application__summary-list" data-summary-step="1"></dl>
+            </section>
+            <section class="wholesale-application__summary-group">
+              <h3>
+                {{ 'wholesale_application_preview.business_profile_heading' | t }}
+                <button class="button button--secondary wholesale-application__edit-button" type="button" data-edit-step="2" on:click="/editStep">
+                  {{ 'wholesale_application_preview.edit_business_profile' | t }}
+                </button>
+              </h3>
+              <dl class="wholesale-application__summary-list" data-summary-step="2"></dl>
+            </section>
+            <section class="wholesale-application__summary-group">
+              <h3>
+                {{ 'wholesale_application_preview.buyers_owner_step_title' | t }}
+                <button class="button button--secondary wholesale-application__edit-button" type="button" data-edit-step="3" on:click="/editStep">
+                  {{ 'wholesale_application_preview.edit_buyers_owner' | t }}
+                </button>
+              </h3>
+              <dl class="wholesale-application__summary-list" data-summary-step="3"></dl>
+            </section>
+            <section class="wholesale-application__summary-group">
+              <h3>
+                {{ 'wholesale_application_preview.applicant_acknowledgment_heading' | t }}
+                <button class="button button--secondary wholesale-application__edit-button" type="button" data-edit-step="4" on:click="/editStep">
+                  {{ 'wholesale_application_preview.edit_acknowledgment' | t }}
+                </button>
+              </h3>
+              <dl class="wholesale-application__summary-list" data-summary-step="4"></dl>
+            </section>
+          </div>
+        </section>
+      </div>
     </div>
 
     <p class="wholesale-application__status" ref="status" role="status" aria-live="polite"></p>
-
-    <section
-      class="wholesale-application__review"
-      ref="review"
-      aria-labelledby="wholesale-review-heading-{{ section.id }}"
-      hidden
-    >
-      <h2 id="wholesale-review-heading-{{ section.id }}">
-        {{ 'wholesale_application_preview.summary_heading' | t }}
-      </h2>
-      <dl class="wholesale-application__summary" ref="summary"></dl>
-    </section>
   </div>
 </wholesale-application-preview-component>
 
@@ -324,6 +646,10 @@
 
   .wholesale-application__required-note {
     margin-block: var(--gap-md) var(--gap-xl);
+  }
+
+  .wholesale-application__format-note {
+    margin: 0 0 var(--gap-xl);
   }
 
   .wholesale-application__information {
@@ -360,12 +686,64 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--gap-md);
+    align-items: start;
+  }
+
+  .wholesale-application__fields > * {
+    min-width: 0;
+  }
+
+  .wholesale-application__fields-heading,
+  .wholesale-application__fields-note,
+  .wholesale-application__choice-group--wide {
+    grid-column: 1 / -1;
+  }
+
+  .wholesale-application__fields-heading {
+    margin: var(--gap-lg) 0 0;
+  }
+
+  .wholesale-application__fields-note,
+  .wholesale-application__field p {
+    margin: 0;
   }
 
   .wholesale-application__field {
     display: grid;
+    align-content: start;
+    align-self: start;
     gap: var(--gap-2xs);
     min-width: 0;
+  }
+
+  .wholesale-application__region-group {
+    align-content: start;
+  }
+
+  .wholesale-application__field-error {
+    max-width: 100%;
+    min-width: 0;
+    margin: 0;
+    color: var(--color-foreground);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .wholesale-application__acknowledgment-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-md);
+    min-width: 0;
+  }
+
+  .wholesale-application__date-display {
+    display: flex;
+    align-items: center;
+    overflow-wrap: anywhere;
+  }
+
+  .wholesale-application [hidden] {
+    display: none;
   }
 
   .wholesale-application__field label,
@@ -374,6 +752,7 @@
   }
 
   .wholesale-application__input {
+    box-sizing: border-box;
     width: 100%;
     min-width: 0;
     padding: var(--padding-lg) var(--padding-xl);
@@ -383,9 +762,15 @@
     background: var(--color-input-background);
   }
 
+  textarea.wholesale-application__input {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
   .wholesale-application__input:focus-visible,
   .wholesale-application__choice input:focus-visible,
-  .wholesale-application__preview-button:focus-visible {
+  .wholesale-application__navigation-button:focus-visible,
+  .wholesale-application__edit-button:focus-visible {
     outline: var(--focus-outline-width) solid currentcolor;
     outline-offset: var(--focus-outline-offset);
   }
@@ -430,8 +815,37 @@
     accent-color: var(--color-foreground);
   }
 
-  .wholesale-application__preview-button {
-    justify-self: start;
+  .wholesale-application__step-panel {
+    gap: var(--gap-md);
+  }
+
+  .wholesale-application__step-heading {
+    grid-column: 1 / -1;
+    margin: 0 0 var(--gap-sm);
+  }
+
+  .wholesale-application__step-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--gap-sm);
+    padding-block-start: var(--gap-md);
+    border-block-start: var(--style-border-width-inputs) solid var(--color-input-border);
+  }
+
+  .wholesale-application__step-navigation[hidden] {
+    display: none;
+  }
+
+  .wholesale-application__step-progress {
+    flex: 1 1 100%;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .wholesale-application__navigation-button,
+  .wholesale-application__edit-button {
     max-width: 100%;
     white-space: normal;
   }
@@ -447,25 +861,40 @@
     border-radius: var(--style-border-radius-inputs);
   }
 
-  .wholesale-application__review h2 {
-    margin-block: 0 var(--gap-md);
+  .wholesale-application__summary {
+    display: grid;
+    gap: var(--gap-lg);
   }
 
-  .wholesale-application__summary {
+  .wholesale-application__summary-group {
+    min-width: 0;
+  }
+
+  .wholesale-application__summary-group h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap-sm);
+    margin: 0 0 var(--gap-sm);
+  }
+
+  .wholesale-application__summary-list {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--gap-xs) var(--gap-xl);
     margin: 0;
   }
 
-  .wholesale-application__summary dt {
+  .wholesale-application__summary-list dt {
     font-weight: 600;
   }
 
-  .wholesale-application__summary dd {
+  .wholesale-application__summary-list dd {
     min-width: 0;
     margin: 0 0 var(--gap-sm);
     overflow-wrap: anywhere;
+    white-space: pre-wrap;
   }
 
   @media screen and (min-width: 750px) {
@@ -478,11 +907,32 @@
       grid-column: 1 / -1;
     }
 
-    .wholesale-application__summary {
+    .wholesale-application__acknowledgment-fields {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: auto auto auto;
+      column-gap: var(--gap-md);
+    }
+
+    .wholesale-application__acknowledgment-fields > .wholesale-application__field {
+      grid-row: span 3;
+      grid-template-rows: subgrid;
+    }
+
+    .wholesale-application__step-navigation {
+      justify-content: flex-start;
+    }
+
+    .wholesale-application__step-progress {
+      flex-basis: auto;
+      margin-inline-end: auto;
+    }
+
+    .wholesale-application__summary-list {
       grid-template-columns: minmax(10rem, 1fr) minmax(0, 2fr);
     }
 
-    .wholesale-application__summary dd {
+    .wholesale-application__summary-list dd {
       margin-block-end: 0;
     }
   }

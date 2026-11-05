@@ -26,6 +26,33 @@ does not send applications or create accounts. The supervisor email workflow,
 application handling, customer migration, and access enforcement are not
 implemented by that prototype.
 
+## Wholesale application prototype fields
+
+The preview reuses its existing business name, contact first and last names,
+business email, business phone, business address, city, state, ZIP, country,
+prior-purchase question, merchandise-interest options, and business-location
+type. The merchandise options now describe the products the applicant intends
+to purchase from Carbone.
+
+The prototype adds fields for products the applicant's business sells, retail
+or sales-tax permit number and issuing state, business type (including an
+"Other" detail field), authorized buyers, business organization structure and
+its applicable names, owner/principal officer home contact details, business
+fax, and applicant name/title/date. Home contact fields are presented
+separately from purchasing-firm details. Organization-specific fields appear
+only for the selected corporation, partnership, or sole-proprietorship
+structure. The typed-name acknowledgment and automatically displayed local date
+are for the preview only; neither constitutes a legally valid electronic
+signature or authoritative timestamp. The production backend must generate the
+authoritative acknowledgment timestamp.
+No fields reserved for Carbone staff completion are included.
+
+Required-field rules for the newly added fields are pending team confirmation;
+they are optional in this prototype. The existing required fields remain
+unchanged. The document information card remains informational: the current
+prototype has no upload control and does not upload documents. Document types,
+upload requirements, and secure handling remain pending.
+
 ## Recommended access model
 
 Use supervisor approval as the business decision and Shopify B2B
@@ -248,6 +275,13 @@ independent verification; hiding shared Liquid markup alone is not sufficient.
 - **Credit-card authorization:** requirements, timing, and an approved
   payment-provider workflow remain pending. Do not collect card numbers or CVV
   in this application.
+- **Address autocomplete and full-address verification (pending pre-launch):**
+  check street, city, state/region, postal code, and country together; suggest
+  corrections when the address cannot be verified as entered; and allow manual
+  entry flagged for supervisor review when verification is unavailable or
+  unsuccessful. Provider, costs, credentials, and backend integration remain
+  undecided. The current form checks address-field formats only and does not
+  verify addresses.
 - **Other application data:** document types, requiredness, approval criteria,
   secure storage, and staff access remain pending decisions.
 
