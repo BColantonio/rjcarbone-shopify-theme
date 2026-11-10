@@ -20,6 +20,9 @@
   data-buyer-names-error="{{ 'wholesale_application_preview.validation_buyer_names' | t | escape }}"
   data-number-name-error="{{ 'wholesale_application_preview.validation_numeric_name' | t | escape }}"
   data-state-error="{{ 'wholesale_application_preview.validation_us_state' | t | escape }}"
+  data-document-type-error="{{ 'wholesale_application_preview.document_type_error' | t | escape }}"
+  data-document-size-error="{{ 'wholesale_application_preview.document_size_error' | t | escape }}"
+  data-document-file-summary="{{ 'wholesale_application_preview.document_file_summary' | t | escape }}"
   on:keydown="/handleKeydown"
 >
   <div class="wholesale-application__content">
@@ -29,28 +32,18 @@
     <h1 class="wholesale-application__title">
       {{ 'wholesale_application_preview.heading' | t }}
     </h1>
-    <p>{{ 'wholesale_application_preview.intro' | t }}</p>
-    <p class="wholesale-application__required-note">
-      {{ 'wholesale_application_preview.required_note' | t }}
-    </p>
-    <p class="wholesale-application__format-note">
-      {{ 'wholesale_application_preview.format_note' | t }}
-    </p>
-
-    <div class="wholesale-application__information">
-      <section class="wholesale-application__information-card" aria-labelledby="wholesale-documents-{{ section.id }}">
-        <h2 id="wholesale-documents-{{ section.id }}">
-          {{ 'wholesale_application_preview.documents_heading' | t }}
-        </h2>
-        <p>{{ 'wholesale_application_preview.documents_description' | t }}</p>
-      </section>
-      <section class="wholesale-application__information-card" aria-labelledby="wholesale-payment-{{ section.id }}">
-        <h2 id="wholesale-payment-{{ section.id }}">
-          {{ 'wholesale_application_preview.payment_heading' | t }}
-        </h2>
-        <p>{{ 'wholesale_application_preview.payment_description' | t }}</p>
-      </section>
-    </div>
+    <details class="wholesale-application__information">
+      <summary>{{ 'wholesale_application_preview.required_note' | t }}</summary>
+      <div class="wholesale-application__information-content">
+        <p>{{ 'wholesale_application_preview.format_note' | t }}</p>
+        <section class="wholesale-application__information-item" aria-labelledby="wholesale-payment-{{ section.id }}">
+          <h2 id="wholesale-payment-{{ section.id }}">
+            {{ 'wholesale_application_preview.payment_heading' | t }}
+          </h2>
+          <p>{{ 'wholesale_application_preview.payment_description' | t }}</p>
+        </section>
+      </div>
+    </details>
 
     <div
       class="wholesale-application__form"
@@ -528,6 +521,92 @@
 
       <div class="wholesale-application__fields wholesale-application__step-panel" data-step-panel="4">
         <h2 class="wholesale-application__step-heading" data-step-heading tabindex="-1">
+          {{ 'wholesale_application_preview.documents_step_title' | t }}
+        </h2>
+        <p class="wholesale-application__fields-note wholesale-application__field--wide">
+          {{ 'wholesale_application_preview.documents_prototype_notice' | t }}
+        </p>
+        <p class="wholesale-application__fields-note wholesale-application__field--wide">
+          {{ 'wholesale_application_preview.documents_validation_note' | t }}
+        </p>
+        <p class="wholesale-application__fields-note wholesale-application__field--wide">
+          {{ 'wholesale_application_preview.documents_description' | t }}
+        </p>
+        <div class="wholesale-application__document-field" data-document-field="identification">
+          <label for="wholesale-identification-document-{{ section.id }}">
+            {{ 'wholesale_application_preview.identification_document' | t }}
+          </label>
+          <input
+            class="wholesale-application__input"
+            id="wholesale-identification-document-{{ section.id }}"
+            name="identification_document"
+            type="file"
+            accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+            data-document-input
+            data-document-slot="identification"
+            data-summary-label="{{ 'wholesale_application_preview.identification_document' | t | escape }}"
+            aria-describedby="wholesale-identification-help-{{ section.id }} wholesale-identification-error-{{ section.id }}"
+            disabled
+            on:change="/handleDocumentSelection"
+          >
+          <p id="wholesale-identification-help-{{ section.id }}" class="wholesale-application__fields-note">
+            {{ 'wholesale_application_preview.document_file_help' | t }}
+          </p>
+          <p id="wholesale-identification-error-{{ section.id }}" class="wholesale-application__field-error" data-document-error role="alert" hidden></p>
+          <div class="wholesale-application__document-details" data-document-details hidden>
+            <p class="wholesale-application__document-summary" data-document-summary aria-live="polite" aria-atomic="true"></p>
+            <div class="wholesale-application__document-actions">
+              <button class="button button--secondary wholesale-application__document-button" type="button" data-document-replace aria-label="{{ 'wholesale_application_preview.document_replace' | t }}: {{ 'wholesale_application_preview.identification_document' | t | escape }}" on:click="/replaceDocument">
+                {{ 'wholesale_application_preview.document_replace' | t }}
+              </button>
+              <button class="button button--secondary wholesale-application__document-button" type="button" data-document-remove aria-label="{{ 'wholesale_application_preview.document_remove' | t }}: {{ 'wholesale_application_preview.identification_document' | t | escape }}" on:click="/removeDocument">
+                {{ 'wholesale_application_preview.document_remove' | t }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="wholesale-application__document-field" data-document-field="resale-certificate">
+          <label for="wholesale-resale-certificate-{{ section.id }}">
+            {{ 'wholesale_application_preview.resale_certificate_document' | t }}
+          </label>
+          <input
+            class="wholesale-application__input"
+            id="wholesale-resale-certificate-{{ section.id }}"
+            name="resale_certificate_document"
+            type="file"
+            accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+            data-document-input
+            data-document-slot="resale-certificate"
+            data-summary-label="{{ 'wholesale_application_preview.resale_certificate_document' | t | escape }}"
+            aria-describedby="wholesale-resale-certificate-help-{{ section.id }} wholesale-resale-certificate-error-{{ section.id }}"
+            disabled
+            on:change="/handleDocumentSelection"
+          >
+          <p id="wholesale-resale-certificate-help-{{ section.id }}" class="wholesale-application__fields-note">
+            {{ 'wholesale_application_preview.document_file_help' | t }}
+          </p>
+          <p id="wholesale-resale-certificate-error-{{ section.id }}" class="wholesale-application__field-error" data-document-error role="alert" hidden></p>
+          <div class="wholesale-application__document-details" data-document-details hidden>
+            <p class="wholesale-application__document-summary" data-document-summary aria-live="polite" aria-atomic="true"></p>
+            <div class="wholesale-application__document-actions">
+              <button class="button button--secondary wholesale-application__document-button" type="button" data-document-replace aria-label="{{ 'wholesale_application_preview.document_replace' | t }}: {{ 'wholesale_application_preview.resale_certificate_document' | t | escape }}" on:click="/replaceDocument">
+                {{ 'wholesale_application_preview.document_replace' | t }}
+              </button>
+              <button class="button button--secondary wholesale-application__document-button" type="button" data-document-remove aria-label="{{ 'wholesale_application_preview.document_remove' | t }}: {{ 'wholesale_application_preview.resale_certificate_document' | t | escape }}" on:click="/removeDocument">
+                {{ 'wholesale_application_preview.document_remove' | t }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <noscript>
+          <p class="wholesale-application__fields-note wholesale-application__field--wide">
+            {{ 'wholesale_application_preview.document_javascript_required' | t }}
+          </p>
+        </noscript>
+      </div>
+
+      <div class="wholesale-application__fields wholesale-application__step-panel" data-step-panel="5">
+        <h2 class="wholesale-application__step-heading" data-step-heading tabindex="-1">
           {{ 'wholesale_application_preview.applicant_acknowledgment_heading' | t }}
         </h2>
         <p class="wholesale-application__fields-note wholesale-application__field--wide">
@@ -560,7 +639,7 @@
         </button>
       </div>
 
-      <div class="wholesale-application__step-panel" data-step-panel="5">
+      <div class="wholesale-application__step-panel" data-step-panel="6">
         <h2
           class="wholesale-application__step-heading"
           id="wholesale-review-heading-{{ section.id }}"
@@ -604,12 +683,21 @@
             </section>
             <section class="wholesale-application__summary-group">
               <h3>
-                {{ 'wholesale_application_preview.applicant_acknowledgment_heading' | t }}
+                {{ 'wholesale_application_preview.documents_step_title' | t }}
                 <button class="button button--secondary wholesale-application__edit-button" type="button" data-edit-step="4" on:click="/editStep">
-                  {{ 'wholesale_application_preview.edit_acknowledgment' | t }}
+                  {{ 'wholesale_application_preview.edit_documents' | t }}
                 </button>
               </h3>
               <dl class="wholesale-application__summary-list" data-summary-step="4"></dl>
+            </section>
+            <section class="wholesale-application__summary-group">
+              <h3>
+                {{ 'wholesale_application_preview.applicant_acknowledgment_heading' | t }}
+                <button class="button button--secondary wholesale-application__edit-button" type="button" data-edit-step="5" on:click="/editStep">
+                  {{ 'wholesale_application_preview.edit_acknowledgment' | t }}
+                </button>
+              </h3>
+              <dl class="wholesale-application__summary-list" data-summary-step="5"></dl>
             </section>
           </div>
         </section>
@@ -644,37 +732,39 @@
     margin-block: 0 var(--gap-sm);
   }
 
-  .wholesale-application__required-note {
-    margin-block: var(--gap-md) var(--gap-xl);
-  }
-
-  .wholesale-application__format-note {
-    margin: 0 0 var(--gap-xl);
-  }
-
   .wholesale-application__information {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--gap-md);
-    margin-block-end: var(--gap-2xl);
+    margin-block: 0 var(--gap-xl);
+    border-block: var(--style-border-width-inputs) solid var(--color-input-border);
   }
 
-  .wholesale-application__information-card {
+  .wholesale-application__information > summary {
     min-width: 0;
-    padding: var(--padding-lg);
-    border: var(--style-border-width-inputs) solid var(--color-input-border);
-    border-radius: var(--style-border-radius-inputs);
-    background: var(--color-input-background);
+    padding-block: var(--padding-sm);
+    font-weight: 600;
+    cursor: pointer;
+    overflow-wrap: anywhere;
   }
 
-  .wholesale-application__information-card h2 {
+  .wholesale-application__information-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gap-md);
+    padding-block: 0 var(--padding-md);
+  }
+
+  .wholesale-application__information-content > p,
+  .wholesale-application__information-item p {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .wholesale-application__information-item {
+    min-width: 0;
+  }
+
+  .wholesale-application__information-item h2 {
     margin-block: 0 var(--gap-xs);
     font-size: var(--font-paragraph--size);
-  }
-
-  .wholesale-application__information-card p {
-    margin-block: 0;
-    overflow-wrap: anywhere;
   }
 
   .wholesale-application__form {
@@ -742,6 +832,40 @@
     overflow-wrap: anywhere;
   }
 
+  .wholesale-application__document-field {
+    display: grid;
+    align-content: start;
+    gap: var(--gap-2xs);
+    min-width: 0;
+    padding: var(--padding-md);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    background: var(--color-input-background);
+  }
+
+  .wholesale-application__document-field label {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+
+  .wholesale-application__document-summary,
+  .wholesale-application__document-field > p {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .wholesale-application__document-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+  }
+
+  .wholesale-application__document-button {
+    max-width: 100%;
+    white-space: normal;
+  }
+
   .wholesale-application [hidden] {
     display: none;
   }
@@ -770,7 +894,8 @@
   .wholesale-application__input:focus-visible,
   .wholesale-application__choice input:focus-visible,
   .wholesale-application__navigation-button:focus-visible,
-  .wholesale-application__edit-button:focus-visible {
+  .wholesale-application__edit-button:focus-visible,
+  .wholesale-application__information > summary:focus-visible {
     outline: var(--focus-outline-width) solid currentcolor;
     outline-offset: var(--focus-outline-offset);
   }
@@ -828,7 +953,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: var(--gap-sm);
     padding-block-start: var(--gap-md);
     border-block-start: var(--style-border-width-inputs) solid var(--color-input-border);
@@ -841,7 +966,7 @@
   .wholesale-application__step-progress {
     flex: 1 1 100%;
     margin: 0;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .wholesale-application__navigation-button,
@@ -855,19 +980,20 @@
   }
 
   .wholesale-application__review {
-    margin-block-start: var(--gap-2xl);
-    padding: var(--padding-lg);
-    border: var(--style-border-width-inputs) solid var(--color-input-border);
-    border-radius: var(--style-border-radius-inputs);
+    margin-block-start: var(--gap-md);
   }
 
   .wholesale-application__summary {
     display: grid;
-    gap: var(--gap-lg);
+    gap: var(--gap-md);
   }
 
   .wholesale-application__summary-group {
     min-width: 0;
+    padding: var(--padding-md);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    background: var(--color-input-background);
   }
 
   .wholesale-application__summary-group h3 {
@@ -876,14 +1002,17 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--gap-sm);
-    margin: 0 0 var(--gap-sm);
+    margin: 0;
+    padding-block-end: var(--gap-sm);
+    border-block-end: var(--style-border-width-inputs) solid var(--color-input-border);
   }
 
   .wholesale-application__summary-list {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--gap-xs) var(--gap-xl);
+    gap: var(--gap-2xs) var(--gap-xl);
     margin: 0;
+    padding-block-start: var(--gap-sm);
   }
 
   .wholesale-application__summary-list dt {
@@ -892,15 +1021,23 @@
 
   .wholesale-application__summary-list dd {
     min-width: 0;
-    margin: 0 0 var(--gap-sm);
+    margin: 0;
     overflow-wrap: anywhere;
     white-space: pre-wrap;
   }
 
+  .wholesale-application__summary-list dd.wholesale-application__summary-value--empty {
+    font-style: italic;
+  }
+
   @media screen and (min-width: 750px) {
-    .wholesale-application__information,
+    .wholesale-application__information-content,
     .wholesale-application__fields {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .wholesale-application__information-content > p {
+      grid-column: 1 / -1;
     }
 
     .wholesale-application__field--wide {
@@ -919,13 +1056,8 @@
       grid-template-rows: subgrid;
     }
 
-    .wholesale-application__step-navigation {
-      justify-content: flex-start;
-    }
-
     .wholesale-application__step-progress {
-      flex-basis: auto;
-      margin-inline-end: auto;
+      flex-basis: 100%;
     }
 
     .wholesale-application__summary-list {

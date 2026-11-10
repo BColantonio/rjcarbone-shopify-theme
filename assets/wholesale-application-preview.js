@@ -7,6 +7,7 @@ class WholesaleApplicationPreview extends Component {
   constructor() {
     super();
     this.requiredRefs = ['applicationFields', 'navigation', 'progress', 'status', 'review', 'summary'];
+    this.documentFiles = new Map();
   }
 
   connectedCallback() {
@@ -18,6 +19,9 @@ class WholesaleApplicationPreview extends Component {
     }
 
     this.updateAddressFields();
+    for (const input of this.querySelectorAll('[data-document-input]')) {
+      if (input instanceof HTMLInputElement) input.disabled = false;
+    }
     this.refs.navigation.hidden = false;
     this.showStep(this.currentStep, false);
   }
@@ -25,6 +29,7 @@ class WholesaleApplicationPreview extends Component {
   clearPreview() {
     this.clearStatus();
     for (const control of this.querySelectorAll('[aria-invalid="true"]')) {
+      if (control instanceof HTMLInputElement && control.type === 'file') continue;
       if (this.isFormControl(control)) this.validateControl(control);
     }
   }
@@ -196,6 +201,138 @@ class WholesaleApplicationPreview extends Component {
     date.value = this.getTodayDate();
   }
 
+  /** @param {File} file */
+  getDocumentError(file) {
+    const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
+    const types = {
+      pdf: 'application/pdf',
+      jpg: 'image/jpeg',
+      jpeg: 'image/jpeg',
+      png: 'image/png',
+    };
+    const expectedType = types[extension];
+
+    if (!Object.prototype.hasOwnProperty.call(types, extension) || (file.type && file.type !== expectedType)) {
+      return this.dataset.documentTypeError ?? '';
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      return this.dataset.documentSizeError ?? '';
+    }
+
+    return '';
+  }
+
+  /** @param {number} size */
+  formatFileSize(size) {
+    if (size < 1024) return `${size} B`;
+    if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)} KB`;
+    return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+  }
+
+  /** @param {string} slot */
+  renderDocumentSlot(slot) {
+    const field = this.querySelector(`[data-document-field="${slot}"]`);
+    const input = field?.querySelector('[data-document-input]');
+    const details = field?.querySelector('[data-document-details]');
+    const summary = field?.querySelector('[data-document-summary]');
+
+    if (
+      !(field instanceof HTMLElement) ||
+      !(input instanceof HTMLInputElement) ||
+      !(details instanceof HTMLElement) ||
+      !(summary instanceof HTMLElement)
+    ) {
+      throw new Error(`Wholesale application preview is missing the "${slot}" document controls.`);
+    }
+
+    const file = this.documentFiles.get(slot);
+    input.hidden = Boolean(file);
+    details.hidden = !file;
+
+    if (file) {
+      const template = this.dataset.documentFileSummary ?? '{name} ({size})';
+      summary.textContent = template
+        .replace('{name}', file.name)
+        .replace('{size}', this.formatFileSize(file.size));
+    } else {
+      summary.textContent = '';
+    }
+  }
+
+  /** @param {Event} event */
+  handleDocumentSelection(event) {
+    const input = event.target;
+    if (!(input instanceof HTMLInputElement) || input.type !== 'file') return;
+
+    const slot = input.dataset.documentSlot;
+    const file = input.files?.[0];
+    if (!slot || !file) return;
+
+    const field = input.closest('[data-document-field]');
+    const error = field?.querySelector('[data-document-error]');
+    if (!(error instanceof HTMLElement)) {
+      throw new Error(`Wholesale application preview is missing the "${slot}" document error message.`);
+    }
+
+    const message = this.getDocumentError(file);
+    if (message) {
+      error.textContent = message;
+      error.hidden = false;
+      input.setAttribute('aria-invalid', 'true');
+      input.value = '';
+      return;
+    }
+
+    this.documentFiles.set(slot, file);
+    error.textContent = '';
+    error.hidden = true;
+    input.removeAttribute('aria-invalid');
+    input.value = '';
+    this.renderDocumentSlot(slot);
+    this.clearStatus();
+  }
+
+  /** @param {Event} event */
+  replaceDocument(event) {
+    const target = event.composedPath()[0];
+    const field = target instanceof Element ? target.closest('[data-document-field]') : null;
+    const input = field?.querySelector('[data-document-input]');
+    const error = field?.querySelector('[data-document-error]');
+
+    if (!(input instanceof HTMLInputElement) || !(error instanceof HTMLElement)) {
+      throw new Error('Wholesale application preview is missing the document replacement input.');
+    }
+
+    error.textContent = '';
+    error.hidden = true;
+    input.removeAttribute('aria-invalid');
+    input.value = '';
+    input.hidden = false;
+    input.click();
+  }
+
+  /** @param {Event} event */
+  removeDocument(event) {
+    const target = event.composedPath()[0];
+    const field = target instanceof Element ? target.closest('[data-document-field]') : null;
+    const input = field?.querySelector('[data-document-input]');
+    const slot = input instanceof HTMLInputElement ? input.dataset.documentSlot : '';
+    const error = field?.querySelector('[data-document-error]');
+
+    if (!slot || !(input instanceof HTMLInputElement) || !(error instanceof HTMLElement)) {
+      throw new Error('Wholesale application preview is missing the document removal controls.');
+    }
+
+    this.documentFiles.delete(slot);
+    input.value = '';
+    input.removeAttribute('aria-invalid');
+    error.textContent = '';
+    error.hidden = true;
+    this.renderDocumentSlot(slot);
+    this.clearStatus();
+  }
+
   /** @param {string} value */
   isValidUsPhone(value) {
     if (!/^\+?[\d\s().-]+$/.test(value)) return false;
@@ -273,7 +410,10 @@ class WholesaleApplicationPreview extends Component {
   /** @param {HTMLElement} panel */
   validatePanel(panel) {
     const controls = Array.from(panel.querySelectorAll('input, textarea, select')).filter(
-      (control) => this.isFormControl(control) && !control.disabled
+      (control) =>
+        this.isFormControl(control) &&
+        !control.disabled &&
+        !(control instanceof HTMLInputElement && control.type === 'file')
     );
     const invalidControls = [];
     for (const control of controls) {
@@ -343,10 +483,10 @@ class WholesaleApplicationPreview extends Component {
     }
 
     this.currentStep = step;
-    if (step === 4) this.refreshAcknowledgmentDate();
+    if (step === 5) this.refreshAcknowledgmentDate();
     backButton.hidden = step === 1;
-    continueButton.hidden = step === 5;
-    progress.textContent = `${this.dataset.stepLabel} ${step} ${this.dataset.stepOf} 5`;
+    continueButton.hidden = step === 6;
+    progress.textContent = `${this.dataset.stepLabel} ${step} ${this.dataset.stepOf} 6`;
 
     if (focusHeading) {
       const heading = panel.querySelector('[data-step-heading]');
@@ -396,11 +536,11 @@ class WholesaleApplicationPreview extends Component {
   }
 
   goForward() {
-    if (this.currentStep >= 5 || !this.validateCurrentStep()) return;
+    if (this.currentStep >= 6 || !this.validateCurrentStep()) return;
 
     const nextStep = this.currentStep + 1;
-    if (nextStep === 5) {
-      for (let step = 1; step <= 4; step += 1) {
+    if (nextStep === 6) {
+      for (let step = 1; step <= 5; step += 1) {
         const panel = this.querySelector(`[data-step-panel="${step}"]`);
         if (!(panel instanceof HTMLElement)) {
           throw new Error(`Wholesale application step ${step} is missing.`);
@@ -433,11 +573,20 @@ class WholesaleApplicationPreview extends Component {
     const target = event.target;
     const button = target instanceof Element ? target.closest('[data-edit-step]') : null;
     const step = button instanceof HTMLElement ? Number(button.dataset.editStep) : NaN;
-    if (!Number.isInteger(step) || step < 1 || step > 4) {
+    if (!Number.isInteger(step) || step < 1 || step > 5) {
       throw new Error('Wholesale application review has an invalid edit step.');
     }
 
     this.showStep(step, true);
+  }
+
+  /** @param {string} slot */
+  getDocumentSummary(slot) {
+    const file = this.documentFiles.get(slot);
+    if (!file) return this.dataset.notProvided ?? '';
+
+    const template = this.dataset.documentFileSummary ?? '{name} ({size})';
+    return template.replace('{name}', file.name).replace('{size}', this.formatFileSize(file.size));
   }
 
   renderSummary() {
@@ -513,6 +662,10 @@ class WholesaleApplicationPreview extends Component {
         ['owner_home_phone', readValue('owner_home_phone')],
       ],
       [
+        ['identification_document', this.getDocumentSummary('identification')],
+        ['resale_certificate_document', this.getDocumentSummary('resale-certificate')],
+      ],
+      [
         ['signature_name', readValue('signature_name')],
         ['signature_title', readValue('signature_title')],
         ['signature_date', readValue('signature_date')],
@@ -549,6 +702,7 @@ class WholesaleApplicationPreview extends Component {
         term.textContent = label;
         const description = document.createElement('dd');
         description.textContent = value;
+        description.classList.toggle('wholesale-application__summary-value--empty', value === notProvided);
         list.append(term, description);
       }
     }

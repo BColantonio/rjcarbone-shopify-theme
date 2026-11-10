@@ -49,9 +49,13 @@ No fields reserved for Carbone staff completion are included.
 
 Required-field rules for the newly added fields are pending team confirmation;
 they are optional in this prototype. The existing required fields remain
-unchanged. The document information card remains informational: the current
-prototype has no upload control and does not upload documents. Document types,
-upload requirements, and secure handling remain pending.
+unchanged. Identification and resale-certificate selections in the prototype
+are optional pending team confirmation. They accept PDF, JPEG, and PNG sample
+files up to 10 MB each, held in page memory only and never uploaded or saved.
+The browser's file type and size checks do not replace production server
+validation. Secure upload, storage, retention, and staff-access implementation
+remain pending; production must define and enforce those controls before
+collecting real documents.
 
 ## Recommended access model
 
