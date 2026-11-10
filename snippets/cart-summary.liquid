@@ -214,6 +214,68 @@
     </div>
   {% endif %}
 
+  <cart-delivery-date
+    class="cart-delivery-date"
+    data-saved-date="{{ cart.attributes['Requested delivery date'] | escape }}"
+    data-saving-message="{{ 'content.requested_delivery_date_saving' | t | escape }}"
+    data-saved-message="{{ 'content.requested_delivery_date_saved' | t | escape }}"
+    data-cleared-message="{{ 'content.requested_delivery_date_cleared' | t | escape }}"
+    data-error-message="{{ 'content.requested_delivery_date_error' | t | escape }}"
+    data-past-message="{{ 'content.requested_delivery_date_past_error' | t | escape }}"
+  >
+    <label
+      class="cart-delivery-date__label cart-primary-typography"
+      for="cart-requested-delivery-date-{{ section_id | default: 'cart' }}"
+    >
+      {{ 'content.requested_delivery_date' | t }}
+    </label>
+    <p
+      class="cart-delivery-date__help"
+      id="cart-requested-delivery-date-help-{{ section_id | default: 'cart' }}"
+    >
+      {{ 'content.requested_delivery_date_help' | t }}
+    </p>
+    <input
+      ref="dateInput"
+      class="cart-delivery-date__input"
+      id="cart-requested-delivery-date-{{ section_id | default: 'cart' }}"
+      type="date"
+      name="attributes[Requested delivery date]"
+      value="{{ cart.attributes['Requested delivery date'] | escape }}"
+      form="cart-form"
+      aria-describedby="cart-requested-delivery-date-help-{{ section_id | default: 'cart' }} cart-requested-delivery-date-status-{{ section_id | default: 'cart' }}"
+      on:change="/handleDateChange"
+    >
+    <div class="cart-delivery-date__actions">
+      <button
+        ref="clearButton"
+        class="cart-delivery-date__button button-unstyled"
+        type="button"
+        on:click="/clearDate"
+        hidden
+      >
+        {{ 'actions.clear' | t }}
+      </button>
+      <button
+        ref="retryButton"
+        class="cart-delivery-date__button button-unstyled"
+        type="button"
+        on:click="/retrySave"
+        hidden
+      >
+        {{ 'content.requested_delivery_date_retry' | t }}
+      </button>
+    </div>
+    <p
+      ref="status"
+      class="cart-delivery-date__status"
+      id="cart-requested-delivery-date-status-{{ section_id | default: 'cart' }}"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    ></p>
+  </cart-delivery-date>
+
   {%- liquid
     if settings.currency_code_enabled_cart_total
       assign total_price = cart.total_price | money_with_currency
@@ -456,6 +518,57 @@
     max-width: 100%;
     font-size: var(--font-size--sm);
     padding: max(4px, calc(var(--style-border-radius-inputs) * (1 - cos(45deg))));
+  }
+
+  .cart-delivery-date {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+    min-width: 0;
+  }
+
+  .cart-delivery-date__label {
+    font-size: var(--font-size--2xs);
+    font-weight: 500;
+  }
+
+  .cart-delivery-date__help,
+  .cart-delivery-date__status {
+    margin: 0;
+    color: var(--color-foreground-subdued);
+    font-size: var(--font-size--2xs);
+    line-height: 1.4;
+  }
+
+  .cart-delivery-date__input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: var(--minimum-touch-target);
+    padding: var(--padding-sm) var(--padding-md);
+    color: var(--color-input-text);
+    background-color: var(--color-input-background);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+    font: inherit;
+  }
+
+  .cart-delivery-date__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+  }
+
+  .cart-delivery-date__button {
+    min-height: var(--minimum-touch-target);
+    color: var(--color-foreground);
+    font-size: var(--font-size--2xs);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .cart-delivery-date [hidden] {
+    display: none;
   }
 
   .cart-totals__icon {

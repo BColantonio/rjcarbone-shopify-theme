@@ -64,6 +64,14 @@
   ></script>
 {% endif %}
 
+{% if template.name == 'cart' or settings.cart_type == 'drawer' %}
+  <script
+    src="{{ 'cart-delivery-date.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+{% endif %}
+
 {% if settings.transition_to_main_product or settings.page_transition_enabled %}
   {%- comment -%}
     Inlined to avoid a network round trip for a render blocking asset.
