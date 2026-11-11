@@ -63,11 +63,15 @@
   </search-page-input-component>
 
   {% if search.results.size == 0 and search.terms != blank %}
-    <div class="search-results__no-results">
+    {% assign escaped_search_terms = search.terms | escape %}
+    <div class="search-results__no-results" role="status">
       <p>
-        {{ 'content.search_results_no_results_check_spelling' | t: terms: search.terms }}
+        {{ 'content.search_results_no_results_check_spelling' | t: terms: escaped_search_terms }}
       </p>
     </div>
+    <a class="button button-secondary" href="{{ routes.all_products_collection_url | escape }}">
+      {{ 'actions.continue_shopping' | t }}
+    </a>
   {% endif %}
 </form>
 

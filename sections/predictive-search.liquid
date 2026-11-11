@@ -25,17 +25,18 @@
       {% else %}
         {% assign search_results_count = search.results_count %}
       {% endif %}
+      {% assign escaped_predictive_search_terms = predictive_search.terms | escape %}
 
       <div
         class="visually-hidden"
         role="status"
       >
         {%- if predictive_search.performed and search_results_count > 0 -%}
-          {{ 'accessibility.search_results_count' | t: count: search_results_count, query: predictive_search.terms }}
+          {{ 'accessibility.search_results_count' | t: count: search_results_count, query: escaped_predictive_search_terms }}
         {%- elsif predictive_search.performed and predictive_search.resources.queries.size > 0 -%}
-          {{- 'accessibility.search_suggestions_available' | t: query: predictive_search.terms -}}
+          {{- 'accessibility.search_suggestions_available' | t: query: escaped_predictive_search_terms -}}
         {%- elsif predictive_search.performed -%}
-          {{ 'accessibility.search_results_no_results' | t: query: predictive_search.terms }}
+          {{ 'accessibility.search_results_no_results' | t: query: escaped_predictive_search_terms }}
         {%- endif -%}
       </div>
 
@@ -52,8 +53,8 @@
               >
                 <a
                   class="pills__pill predictive-search-results__pill"
-                  href="{{ resource.url }}"
-                  aria-label="{{ resource.text }}"
+                  href="{{ resource.url | escape }}"
+                  aria-label="{{ resource.text | escape }}"
                 >
                   <span>
                     {{ resource.styled_text }}
@@ -104,7 +105,7 @@
           {% endif %}
         {%- elsif predictive_search.resources.queries.size == 0 -%}
           <p class="predictive-search-results__no-results">
-            {{ 'content.search_results_no_results' | t: terms: predictive_search.terms }}
+            {{ 'content.search_results_no_results' | t: terms: escaped_predictive_search_terms }}
           </p>
         {% endif %}
       {% else %}
