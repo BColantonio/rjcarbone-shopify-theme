@@ -290,6 +290,11 @@ class WholesaleApplicationPreview extends Component {
     input.removeAttribute('aria-invalid');
     input.value = '';
     this.renderDocumentSlot(slot);
+    const replaceButton = field.querySelector('[data-document-replace]');
+    if (!(replaceButton instanceof HTMLButtonElement)) {
+      throw new Error(`Wholesale application preview is missing the "${slot}" document replacement button.`);
+    }
+    replaceButton.focus();
     this.clearStatus();
   }
 
@@ -330,6 +335,7 @@ class WholesaleApplicationPreview extends Component {
     error.textContent = '';
     error.hidden = true;
     this.renderDocumentSlot(slot);
+    input.focus();
     this.clearStatus();
   }
 

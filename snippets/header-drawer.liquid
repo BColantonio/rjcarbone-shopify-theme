@@ -1116,6 +1116,19 @@
     width: 100%;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .menu-drawer__backdrop,
+    .menu-drawer,
+    details[open] > .menu-drawer__submenu {
+      transition: none;
+    }
+
+    .menu-drawer-container[open] .menu-drawer__animated-element {
+      animation: none;
+      animation-delay: 0s;
+    }
+  }
+
   .menu-drawer__list-item--divider .menu-drawer__menu-item:not(.menu-drawer__menu-item--child) {
     min-height: calc(2 * var(--padding-lg) + var(--icon-size-xs));
   }

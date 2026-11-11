@@ -176,6 +176,16 @@
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .theme-drawer__dialog,
+    .theme-drawer__dialog--opening,
+    .theme-drawer__dialog--opening-inline-start,
+    .theme-drawer__dialog--closing {
+      animation: none;
+      transition: none;
+    }
+  }
+
   @supports (color: oklch(from red l c h)) {
     .theme-drawer__close-button {
       --contrast-color: oklch(from var(--color-background) clamp(0, (0.6 / l - 1) * infinity, 1) 0 0);

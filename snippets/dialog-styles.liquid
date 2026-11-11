@@ -78,4 +78,15 @@
 
     animation: var(--dialog-drawer-closing-animation) var(--animation-speed) var(--animation-easing);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dialog-modal[open],
+    .dialog-modal.dialog-closing,
+    .dialog-drawer[open],
+    .dialog-drawer[open].dialog-closing,
+    .dialog-modal::backdrop {
+      animation: none;
+      transition: none;
+    }
+  }
 {% endstylesheet %}

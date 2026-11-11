@@ -184,6 +184,13 @@
     animation: search-element-slide-out-bottom 200ms var(--ease-out-quad) forwards;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .dialog-modal[open].search-modal__content,
+    .dialog-modal.search-modal__content.dialog-closing {
+      animation: none;
+    }
+  }
+
   .search-modal__content[open] {
     display: flex;
   }

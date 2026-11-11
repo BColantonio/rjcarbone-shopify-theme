@@ -80,6 +80,7 @@ class CartDeliveryDate extends Component {
   clearDate(event) {
     event.preventDefault();
     this.#selectDate('');
+    this.refs.dateInput.focus();
   }
 
   /** @param {MouseEvent} event */
@@ -89,6 +90,7 @@ class CartDeliveryDate extends Component {
     CartDeliveryDate.#state = 'saving';
     CartDeliveryDate.#requestVersion += 1;
     CartDeliveryDate.#renderAll();
+    this.refs.dateInput.focus();
     CartDeliveryDate.#saveLatest();
   }
 

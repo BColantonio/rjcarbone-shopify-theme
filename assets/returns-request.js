@@ -222,6 +222,13 @@ class ReturnsRequest extends Component {
     this.refs.photoError.textContent = '';
     this.refs.photoInput.removeAttribute('aria-invalid');
     this.renderPhotoPreviews();
+    const removeButtons = this.refs.photoPreviews.querySelectorAll('button[data-photo-index]');
+    const focusTarget = removeButtons[Math.min(index, removeButtons.length - 1)];
+    if (focusTarget instanceof HTMLButtonElement) {
+      focusTarget.focus();
+    } else {
+      this.refs.photoInput.focus();
+    }
   }
 
   /** @param {SampleOrder} order */
