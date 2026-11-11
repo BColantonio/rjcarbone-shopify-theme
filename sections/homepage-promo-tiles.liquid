@@ -12,11 +12,17 @@
 {% endfor %}
 
 {% if has_tiles %}
+  <script
+    src="{{ 'homepage-promo-image-loader.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
   <section
     class="section section--{{ section.settings.section_width }} spacing-style homepage-promo-tiles"
     style="{% render 'spacing-style', settings: section.settings %}"
   >
-    <div class="homepage-promo-tiles__grid">
+    <homepage-promo-images-component>
+      <div class="homepage-promo-tiles__grid">
       {% for block in section.blocks %}
         {% liquid
           assign tile_image_url = block.settings.external_image_url | strip
@@ -48,12 +54,24 @@
             {% if tile_image_url != blank %}
               <img
                 class="homepage-promo-tile__image"
-                src="{{ tile_image_url | escape }}"
-                alt="{{ tile_image_alt | escape }}"
+                ref="images[]"
+                data-src="{{ tile_image_url | escape }}"
+                data-alt="{{ tile_image_alt | escape }}"
+                alt=""
                 width="1200"
                 height="600"
                 loading="lazy"
               >
+              <noscript>
+                <img
+                  class="homepage-promo-tile__image"
+                  src="{{ tile_image_url | escape }}"
+                  alt="{{ tile_image_alt | escape }}"
+                  width="1200"
+                  height="600"
+                  loading="lazy"
+                >
+              </noscript>
             {% elsif block.settings.image != blank %}
               {{
                 block.settings.image
@@ -91,7 +109,8 @@
           </article>
         {% endif %}
       {% endfor %}
-    </div>
+      </div>
+    </homepage-promo-images-component>
   </section>
 {% endif %}
 
@@ -100,6 +119,10 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--gap-md);
+  }
+
+  homepage-promo-images-component {
+    display: block;
   }
 
   .homepage-promo-tile {
