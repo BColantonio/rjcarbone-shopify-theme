@@ -313,6 +313,9 @@
     "back_to_main_menu": "Επιστροφή στο κύριο μενού"
   },
   "content": {
+    "cart_add_uncertain": "The item may have been added, but the result could not be confirmed. Check your cart before trying again.",
+    "cart_quantity_adjusted": "The requested quantity could not be applied. Review the updated quantity in your cart.",
+    "cart_update_error": "The cart update could not be confirmed. Refresh your cart and check it before trying again.",
     "reviews": "κριτικές",
     "no_results_found": "Δεν βρέθηκαν αποτελέσματα",
     "language": "Γλώσσα",

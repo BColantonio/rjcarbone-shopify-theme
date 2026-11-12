@@ -315,6 +315,9 @@
     "zoom_media": "Zoom du support multimédia {{ index }}"
   },
   "content": {
+    "cart_add_uncertain": "The item may have been added, but the result could not be confirmed. Check your cart before trying again.",
+    "cart_quantity_adjusted": "The requested quantity could not be applied. Review the updated quantity in your cart.",
+    "cart_update_error": "The cart update could not be confirmed. Refresh your cart and check it before trying again.",
     "reviews": "avis",
     "language": "Langue",
     "localization_region_and_language": "Région et langue",

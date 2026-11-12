@@ -64,27 +64,10 @@ export class AddToCartComponent extends Component {
     this.refs.addToCartButton.disabled = false;
   }
 
-  /**
-   * Handles the click event for the add to cart button.
-   * @param {MouseEvent & {target: HTMLElement}} event - The click event.
-   */
-  handleClick(event) {
-    const form = this.closest('form');
-    if (!form?.checkValidity()) return;
-
-    // Check if adding would exceed max before animating
-    const productForm = /** @type {ProductFormComponent | null} */ (this.closest('product-form-component'));
-    const quantitySelector = productForm?.refs.quantitySelector;
-    if (quantitySelector?.canAddToCart) {
-      const validation = quantitySelector.canAddToCart();
-      // Don't animate if it would exceed max
-      if (!validation.canAdd) {
-        return;
-      }
-    }
+  confirmAddToCart() {
     if (this.refs.addToCartButton.dataset.puppet !== 'true') {
       const animationEnabled = this.dataset.addToCartAnimation === 'true';
-      if (animationEnabled && !event.target.closest('.quick-add-modal')) {
+      if (animationEnabled && !this.closest('.quick-add-modal')) {
         this.#animateFlyToCart();
       }
       this.animateAddToCart();
@@ -212,6 +195,9 @@ class ProductFormComponent extends Component {
   /** @type {boolean} */
   #variantChangeInProgress = false;
 
+  /** @type {boolean} */
+  #addPending = false;
+
   /** @type {number} */
   #variantChangeGeneration = 0;
 
@@ -323,10 +309,11 @@ class ProductFormComponent extends Component {
   /** @param {Event} event */
   handleSubmit(event) {
     event.preventDefault();
+    if (this.#addPending) return;
 
     if (this.#variantChangeInProgress) {
+      this.#setAddPending(true);
       this.#addToCartQueue.push(this.#createQueuedAddToCartItem());
-      this.refs.addToCartButtonContainer?.animateAddToCart?.();
       return;
     }
 
@@ -418,6 +405,7 @@ class ProductFormComponent extends Component {
     }
 
     const formData = new FormData(form);
+    this.#setAddPending(true);
 
     if (overrideVariantId) {
       formData.set('id', overrideVariantId);
@@ -461,7 +449,11 @@ class ProductFormComponent extends Component {
         Accept: 'text/html',
       },
     })
-      .then((response) => response.json())
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok && !data.status) data.status = response.status;
+        return data;
+      })
       .then(async (response) => {
         if (response.status) {
           this.dispatchEvent(
@@ -476,7 +468,7 @@ class ProductFormComponent extends Component {
           );
 
           // Fetch the updated cart to get the actual total quantity for this variant
-          this.#refreshCart()
+          await this.#refreshCart()
             .then((ajaxCart) =>
               deferredEventPromise.resolve({
                 cart: CartLinesUpdateEvent.createCartFromAjaxResponse(ajaxCart),
@@ -498,14 +490,14 @@ class ProductFormComponent extends Component {
           // Reuse the text node if the user is spam-clicking
           const textNode = addToCartTextError.childNodes[2];
           if (textNode) {
-            textNode.textContent = response.message;
+            textNode.textContent = response.description || response.message;
           } else {
-            const newTextNode = document.createTextNode(response.message);
+            const newTextNode = document.createTextNode(response.description || response.message);
             addToCartTextError.appendChild(newTextNode);
           }
 
           // Create or get existing error live region for screen readers
-          this.#setLiveRegionText(response.message);
+          this.#setLiveRegionText(response.description || response.message);
 
           this.#timeout = setTimeout(() => {
             if (!addToCartTextError) return;
@@ -526,6 +518,9 @@ class ProductFormComponent extends Component {
 
           if (!id) throw new Error('Form ID is required');
 
+          const cart = await this.#refreshCart();
+          allAddToCartContainers[0]?.confirmAddToCart();
+
           // Add aria-live region to inform screen readers that the item was added
           // Get the added text from any add-to-cart button
           const anyAddToCartButton = allAddToCartContainers[0]?.refs.addToCartButton;
@@ -535,39 +530,32 @@ class ProductFormComponent extends Component {
 
             this.#setLiveRegionText(addedText);
 
-            setTimeout(() => {
+            this.#timeout = setTimeout(() => {
               this.#clearLiveRegionText();
             }, SUCCESS_MESSAGE_DISPLAY_DURATION);
           }
 
           // Fetch the updated cart to get the actual total quantity for this variant
-          const cart = await this.#refreshCart()
-            .then((ajaxCart) => {
-              deferredEventPromise.resolve({
-                cart: CartLinesUpdateEvent.createCartFromAjaxResponse(ajaxCart),
-                detail: {
-                  items: ajaxCart.items,
-                  source: 'product-form-component',
-                  sourceId: this.id.toString(),
-                  itemCount,
-                  productId: this.dataset.productId,
-                  sections: response.sections,
-                  didError: false,
-                },
-              });
+          deferredEventPromise.resolve({
+            cart: CartLinesUpdateEvent.createCartFromAjaxResponse(cart),
+            detail: {
+              items: cart.items,
+              source: 'product-form-component',
+              sourceId: this.id.toString(),
+              itemCount,
+              productId: this.dataset.productId,
+              sections: response.sections,
+              didError: false,
+            },
+          });
 
-              if (this.#getVariantIdInput()) {
-                this.#updateCartQuantity(ajaxCart);
-              }
-
-              return ajaxCart;
-            })
-            .catch(deferredEventPromise.reject);
+          if (this.#getVariantIdInput()) this.#updateCartQuantity(cart);
         }
       })
       .catch((error) => {
         console.error(error);
         deferredEventPromise.reject(error);
+        this.#showAddError(Theme.translations.cart_add_uncertain || 'The item may have been added. Check your cart before trying again.');
 
         this.dispatchEvent(
           new CartErrorEvent({
@@ -577,6 +565,7 @@ class ProductFormComponent extends Component {
         );
       })
       .finally(() => {
+        this.#setAddPending(false);
         if (event) {
           cartPerformance.measureFromEvent('add:user-action', event);
         }
@@ -585,7 +574,10 @@ class ProductFormComponent extends Component {
 
   /** @param {Array<{variantId: string, quantity: number}>} items */
   #processBatchAddToCart(items) {
-    if (items.length === 0) return;
+    if (items.length === 0) {
+      this.#setAddPending(false);
+      return;
+    }
 
     const { addToCartTextError } = this.refs;
 
@@ -630,7 +622,11 @@ class ProductFormComponent extends Component {
       },
       body: JSON.stringify(payload),
     })
-      .then((response) => response.json())
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok && !data.status) data.status = response.status;
+        return data;
+      })
       .then(async (response) => {
         if (response.status) {
           this.dispatchEvent(
@@ -644,7 +640,7 @@ class ProductFormComponent extends Component {
             })
           );
 
-          this.#refreshCart()
+          await this.#refreshCart()
             .then((ajaxCart) =>
               deferredEventPromise.resolve({
                 cart: CartLinesUpdateEvent.createCartFromAjaxResponse(ajaxCart),
@@ -664,11 +660,11 @@ class ProductFormComponent extends Component {
           addToCartTextError.classList.remove('hidden');
           const textNode = addToCartTextError.childNodes[2];
           if (textNode) {
-            textNode.textContent = response.message;
+            textNode.textContent = response.description || response.message;
           } else {
-            addToCartTextError.appendChild(document.createTextNode(response.message));
+            addToCartTextError.appendChild(document.createTextNode(response.description || response.message));
           }
-          this.#setLiveRegionText(response.message);
+          this.#setLiveRegionText(response.description || response.message);
 
           this.#timeout = setTimeout(() => {
             addToCartTextError.classList.add('hidden');
@@ -686,15 +682,16 @@ class ProductFormComponent extends Component {
         const allAddToCartContainers = /** @type {NodeListOf<AddToCartComponent>} */ (
           this.querySelectorAll('add-to-cart-component')
         );
+        const cart = await this.#refreshCart();
+        allAddToCartContainers[0]?.confirmAddToCart();
         const anyAddToCartButton = allAddToCartContainers[0]?.refs.addToCartButton;
         if (anyAddToCartButton) {
           const addedTextElement = anyAddToCartButton.querySelector('.add-to-cart-text--added');
           const addedText = addedTextElement?.textContent?.trim() || Theme.translations.added;
           this.#setLiveRegionText(addedText);
-          setTimeout(() => this.#clearLiveRegionText(), SUCCESS_MESSAGE_DISPLAY_DURATION);
+          this.#timeout = setTimeout(() => this.#clearLiveRegionText(), SUCCESS_MESSAGE_DISPLAY_DURATION);
         }
 
-        const cart = await this.#refreshCart();
         deferredEventPromise.resolve({
           cart: CartLinesUpdateEvent.createCartFromAjaxResponse(cart),
           detail: {
@@ -712,6 +709,7 @@ class ProductFormComponent extends Component {
       .catch((error) => {
         console.error(error);
         deferredEventPromise.reject(error);
+        this.#showAddError(Theme.translations.cart_add_uncertain || 'The item may have been added. Check your cart before trying again.');
 
         this.dispatchEvent(
           new CartErrorEvent({
@@ -719,7 +717,26 @@ class ProductFormComponent extends Component {
             code: 'SERVICE_UNAVAILABLE',
           })
         );
-      });
+      })
+      .finally(() => this.#setAddPending(false));
+  }
+
+  /** @param {boolean} pending */
+  #setAddPending(pending) {
+    this.#addPending = pending;
+    this.setAttribute('aria-busy', String(pending));
+  }
+
+  /** @param {string} message */
+  #showAddError(message) {
+    const error = this.refs.addToCartTextError;
+    if (error) {
+      error.classList.remove('hidden');
+      const textNode = error.childNodes[2];
+      if (textNode) textNode.textContent = message;
+      else error.appendChild(document.createTextNode(message));
+    }
+    this.#setLiveRegionText(message);
   }
 
   /**
@@ -950,11 +967,18 @@ class ProductFormComponent extends Component {
 
     /** @type {Array<{variantId: string, quantity: number}>} */
     const resolvedItems = [];
-    for (const item of queuedItems) {
-      const resolvedItem = await this.#resolveQueuedAddToCartItem(item);
-      if (resolvedItem) {
-        resolvedItems.push(resolvedItem);
+    try {
+      for (const item of queuedItems) {
+        const resolvedItem = await this.#resolveQueuedAddToCartItem(item);
+        if (resolvedItem) {
+          resolvedItems.push(resolvedItem);
+        }
       }
+    } catch (error) {
+      console.error(error);
+      this.#setAddPending(false);
+      this.#showAddError(Theme.translations.cart_add_uncertain || 'The item may have been added. Check your cart before trying again.');
+      return;
     }
 
     this.#processBatchAddToCart(resolvedItems);
