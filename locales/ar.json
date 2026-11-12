@@ -709,6 +709,8 @@
       "name_error":  "Enter a name with 1 to 80 characters.",
       "duplicate_name":  "A saved order already uses that name. Choose a different name.",
       "storage_error":  "Browser storage is unavailable or contains invalid saved-order data. Sample orders are still available, but this list could not be read or saved.",
+      "storage_help": "Browser storage may be unavailable, full, or contain invalid data. Changes were not saved. Check browser storage settings or free space; back up stored data before repairing it.",
+      "storage_changed": "Saved lists changed in another tab. Review the current list before editing again.",
       "price_changed":  "Availability or price changed while checking. Review the refreshed details before adding items.",
       "cart_success":  "Added to cart: {{ items }}.",
       "cart_partial":  "Some items were not added. Added: {{ added }}. Not added: {{ failed }}.",

@@ -13,28 +13,40 @@ const FAVORITES_CHANGE_EVENT = 'theme:favorites-change';
 
 /**
  * @param {unknown} value
- * @returns {FavoriteProduct[]}
+ * @returns {FavoriteProduct[] & {invalid?: boolean}}
  */
 function parseFavorites(value) {
   if (!Array.isArray(value)) {
     throw new Error('Saved favorites are not a list.');
   }
 
-  return value.flatMap((/** @type {unknown} */ item) => {
-    if (typeof item !== 'object' || item === null) return [];
+  let invalid = false;
+  const ids = new Set();
+  const favorites = value.flatMap((/** @type {unknown} */ item) => {
+    if (typeof item !== 'object' || item === null || Array.isArray(item)) {
+      invalid = true;
+      return [];
+    }
 
     const record = /** @type {Record<string, unknown>} */ (item);
     if (
       typeof record.id !== 'string' ||
+      !/^\d+$/.test(record.id) ||
+      ids.has(record.id) ||
       typeof record.title !== 'string' ||
+      record.title.trim() === '' ||
       typeof record.url !== 'string' ||
       !isProductUrl(record.url)
     ) {
+      invalid = true;
       return [];
     }
 
+    ids.add(record.id);
     return [{ id: record.id, title: record.title, url: record.url, image: normalizeImageUrl(record.image) }];
   });
+  Object.defineProperty(favorites, 'invalid', { value: invalid });
+  return favorites;
 }
 
 /**
@@ -66,7 +78,7 @@ function normalizeImageUrl(value) {
  * @returns {boolean}
  */
 function isProductUrl(value) {
-  if (!value.startsWith('/') || value.startsWith('//')) return false;
+  if (!value.startsWith('/') || value.startsWith('//') || value.includes('\\')) return false;
 
   try {
     const url = new URL(value, window.location.origin);
@@ -77,7 +89,7 @@ function isProductUrl(value) {
 }
 
 /**
- * @returns {FavoriteProduct[]}
+ * @returns {FavoriteProduct[] & {invalid?: boolean}}
  */
 function readFavorites() {
   const storedValue = window.localStorage.getItem(STORAGE_KEY);
@@ -90,6 +102,7 @@ function readFavorites() {
  * @param {FavoriteProduct[]} favorites
  */
 function saveFavorites(favorites) {
+  if (readFavorites().invalid) throw new Error('Invalid favorites must be preserved.');
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
   window.dispatchEvent(new CustomEvent(FAVORITES_CHANGE_EVENT));
 }
@@ -124,6 +137,7 @@ class FavoriteToggle extends Component {
 
     try {
       const favorites = readFavorites();
+      if (favorites.invalid) throw new Error('Invalid favorites must be preserved.');
       const product = this.#getProduct();
       const isSaved = favorites.some((favorite) => favorite.id === product.id);
       const updatedFavorites = isSaved
@@ -150,12 +164,13 @@ class FavoriteToggle extends Component {
 
   #refresh() {
     try {
-      const isSaved = readFavorites().some((favorite) => favorite.id === this.dataset.productId);
+      const favorites = readFavorites();
+      const isSaved = favorites.some((favorite) => favorite.id === this.dataset.productId);
       const button = this.refs.favoriteButton;
       button.disabled = false;
       button.setAttribute('aria-pressed', String(isSaved));
       button.setAttribute('aria-label', isSaved ? this.dataset.removeLabel || '' : this.dataset.addLabel || '');
-      this.refs.favoriteStatus.textContent = '';
+      this.refs.favoriteStatus.textContent = favorites.invalid ? this.dataset.storageError || '' : '';
     } catch {
       this.#showStorageError();
     }
@@ -169,7 +184,7 @@ class FavoriteToggle extends Component {
   /** @returns {FavoriteProduct} */
   #getProduct() {
     const { productId, productTitle, productUrl, productImage } = this.dataset;
-    if (!productId || !productTitle || !productUrl || !isProductUrl(productUrl)) {
+    if (!productId || !/^\d+$/.test(productId) || !productTitle?.trim() || !productUrl || !isProductUrl(productUrl)) {
       throw new Error('The product cannot be saved.');
     }
 
@@ -255,14 +270,12 @@ class FavoritesPage extends Component {
         activeElement instanceof HTMLButtonElement && this.contains(activeElement)
           ? activeElement.dataset.removeFavorite
           : undefined;
-      this.refs.favoriteStatus.textContent = '';
+      this.refs.favoriteStatus.textContent = favorites.invalid ? this.dataset.storageError || '' : '';
       this.refs.favoriteList.replaceChildren(...favorites.map((favorite) => this.#createFavoriteItem(favorite)));
       this.refs.favoriteList.hidden = favorites.length === 0;
       this.refs.favoriteEmpty.hidden = favorites.length !== 0;
       for (const favorite of favorites) {
-        if (!favorite.image && !this.#pendingImageLookups.has(favorite.id)) {
-          this.#loadMissingImage(favorite);
-        }
+        if (!this.#pendingImageLookups.has(favorite.id)) this.#loadMissingImage(favorite);
       }
 
       if (focusedProductId) {
@@ -311,6 +324,10 @@ class FavoritesPage extends Component {
     title.textContent = favorite.title;
     link.append(title);
 
+    const status = document.createElement('span');
+    status.dataset.favoriteAvailability = favorite.id;
+    status.setAttribute('role', 'status');
+
     const removeButton = document.createElement('button');
     removeButton.className = 'favorites-page__remove button button-secondary';
     removeButton.type = 'button';
@@ -321,7 +338,7 @@ class FavoritesPage extends Component {
       (this.dataset.removeLabel || '').replace('__title__', favorite.title)
     );
 
-    item.append(link, removeButton);
+    item.append(link, status, removeButton);
     return item;
   }
 
@@ -334,14 +351,20 @@ class FavoritesPage extends Component {
         credentials: 'same-origin',
         signal: this.#imageLookupController.signal,
       });
+      if (response.status === 404) {
+        this.#showProductStatus(favorite, this.dataset.unavailable || '');
+        return;
+      }
       const responseUrl = new URL(response.url);
       if (
         !response.ok ||
         responseUrl.origin !== window.location.origin ||
         !responseUrl.pathname.includes('/products/')
       ) {
-        return;
+        throw new Error('Product lookup failed.');
       }
+
+      if (favorite.image) return;
 
       const html = await response.text();
       const documentFromResponse = new DOMParser().parseFromString(html, 'text/html');
@@ -352,18 +375,41 @@ class FavoritesPage extends Component {
       if (!imageUrl || !this.isConnected) return;
 
       const currentFavorites = readFavorites();
-      const currentFavorite = currentFavorites.find((item) => item.id === favorite.id);
+      const currentFavorite = currentFavorites.find((item) => item.id === favorite.id && item.url === favorite.url);
       if (!currentFavorite || currentFavorite.image) return;
-
-      saveFavorites(
-        currentFavorites.map((item) => (item.id === favorite.id ? { ...item, image: imageUrl } : item))
+      const button = Array.from(this.querySelectorAll('button[data-remove-favorite]')).find(
+        (element) => element instanceof HTMLButtonElement && element.dataset.removeFavorite === favorite.id
       );
+      const link = button?.parentElement?.querySelector('.favorites-page__product');
+      if (!link || link.querySelector('img')) return;
+      const image = document.createElement('img');
+      image.className = 'favorites-page__image';
+      image.src = imageUrl;
+      image.alt = '';
+      image.loading = 'lazy';
+      image.width = 160;
+      image.height = 160;
+      link.prepend(image);
     } catch (error) {
       if (error?.name !== 'AbortError') {
+        this.#showProductStatus(favorite, this.dataset.lookupError || '');
         console.warn('[favorites] Could not load a saved product image:', error);
       }
     } finally {
       this.#pendingImageLookups.delete(favorite.id);
+    }
+  }
+
+  /** @param {FavoriteProduct} favorite @param {string} message */
+  #showProductStatus(favorite, message) {
+    if (!this.isConnected) return;
+    const button = Array.from(this.querySelectorAll('button[data-remove-favorite]')).find(
+      (element) => element instanceof HTMLButtonElement && element.dataset.removeFavorite === favorite.id
+    );
+    const link = button?.parentElement?.querySelector('.favorites-page__product');
+    const status = button?.parentElement?.querySelector('[data-favorite-availability]');
+    if (link instanceof HTMLAnchorElement && link.getAttribute('href') === favorite.url && status) {
+      status.textContent = message;
     }
   }
 

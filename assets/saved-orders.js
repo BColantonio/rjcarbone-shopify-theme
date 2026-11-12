@@ -12,7 +12,7 @@ const VARIANT_ID_PATTERN = /^\d+$/;
  * @typedef {{ id: string, title: string, price: number, available: boolean, requiresSellingPlan: boolean }} ProductVariant
  * @typedef {{ handle: string, title: string, available: boolean, requiresSellingPlan: boolean, hasSellingPlans: boolean, variants: ProductVariant[] }} ProductData
  * @typedef {{ product?: ProductData, error?: 'missing' | 'lookup' }} LoadedItem
- * @typedef {{ kind: 'sample' | 'saved', sampleId?: string, order: SavedOrder, loaded: LoadedItem[], container: HTMLElement }} ActiveEditor
+ * @typedef {{ kind: 'sample' | 'saved', sampleId?: string, order: SavedOrder, loaded: LoadedItem[], container: HTMLElement, persistedSnapshot?: string }} ActiveEditor
  * @typedef {{ minimum: number, maximum: number | null, increment: number }} QuantityRule
  * @typedef {object} SavedOrdersRefs
  * @property {HTMLUListElement} sampleList
@@ -25,13 +25,15 @@ const VARIANT_ID_PATTERN = /^\d+$/;
 /**
  * Validates saved data and limits persistence to names, product/variant IDs, and quantities.
  * @param {unknown} value
- * @returns {SavedOrder[]}
+ * @returns {SavedOrder[] & {invalid?: boolean}}
  */
-function parseSavedOrders(value) {
+function parseSavedOrders(value, strict = true) {
   if (!Array.isArray(value)) throw new Error('Saved orders are not a list.');
 
   const names = new Set();
-  return value.map((/** @type {unknown} */ item) => {
+  let invalid = false;
+  const orders = value.flatMap((/** @type {unknown} */ item) => {
+    try {
     if (typeof item !== 'object' || item === null || Array.isArray(item)) {
       throw new Error('A saved order is invalid.');
     }
@@ -50,7 +52,8 @@ function parseSavedOrders(value) {
     const name = record.name.trim();
     if (names.has(name.toLocaleLowerCase())) throw new Error('Saved order names are duplicated.');
     names.add(name.toLocaleLowerCase());
-    const items = record.items.map((/** @type {unknown} */ savedItem) => {
+    const items = record.items.flatMap((/** @type {unknown} */ savedItem) => {
+      try {
       if (typeof savedItem !== 'object' || savedItem === null || Array.isArray(savedItem)) {
         throw new Error('A saved order item is invalid.');
       }
@@ -67,15 +70,27 @@ function parseSavedOrders(value) {
         throw new Error('A saved order item has invalid product data.');
       }
 
-      return {
+      return [{
         handle: savedRecord.handle,
         ...(typeof savedRecord.variantId === 'string' ? { variantId: savedRecord.variantId } : {}),
         quantity: Number(savedRecord.quantity),
-      };
+      }];
+      } catch (error) {
+        if (strict) throw error;
+        invalid = true;
+        return [];
+      }
     });
 
-    return { name: record.name.trim(), items };
+    return [{ name: record.name.trim(), items }];
+    } catch (error) {
+      if (strict) throw error;
+      invalid = true;
+      return [];
+    }
   });
+  Object.defineProperty(orders, 'invalid', { value: invalid });
+  return orders;
 }
 
 /**
@@ -105,6 +120,7 @@ class SavedOrders extends Component {
     this.addEventListener('click', this.#handleClick);
     this.addEventListener('change', this.#handleChange);
     this.addEventListener('input', this.#handleInput);
+    window.addEventListener('storage', this.#handleStorageChange);
     this.#readQuantityRules();
     this.#renderSamples();
     this.#renderSavedOrders();
@@ -118,6 +134,7 @@ class SavedOrders extends Component {
     this.removeEventListener('click', this.#handleClick);
     this.removeEventListener('change', this.#handleChange);
     this.removeEventListener('input', this.#handleInput);
+    window.removeEventListener('storage', this.#handleStorageChange);
     super.disconnectedCallback();
   }
 
@@ -147,6 +164,14 @@ class SavedOrders extends Component {
     } else if (action === 'add-to-cart') {
       void this.#addToCart(button);
     }
+  };
+
+  /** @param {StorageEvent} event */
+  #handleStorageChange = (event) => {
+    if (event.key !== STORAGE_KEY && event.key !== null) return;
+    this.#closeEditor();
+    this.#renderSavedOrders();
+    if (!this.refs.savedOrdersStatus.textContent) this.#setStatus(this.#message('storageChanged'));
   };
 
   /** @param {Event} event */
@@ -211,7 +236,8 @@ class SavedOrders extends Component {
         if (card) card.append(active.container);
       }
       this.refs.savedEmpty.hidden = orders.length !== 0;
-      if (orders.length === 0) this.refs.savedOrdersStatus.textContent = '';
+      if (orders.invalid) this.#setStatus(this.#message('storageError'));
+      else if (orders.length === 0) this.refs.savedOrdersStatus.textContent = '';
     } catch (error) {
       this.refs.savedList.replaceChildren();
       this.refs.savedEmpty.hidden = true;
@@ -347,6 +373,7 @@ class SavedOrders extends Component {
       return;
     }
     if (!order) return;
+    const persistedSnapshot = JSON.stringify(order);
 
     this.#closeEditor();
     const generation = this.#openRequestGeneration;
@@ -363,7 +390,7 @@ class SavedOrders extends Component {
     const container = document.createElement('div');
     container.className = 'saved-orders__editor';
     trigger.closest('.saved-orders__card')?.append(container);
-    this.#activeEditor = { kind: 'saved', order, loaded, container };
+    this.#activeEditor = { kind: 'saved', order, loaded, container, persistedSnapshot };
     this.#renderEditor();
     container.querySelector('h3')?.focus();
     trigger.disabled = false;
@@ -690,6 +717,7 @@ class SavedOrders extends Component {
 
     try {
       const orders = this.#readSavedOrders();
+      if (!orders.some((order) => order.name === originalName)) throw new Error('The saved order has changed.');
       if (
         orders.some(
           (order) => order.name !== originalName && order.name.toLocaleLowerCase() === name.toLocaleLowerCase()
@@ -718,7 +746,9 @@ class SavedOrders extends Component {
     const name = button.dataset.savedName;
     if (!name) return;
     try {
-      this.#writeSavedOrders(this.#readSavedOrders().filter((order) => order.name !== name));
+      const orders = this.#readSavedOrders();
+      if (!orders.some((order) => order.name === name)) throw new Error('The saved order has changed.');
+      this.#writeSavedOrders(orders.filter((order) => order.name !== name));
       if (this.#activeEditor?.kind === 'saved' && this.#activeEditor.order.name === name) this.#closeEditor();
       this.#renderSavedOrders();
       this.#setStatus(this.#message('listRemoved'));
@@ -740,13 +770,10 @@ class SavedOrders extends Component {
 
     if (active.kind === 'saved') {
       try {
-        this.#writeSavedOrders(
-          this.#readSavedOrders().map((order) =>
-            order.name === active.order.name ? { ...order, items: active.order.items } : order
-          )
-        );
-        this.#updateSavedSummary(active);
+        this.#writeActiveOrder(active);
       } catch (error) {
+        this.#closeEditor();
+        this.#renderSavedOrders();
         this.#showStorageError(error);
         return;
       }
@@ -832,15 +859,25 @@ class SavedOrders extends Component {
     const active = this.#activeEditor;
     if (!active || active.kind !== 'saved') return;
     try {
-      this.#writeSavedOrders(
-        this.#readSavedOrders().map((order) =>
-          order.name === active.order.name ? { ...order, items: active.order.items } : order
-        )
-      );
-      this.#updateSavedSummary(active);
+      this.#writeActiveOrder(active);
     } catch (error) {
+      this.#closeEditor();
+      this.#renderSavedOrders();
       this.#showStorageError(error);
     }
+  }
+
+  /** @param {ActiveEditor} active */
+  #writeActiveOrder(active) {
+    const orders = this.#readSavedOrders();
+    const current = orders.find((order) => order.name === active.order.name);
+    if (!current || JSON.stringify(current) !== active.persistedSnapshot) {
+      throw new Error('The saved order has changed.');
+    }
+    const updated = { ...current, items: active.order.items };
+    this.#writeSavedOrders(orders.map((order) => (order.name === current.name ? updated : order)));
+    active.persistedSnapshot = JSON.stringify(updated);
+    this.#updateSavedSummary(active);
   }
 
   /**
@@ -1085,14 +1122,15 @@ class SavedOrders extends Component {
     return { successes, failures };
   }
 
-  /** @returns {SavedOrder[]} */
+  /** @returns {SavedOrder[] & {invalid?: boolean}} */
   #readSavedOrders() {
     const value = window.localStorage.getItem(STORAGE_KEY);
-    return value === null ? [] : parseSavedOrders(JSON.parse(value));
+    return value === null ? [] : parseSavedOrders(JSON.parse(value), false);
   }
 
   /** @param {SavedOrder[]} orders */
   #writeSavedOrders(orders) {
+    if (this.#readSavedOrders().invalid) throw new Error('Invalid saved orders must be preserved.');
     const validated = parseSavedOrders(orders);
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(validated));
   }

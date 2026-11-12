@@ -12,7 +12,9 @@
     data-remove-action="{{ 'favorites.remove_action' | t | escape }}"
     data-remove-label="{{ 'favorites.remove_saved' | t: title: '__title__' | escape }}"
     data-removed-status="{{ 'favorites.removed_status' | t | escape }}"
-    data-storage-error="{{ 'favorites.storage_error' | t | escape }}"
+    data-storage-error="{{ 'saved_orders.storage_help' | t | escape }}"
+    data-unavailable="{{ 'saved_orders.unavailable' | t | escape }}"
+    data-lookup-error="{{ 'saved_orders.lookup_error' | t | escape }}"
   >
     <div class="favorites-page__heading text-block h2">
       <h1 id="FavoritesHeading-{{ section.id }}" tabindex="-1" ref="favoriteHeading">
