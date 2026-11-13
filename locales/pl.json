@@ -664,7 +664,7 @@
       "sample_heading":  "Sample past orders",
       "sample_help":  "These clearly labeled demo orders use fictional order numbers. Current product availability and prices are checked when you review an order.",
       "saved_heading":  "Your saved lists",
-      "no_saved_orders":  "You have not saved an order in this browser yet.",
+      "no_saved_orders":  "No saved lists in this browser yet.",
       "order_label":  "Sample order {{ id }}",
       "items_label":  "Items: {{ items }}",
       "review_save":  "Review and save",
