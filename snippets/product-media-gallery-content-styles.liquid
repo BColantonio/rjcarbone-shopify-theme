@@ -88,6 +88,11 @@
     &:hover {
       background-color: transparent;
     }
+
+    &:focus-visible {
+      outline: var(--focus-outline-width) solid currentColor;
+      outline-offset: calc(-1 * var(--focus-outline-offset));
+    }
   }
 
   slideshow-slide.product-media-container--tallest {

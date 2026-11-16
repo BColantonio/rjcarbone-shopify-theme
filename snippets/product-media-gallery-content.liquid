@@ -382,6 +382,15 @@
                 assign media_sizes = sizes
               endif
           -%}
+          {%- if block_settings.zoom and media.media_type == 'image' -%}
+            <button
+              type="button"
+              class="button button-unstyled product-media-container__zoom-button"
+              aria-label="{{ 'actions.zoom_media' | t: index: forloop.index }}"
+              on:click="#zoom-dialog-{{ block_id }}/open/{{ forloop.index0 }}"
+              on:pointerenter="/preloadImage/{{ forloop.index0 }}"
+            ></button>
+          {%- endif -%}
           {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
             <div
               class="product-media-constraint-wrapper">
@@ -401,8 +410,10 @@
         {% endif %}
         {% if block_settings.zoom and media.media_type == 'model' %}
           {%- capture attributes -%}"{% if settings.transition_to_main_product and forloop.first %} data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
-        {% elsif block_settings.zoom %}
+        {% elsif block_settings.zoom and media.media_type != 'image' %}
           {%- capture attributes -%}on:click="#zoom-dialog-{{ block_id }}/open/{{ forloop.index0 }}"{% if settings.transition_to_main_product and forloop.first %} data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
+        {% else %}
+          {%- capture attributes -%}{% if settings.transition_to_main_product and forloop.first %}data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
         {% endif %}
 
         {% render 'slideshow-slide',
@@ -460,6 +471,7 @@
       slideshow_arrows: slideshow_arrows,
       arrows_position: icons_position,
       animate_arrows: animate_arrows,
+      attributes: 'data-inert-inactive-slides',
       controls: controls
     %}
 
