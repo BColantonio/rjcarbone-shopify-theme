@@ -6,11 +6,18 @@
 
 {% liquid
   assign product = closest.product
+  assign controls_marker = '<!--product-card-controls-placed-->'
 -%}
 
-{% capture children %}
+{% capture card_blocks %}
   {% content_for 'blocks', closest.product: product %}
-  {% render 'product-card-quantity-controls', product: product, block: block %}
+{% endcapture %}
+
+{% capture children %}
+  {{ card_blocks | remove: controls_marker }}
+  {% unless card_blocks contains controls_marker %}
+    {% render 'product-card-quantity-controls', product: product, block: block %}
+  {% endunless %}
 {% endcapture %}
 
 {% render 'product-card', children: children, product: product, product_view_context: product_view_context %}
@@ -53,6 +60,9 @@
     },
     {
       "type": "quantity-price-table"
+    },
+    {
+      "type": "_product-card-quantity-controls"
     },
     {
       "type": "swatches"

@@ -29,10 +29,92 @@
         {% render 'spacing-style', settings: section.settings %}
       "
     >
+      <div class="main-404">
+        <h1 class="h3">{{ 'page_404.heading' | t }}</h1>
+        <p>{{ 'page_404.explanation' | t }}</p>
+        <form action="{{ routes.search_url }}" method="get" role="search" class="main-404__search">
+          <label for="Search404-{{ section.id }}">{{ 'content.search_input_label' | t }}</label>
+          <div class="main-404__search-controls">
+            <input id="Search404-{{ section.id }}" type="search" name="q" placeholder="{{ 'content.search_input_placeholder' | t | escape }}">
+            <button type="submit" class="button">{{ 'content.search' | t }}</button>
+          </div>
+        </form>
+        <a class="button button-secondary" href="{{ routes.root_url }}">{{ 'page_404.back_to_home' | t }}</a>
+        <nav aria-label="{{ 'page_404.departments' | t | escape }}">
+          <ul class="main-404__links" role="list">
+            <li><a href="{{ routes.collections_url }}/flowers">{{ 'page_404.flowers' | t }}</a></li>
+            <li><a href="{{ routes.collections_url }}/roses">{{ 'page_404.roses' | t }}</a></li>
+            <li><a href="{{ routes.collections_url }}/greens">{{ 'page_404.greens' | t }}</a></li>
+            <li><a href="{{ routes.collections_url }}/plants">{{ 'page_404.plants' | t }}</a></li>
+            <li><a href="{{ routes.collections_url }}/supplies">{{ 'page_404.supplies' | t }}</a></li>
+          </ul>
+        </nav>
+      </div>
       {% content_for 'blocks' %}
     </div>
   </div>
 </div>
+
+{% stylesheet %}
+  .main-404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-lg);
+    width: min(100%, 36rem);
+    min-width: 0;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .main-404 h1,
+  .main-404 p {
+    margin: 0;
+  }
+
+  .main-404__search {
+    width: 100%;
+    text-align: start;
+  }
+
+  .main-404__search-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+    margin-block-start: var(--margin-xs);
+  }
+
+  .main-404__search input {
+    flex: 1 1 12rem;
+    min-width: 0;
+    padding: var(--padding-md);
+    color: var(--color-input-text);
+    background: var(--color-input-background);
+    border: var(--style-border-width-inputs) solid var(--color-input-border);
+    border-radius: var(--style-border-radius-inputs);
+  }
+
+  .main-404__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap-sm) var(--gap-lg);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .main-404__links a {
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .main-404 :is(a, button, input):focus-visible {
+    outline: 3px solid var(--color-foreground);
+    outline-offset: 3px;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

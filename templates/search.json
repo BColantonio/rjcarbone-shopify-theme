@@ -175,6 +175,10 @@
               },
               "blocks": {}
             },
+            "card_quantity_controls": {
+              "type": "_product-card-quantity-controls",
+              "settings": {}
+            },
             "quantity_price_card_Tx5aGh": {
               "type": "quantity-price-table",
               "settings": {
@@ -195,6 +199,7 @@
             "sku_card_Qd3vMk",
             "selling_unit_card_Jn8uPw",
             "price_fYkUgG",
+            "card_quantity_controls",
             "quantity_price_card_Tx5aGh"
           ]
         }

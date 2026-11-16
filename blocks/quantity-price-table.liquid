@@ -6,11 +6,21 @@
   {% content_for 'block', type: 'quantity-price-table', id: 'quantity-price-table', closest.product: product %}
 {%- enddoc -%}
 
+{% liquid
+  assign collapsed = false
+  if section.settings.product_card_size != blank
+    if request.page_type == 'collection' or request.page_type == 'search'
+      assign collapsed = true
+    endif
+  endif
+%}
+
 {% render 'quantity-price-table',
   product: closest.product,
   quantity_label: block.settings.quantity_label,
   price_label: block.settings.price_label,
   notice: block.settings.notice,
+  collapsed: collapsed,
   settings: block.settings,
   shopify_attributes: block.shopify_attributes
 %}

@@ -308,6 +308,10 @@
               },
               "blocks": {}
             },
+            "card_quantity_controls": {
+              "type": "_product-card-quantity-controls",
+              "settings": {}
+            },
             "quantity_price_card_Bv6hJs": {
               "type": "quantity-price-table",
               "settings": {
@@ -328,6 +332,7 @@
             "sku_card_FxQ2aL",
             "selling_unit_card_Rk7vNd",
             "price_EzJzMm",
+            "card_quantity_controls",
             "quantity_price_card_Bv6hJs"
           ]
         }

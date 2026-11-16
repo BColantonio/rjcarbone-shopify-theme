@@ -5,6 +5,7 @@
 
   @param {object} product - The product object
   @param {object} [block] - The product card block, used to keep form IDs unique
+  @param {string} [shopify_attributes] - Theme editor attributes for the placement block
 
   @example
   {% render 'product-card-quantity-controls', product: closest.product, block: block %}
@@ -39,6 +40,7 @@
   <div
     class="product-card-quantity-controls"
     data-card-interactive
+    {{ shopify_attributes }}
   >
     <product-form-component
       data-section-id="{{ section.id }}"

@@ -1,0 +1,16 @@
+{%- doc -%}
+  Places the existing inline purchase controls within a product card.
+
+  @example
+  {% content_for 'block', type: '_product-card-quantity-controls', id: 'quantity-controls', closest.product: product %}
+{%- enddoc -%}
+
+<!--product-card-controls-placed-->
+{% render 'product-card-quantity-controls', product: closest.product, block: block, shopify_attributes: block.shopify_attributes %}
+
+{% schema %}
+{
+  "name": "t:names.quantity",
+  "tag": null
+}
+{% endschema %}

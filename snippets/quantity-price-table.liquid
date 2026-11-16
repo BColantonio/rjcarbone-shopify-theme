@@ -10,6 +10,7 @@
   @param {string} [quantity_label] - Quantity column heading, e.g. "Cases"
   @param {string} [price_label] - Price column heading, e.g. "Price per case"
   @param {string} [notice] - Optional preview notice. Omit or leave blank to hide it
+  @param {boolean} [collapsed] - Wrap the table and notice in a closed disclosure
   @param {object} [settings] - Block settings used for padding
   @param {string} [shopify_attributes] - Block shopify_attributes for the wrapper
 
@@ -68,6 +69,16 @@
     data-testid="quantity-price-table"
     {{ shopify_attributes }}
   >
+    {% if collapsed %}
+      {% render 'summary-icon-styles' %}
+      <details class="quantity-price-table__disclosure" data-card-interactive>
+        <summary>
+          {{ 'content.volume_pricing' | t }}
+          <span class="svg-wrapper icon-caret icon-animated">
+            {{- 'icon-caret.svg' | inline_asset_content -}}
+          </span>
+        </summary>
+    {% endif %}
     <table class="quantity-price-table__table">
       <thead>
         <tr>
@@ -82,6 +93,9 @@
     {%- if notice != blank -%}
       <p class="quantity-price-table__notice">{{ notice | escape }}</p>
     {%- endif -%}
+    {% if collapsed %}
+      </details>
+    {% endif %}
   </div>
 {%- endif -%}
 
@@ -92,6 +106,20 @@
     inline-size: 100%;
     min-width: 0;
     font-size: var(--font-size--xs);
+  }
+
+  .quantity-price-table__disclosure summary {
+    cursor: pointer;
+    gap: var(--gap-xs);
+  }
+
+  .quantity-price-table__disclosure summary .icon-caret {
+    flex-shrink: 0;
+  }
+
+  .quantity-price-table__disclosure summary:focus-visible {
+    outline: var(--focus-outline-width) solid currentColor;
+    outline-offset: var(--focus-outline-offset);
   }
 
   .quantity-price-table__table {

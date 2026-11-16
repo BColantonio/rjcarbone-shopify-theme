@@ -8,6 +8,17 @@
  * ------------------------------------------------------------
  */
 {
+  "page_404": {
+    "heading": "We couldn't find that page.",
+    "explanation": "The link may be outdated, or the address may have been mistyped.",
+    "back_to_home": "Back to home",
+    "departments": "Departments",
+    "flowers": "Flowers",
+    "roses": "Roses",
+    "greens": "Greens",
+    "plants": "Plants",
+    "supplies": "Supplies"
+  },
   "customer_access_preview": {
     "notice": "Preview only: these are sample states and do not change access.",
     "heading": "Wholesale access preview",
