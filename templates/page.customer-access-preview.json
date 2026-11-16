@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "customer_access_preview": {
+      "type": "customer-access-preview"
+    }
+  },
+  "order": [
+    "customer_access_preview"
+  ]
+}

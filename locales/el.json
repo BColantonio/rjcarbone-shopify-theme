@@ -8,6 +8,33 @@
  * ------------------------------------------------------------
  */
 {
+  "customer_access_preview": {
+    "notice": "Preview only: these are sample states and do not change access.",
+    "heading": "Wholesale access preview",
+    "intro": "Choose a sample state. Your actual access is not shown.",
+    "select_state": "Sample customer state",
+    "visitor": "Visitor",
+    "no_application": "Signed in, no application",
+    "pending": "Application pending",
+    "approved": "Approved",
+    "revoked": "Access revoked",
+    "visitor_message": "You're welcome to browse. Approved wholesale access is required for pricing and ordering.",
+    "no_application_heading": "Wholesale access required.",
+    "no_application_message": "Signing in alone does not grant access to wholesale pricing or ordering.",
+    "existing_customer_html": "Already a Carbone customer? {{ contact_link }} for help accessing your account.",
+    "pending_message": "Your application is awaiting review by our team.",
+    "pending_access_message": "Wholesale pricing and ordering will become available once your application is approved.",
+    "approved_message": "Your wholesale access is active.",
+    "revoked_heading": "Wholesale access unavailable.",
+    "revoked_help": "Contact our team if you have questions about your access.",
+    "continue_browsing": "Continue browsing",
+    "start_shopping": "Start shopping",
+    "revoked_message": "Wholesale access is unavailable.",
+    "sign_in": "Sign in",
+    "application_link": "View application preview",
+    "application_notice": "Application preview only; nothing is submitted.",
+    "contact": "Contact us"
+  },
   "wholesale_application_preview": {
     "header_link": "Apply for wholesale",
     "preview_notice": "Application preview \u2014 submissions are not sent.",

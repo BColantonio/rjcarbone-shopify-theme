@@ -1,0 +1,186 @@
+{% comment %}
+  Customer-access UI preview with locally selectable sample states only.
+  @example
+  /pages/wholesale-application?view=customer-access-preview
+{% endcomment %}
+
+<section class="customer-access-preview section page-width-content">
+  <div class="customer-access-preview__content">
+	<p class="customer-access-preview__notice">{{ 'customer_access_preview.notice' | t }}</p>
+	<h1 class="customer-access-preview__title">{{ 'customer_access_preview.heading' | t }}</h1>
+	<p class="customer-access-preview__intro">{{ 'customer_access_preview.intro' | t }}</p>
+
+	<fieldset class="customer-access-preview__states">
+	  <legend>{{ 'customer_access_preview.select_state' | t }}</legend>
+
+	  <input class="customer-access-preview__radio" type="radio" name="customer-access-state-{{ section.id }}" id="access-visitor-{{ section.id }}" aria-controls="access-visitor-panel-{{ section.id }}" checked>
+	  <label class="customer-access-preview__choice" for="access-visitor-{{ section.id }}">{{ 'customer_access_preview.visitor' | t }}</label>
+	  <input class="customer-access-preview__radio" type="radio" name="customer-access-state-{{ section.id }}" id="access-no-application-{{ section.id }}" aria-controls="access-no-application-panel-{{ section.id }}">
+	  <label class="customer-access-preview__choice" for="access-no-application-{{ section.id }}">{{ 'customer_access_preview.no_application' | t }}</label>
+	  <input class="customer-access-preview__radio" type="radio" name="customer-access-state-{{ section.id }}" id="access-pending-{{ section.id }}" aria-controls="access-pending-panel-{{ section.id }}">
+	  <label class="customer-access-preview__choice" for="access-pending-{{ section.id }}">{{ 'customer_access_preview.pending' | t }}</label>
+	  <input class="customer-access-preview__radio" type="radio" name="customer-access-state-{{ section.id }}" id="access-approved-{{ section.id }}" aria-controls="access-approved-panel-{{ section.id }}">
+	  <label class="customer-access-preview__choice" for="access-approved-{{ section.id }}">{{ 'customer_access_preview.approved' | t }}</label>
+	  <input class="customer-access-preview__radio" type="radio" name="customer-access-state-{{ section.id }}" id="access-revoked-{{ section.id }}" aria-controls="access-revoked-panel-{{ section.id }}">
+	  <label class="customer-access-preview__choice" for="access-revoked-{{ section.id }}">{{ 'customer_access_preview.revoked' | t }}</label>
+
+	  <div class="customer-access-preview__panel customer-access-preview__panel--visitor" id="access-visitor-panel-{{ section.id }}">
+		<h2>{{ 'customer_access_preview.visitor' | t }}</h2>
+		<p>{{ 'customer_access_preview.visitor_message' | t }}</p>
+		<div class="customer-access-preview__actions">
+		  <a class="button" href="{{ routes.account_login_url }}">{{ 'customer_access_preview.sign_in' | t }}</a>
+		  <a class="button button-secondary" href="/pages/wholesale-application?view=wholesale-application-preview">{{ 'customer_access_preview.application_link' | t }}</a>
+		</div>
+		<p>{{ 'customer_access_preview.application_notice' | t }}</p>
+	  </div>
+	  <div class="customer-access-preview__panel customer-access-preview__panel--no-application" id="access-no-application-panel-{{ section.id }}">
+		<h2>{{ 'customer_access_preview.no_application_heading' | t }}</h2>
+		<p>{{ 'customer_access_preview.no_application_message' | t }}</p>
+		<div class="customer-access-preview__actions">
+		  <a class="button button-secondary" href="/pages/wholesale-application?view=wholesale-application-preview">{{ 'customer_access_preview.application_link' | t }}</a>
+		</div>
+		<p>{{ 'customer_access_preview.application_notice' | t }}</p>
+		{% capture contact_link %}<a href="/pages/contact">{{ 'customer_access_preview.contact' | t | escape }}</a>{% endcapture %}
+		<p>{{ 'customer_access_preview.existing_customer_html' | t: contact_link: contact_link }}</p>
+	  </div>
+	  <div class="customer-access-preview__panel customer-access-preview__panel--pending" id="access-pending-panel-{{ section.id }}">
+		<h2>{{ 'customer_access_preview.pending' | t }}</h2>
+		<p>{{ 'customer_access_preview.pending_message' | t }}</p>
+		<p>{{ 'customer_access_preview.pending_access_message' | t }}</p>
+		<div class="customer-access-preview__actions">
+		  <a class="button" href="{{ routes.root_url }}">{{ 'customer_access_preview.continue_browsing' | t }}</a>
+		  <a class="button button-secondary" href="/pages/contact">{{ 'customer_access_preview.contact' | t }}</a>
+		</div>
+	  </div>
+	  <div class="customer-access-preview__panel customer-access-preview__panel--approved" id="access-approved-panel-{{ section.id }}">
+		<h2>{{ 'customer_access_preview.approved' | t }}</h2>
+		<p>{{ 'customer_access_preview.approved_message' | t }}</p>
+		<a class="button" href="{{ routes.root_url }}">{{ 'customer_access_preview.start_shopping' | t }}</a>
+	  </div>
+	  <div class="customer-access-preview__panel customer-access-preview__panel--revoked" id="access-revoked-panel-{{ section.id }}">
+		<h2>{{ 'customer_access_preview.revoked_heading' | t }}</h2>
+		<p>{{ 'customer_access_preview.revoked_help' | t }}</p>
+		<a class="button button-secondary" href="/pages/contact">{{ 'customer_access_preview.contact' | t }}</a>
+	  </div>
+	</fieldset>
+  </div>
+</section>
+
+{% stylesheet %}
+  .customer-access-preview {
+	padding-block: var(--padding-4xl);
+  }
+
+  .customer-access-preview__content {
+	width: 100%;
+	max-width: var(--normal-content-width);
+	margin-inline: auto;
+  }
+
+  .customer-access-preview__notice {
+	display: inline-flex;
+	margin-block: 0 var(--gap-md);
+	padding: var(--padding-sm) var(--padding-md);
+	border: var(--style-border-width-inputs) solid var(--color-input-border);
+	border-radius: var(--style-border-radius-inputs);
+	font-weight: 600;
+  }
+
+  .customer-access-preview__title {
+	margin-block: 0 var(--gap-sm);
+  }
+
+  .customer-access-preview__intro {
+	margin-block: 0 var(--gap-xl);
+  }
+
+  .customer-access-preview__states {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--gap-sm);
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+  }
+
+  .customer-access-preview__states legend {
+	margin-block-end: var(--gap-sm);
+	font-weight: 600;
+  }
+
+  .customer-access-preview__radio {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+  }
+
+  .customer-access-preview__choice {
+	display: inline-flex;
+	align-items: center;
+	min-height: 44px;
+	padding: var(--padding-sm) var(--padding-md);
+	border: 1px solid var(--color-input-border);
+	border-radius: var(--style-border-radius-inputs);
+	cursor: pointer;
+	overflow-wrap: anywhere;
+  }
+
+  .customer-access-preview__radio:checked + .customer-access-preview__choice {
+	border-color: var(--color-primary-button-border);
+	background: var(--color-primary-button-background);
+	color: var(--color-primary-button-text);
+	font-weight: 600;
+  }
+
+  .customer-access-preview__radio:focus-visible + .customer-access-preview__choice {
+	outline: var(--focus-outline-width) solid var(--color-foreground);
+	outline-offset: var(--focus-outline-offset);
+  }
+
+  .customer-access-preview__panel {
+	display: none;
+	flex: 1 0 100%;
+	min-width: 0;
+	margin-block-start: var(--gap-md);
+	padding: var(--padding-lg);
+	border: 1px solid var(--color-input-border);
+	border-radius: var(--style-border-radius-inputs);
+	overflow-wrap: anywhere;
+  }
+
+  .customer-access-preview__radio[id^='access-visitor-']:checked ~ .customer-access-preview__panel--visitor,
+  .customer-access-preview__radio[id^='access-no-application-']:checked ~ .customer-access-preview__panel--no-application,
+  .customer-access-preview__radio[id^='access-pending-']:checked ~ .customer-access-preview__panel--pending,
+  .customer-access-preview__radio[id^='access-approved-']:checked ~ .customer-access-preview__panel--approved,
+  .customer-access-preview__radio[id^='access-revoked-']:checked ~ .customer-access-preview__panel--revoked {
+	display: block;
+  }
+
+  .customer-access-preview__panel h2 {
+	margin-block: 0 var(--gap-sm);
+  }
+
+  .customer-access-preview__panel p {
+	margin-block: 0 var(--gap-md);
+  }
+
+  .customer-access-preview__panel > :last-child {
+	margin-block-end: 0;
+  }
+
+  .customer-access-preview__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--gap-sm);
+	margin-block-end: var(--gap-md);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+	"name": "t:names.page",
+  "class": "section-wrapper"
+}
+{% endschema %}
