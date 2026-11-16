@@ -382,10 +382,14 @@
   }
 
   input.search-input,
-  input.search-input:is(:focus, :focus-visible, :focus-within),
-  .predictive-search-form__header *:is(:focus, :focus-visible) {
+  input.search-input:is(:focus, :focus-within) {
     outline: none;
     box-shadow: none;
+  }
+
+  .predictive-search-form__header :is(input, button):focus-visible {
+    outline: var(--focus-outline-width) solid currentColor;
+    outline-offset: calc(-1 * var(--focus-outline-offset));
   }
 
   input.search-input:hover {

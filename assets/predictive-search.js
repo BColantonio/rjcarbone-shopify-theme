@@ -182,6 +182,24 @@ class PredictiveSearchComponent extends Component {
    * @param {KeyboardEvent} event - The keyboard event.
    */
   onSearchKeyDown = (event) => {
+    if (event.key === 'Tab') {
+      if (event.defaultPrevented) return;
+      const dialog = this.closest('dialog[open]');
+      if (dialog) {
+        const focusable = Array.from(
+          dialog.querySelectorAll('a[href], button:not([disabled]), input:not([type="hidden"]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex^="-"])')
+        ).filter((element) => element instanceof HTMLElement && element.tabIndex >= 0 && element.getClientRects().length && getComputedStyle(element).visibility !== 'hidden');
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if ((!event.shiftKey && document.activeElement === last) || (event.shiftKey && document.activeElement === first)) {
+          event.preventDefault();
+          const target = event.shiftKey ? last : first;
+          if (target instanceof HTMLElement) target.focus();
+        }
+      }
+      return;
+    }
+
     if (event.key === 'Escape') {
       this.#resetSearch();
       return;
@@ -203,18 +221,6 @@ class PredictiveSearchComponent extends Component {
         this.#currentIndex = currentIndex < totalItems - 1 ? currentIndex + 1 : 0;
         break;
 
-      case 'Tab':
-        if (event.shiftKey) {
-          this.#isKeyboardNavigation = true;
-          event.preventDefault();
-          this.#currentIndex = currentIndex > 0 ? currentIndex - 1 : totalItems - 1;
-        } else {
-          this.#isKeyboardNavigation = true;
-          event.preventDefault();
-          this.#currentIndex = currentIndex < totalItems - 1 ? currentIndex + 1 : 0;
-        }
-        break;
-
       case 'ArrowUp':
         this.#isKeyboardNavigation = true;
         event.preventDefault();
@@ -222,6 +228,7 @@ class PredictiveSearchComponent extends Component {
         break;
 
       case 'Enter': {
+        if (event.target !== this.refs.searchInput) return;
         const singleResultContainer = this.refs.predictiveSearchResults.querySelector('[data-single-result-url]');
         if (singleResultContainer instanceof HTMLElement && singleResultContainer.dataset.singleResultUrl) {
           event.preventDefault();
