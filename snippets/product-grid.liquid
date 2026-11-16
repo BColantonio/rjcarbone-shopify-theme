@@ -7,12 +7,14 @@
   @param {string} [title] - Header of the collection or search results
   @param {string} children - List or grid of product cards
   @param {boolean} [enable_infinite_scroll] - Whether to enable infinite scroll (default: true)
+  @param {string} [empty_results_url] - URL to clear filters for an empty search
 {%- enddoc -%}
 
 {%- liquid
   if section.settings.background_color != blank
     render 'contrast-override', background_color: section.settings.background_color, section_id: section.id
   endif
+  assign empty_results_url = empty_results_url | default: collection.url
 -%}
 
 {% capture product_card_size %}
@@ -114,7 +116,7 @@
           {{ 'content.no_products_found' | t }}
         </h2>
         <p>
-          {{ 'content.use_fewer_filters_html' | t: link: collection.url, class: 'main-collection-grid__empty-link' }}
+          {{ 'content.use_fewer_filters_html' | t: link: empty_results_url, class: 'main-collection-grid__empty-link' }}
         </p>
       </div>
     {% else %}

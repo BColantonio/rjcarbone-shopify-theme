@@ -24,6 +24,9 @@ class FacetsFormComponent extends Component {
 
   connectedCallback() {
     super.connectedCallback();
+    if (this.hasAttribute('form-style')) {
+      window.addEventListener('popstate', this.#onHistoryChange);
+    }
     // In vertical filter mode the in-page filters take over at ≥750px, so a
     // drawer left open across a mobile→desktop resize would render duplicate
     // filter UI. `data-filter-style` is only set on the drawer variant (see
@@ -35,8 +38,18 @@ class FacetsFormComponent extends Component {
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    window.removeEventListener('popstate', this.#onHistoryChange);
     mediaQueryLarge.removeEventListener('change', this.#onBreakpointChange);
   }
+
+  #onHistoryChange = () => {
+    const renderPromise = this.#updateSection();
+    if (this.dataset.pageType === 'search') {
+      this.#dispatchSearchUpdateEvent(renderPromise);
+    } else {
+      this.#dispatchCollectionUpdateEvent(renderPromise);
+    }
+  };
 
   #onBreakpointChange = (/** @type {MediaQueryListEvent} */ event) => {
     if (!event.matches) return;

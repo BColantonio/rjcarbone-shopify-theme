@@ -1,4 +1,5 @@
 import { Component } from '@theme/component';
+import { StandardEvents } from '@shopify/events';
 
 const STORAGE_KEY = 'theme-favorites';
 const FAVORITES_CHANGE_EVENT = 'theme:favorites-change';
@@ -120,6 +121,8 @@ class FavoriteToggle extends Component {
     this.refs.favoriteButton.addEventListener('click', this.#handleClick);
     window.addEventListener(FAVORITES_CHANGE_EVENT, this.#handleFavoritesChange);
     window.addEventListener('storage', this.#handleStorageChange);
+    document.addEventListener(StandardEvents.collectionUpdate, this.#handleResultsUpdate);
+    document.addEventListener(StandardEvents.searchUpdate, this.#handleResultsUpdate);
     this.#refresh();
   }
 
@@ -127,8 +130,18 @@ class FavoriteToggle extends Component {
     this.refs.favoriteButton?.removeEventListener('click', this.#handleClick);
     window.removeEventListener(FAVORITES_CHANGE_EVENT, this.#handleFavoritesChange);
     window.removeEventListener('storage', this.#handleStorageChange);
+    document.removeEventListener(StandardEvents.collectionUpdate, this.#handleResultsUpdate);
+    document.removeEventListener(StandardEvents.searchUpdate, this.#handleResultsUpdate);
     super.disconnectedCallback();
   }
+
+  /** @param {import('@shopify/events').CollectionUpdateEvent | import('@shopify/events').SearchUpdateEvent} event */
+  #handleResultsUpdate = (event) => {
+    if (!(event.target instanceof Element) || event.target.closest('.shopify-section') !== this.closest('.shopify-section')) return;
+    event.promise.then(() => {
+      if (this.isConnected) this.#refresh();
+    }).catch(() => {});
+  };
 
   /** @type {(event: MouseEvent) => void} */
   #handleClick = (event) => {

@@ -60,6 +60,8 @@
       {% endif %}
 
       {% paginate collection.products by products_per_page %}
+        {% assign empty_sort_by = collection.sort_by | default: collection.default_sort_by %}
+        {% assign empty_results_url = collection.url | append: '?sort_by=' | append: empty_sort_by %}
         {% capture children %}
           {% for product in collection.products %}
             <li
@@ -84,7 +86,8 @@
           children: children,
           products: collection.products,
           paginate: paginate,
-          enable_infinite_scroll: section.settings.enable_infinite_scroll
+          enable_infinite_scroll: section.settings.enable_infinite_scroll,
+          empty_results_url: empty_results_url
         %}
       {% endpaginate %}
     </div>

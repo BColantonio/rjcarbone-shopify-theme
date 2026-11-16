@@ -58,9 +58,9 @@
   endfor
 
   if results.url
-    assign results_url = results.url
+    assign results_url = results.url | append: '?sort_by=' | append: sort_by
   else
-    assign terms = results.terms | escape
+    assign terms = results.terms | url_encode
     assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
   endif
 
@@ -787,7 +787,7 @@
 
   .facets--horizontal .facets__form {
     @media screen and (min-width: 750px) {
-      flex-flow: row nowrap;
+      flex-flow: row wrap;
       height: auto;
     }
   }

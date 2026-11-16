@@ -36,9 +36,22 @@
     {% endif %}
 
     {% paginate search.results by products_per_page %}
+      {% liquid
+        assign has_active_filters = false
+        assign empty_results_url = search.terms | url_encode | prepend: '?q='
+        assign empty_sort_by = search.sort_by | default: search.default_sort_by
+        assign empty_results_url = empty_results_url | append: '&sort_by=' | append: empty_sort_by
+        for filter in search.filters
+          if filter.active_values.size > 0 or filter.min_value.value != null or filter.max_value.value != null
+            assign has_active_filters = true
+          endif
+        endfor
+      %}
+      {% content_for 'block', type: 'filters', id: 'filters', results: search, results_size: search.results_count %}
       {% if search.results_count > 0 %}
-        {% content_for 'block', type: 'filters', id: 'filters', results: search, results_size: search.results_count %}
         {% assign products = search.results | where: 'object_type', 'product' %}
+      {% elsif has_active_filters %}
+        {% assign products = search.results %}
       {% else %}
         {% assign collection = settings.empty_state_collection | default: collections.all %}
         {% assign default_title = 'content.search_results_resource_queries' | t %}
@@ -71,6 +84,7 @@
         products: products,
         paginate: paginate,
         enable_infinite_scroll: section.settings.enable_infinite_scroll,
+        empty_results_url: empty_results_url,
         title: title
       %}
     {% endpaginate %}
