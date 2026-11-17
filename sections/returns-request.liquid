@@ -106,7 +106,7 @@
         <select
           id="returns-reason-{{ section.id }}"
           ref="reason"
-          aria-describedby="returns-reason-error-{{ section.id }}"
+          aria-describedby="returns-reason-{{ section.id }}-error"
           on:change="/clearFieldError"
         >
           <option value="">{{ 'returns_request.reason_placeholder' | t }}</option>
@@ -116,7 +116,7 @@
           <option value="wrong_quantity_received">{{ 'returns_request.reason_wrong_quantity_received' | t }}</option>
           <option value="other">{{ 'returns_request.reason_other' | t }}</option>
         </select>
-        <p class="returns-request__error" id="returns-reason-error-{{ section.id }}" role="alert" hidden></p>
+        <p class="returns-request__error" id="returns-reason-{{ section.id }}-error" role="alert" hidden></p>
       </div>
 
       <div class="returns-request__field">

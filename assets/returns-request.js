@@ -125,6 +125,7 @@ class ReturnsRequest extends Component {
     this.querySelectorAll('[data-step]').forEach((step) => {
       if (step instanceof HTMLElement) step.hidden = true;
     });
+    this.querySelectorAll('[data-progress-step]').forEach((item) => item.removeAttribute('aria-current'));
     this.refs.confirmation.hidden = false;
     this.refs.status.textContent = '';
     const heading = this.refs.confirmation.querySelector('h2');
@@ -140,7 +141,7 @@ class ReturnsRequest extends Component {
     if (!(quantity instanceof HTMLInputElement)) throw new Error('Returns prototype is missing an item quantity field.');
 
     quantity.disabled = !checkbox.checked;
-    quantity.value = checkbox.checked ? '1' : '';
+    if (checkbox.checked && !quantity.value) quantity.value = '1';
     quantity.removeAttribute('aria-invalid');
     const error = this.querySelector(`#${quantity.id}-error`);
     if (error instanceof HTMLElement) {
@@ -247,6 +248,7 @@ class ReturnsRequest extends Component {
       checkbox.value = item.id;
       checkbox.setAttribute('on:change', '/handleItemToggle');
       const itemName = document.createElement('span');
+      itemName.id = `${checkbox.id}-name`;
       itemName.textContent = this.message('purchasedQuantityLabel', {
         title: item.title,
         quantity: String(item.purchasedQuantity),
@@ -257,6 +259,7 @@ class ReturnsRequest extends Component {
       quantityField.className = 'returns-request__quantity-field';
       const quantityLabel = document.createElement('label');
       quantityLabel.htmlFor = `${checkbox.id}-quantity`;
+      quantityLabel.id = `${checkbox.id}-quantity-label`;
       quantityLabel.textContent = this.message('quantityLabel');
       const quantity = document.createElement('input');
       quantity.type = 'number';
@@ -266,6 +269,7 @@ class ReturnsRequest extends Component {
       quantity.max = String(item.purchasedQuantity);
       quantity.step = '1';
       quantity.disabled = true;
+      quantity.setAttribute('aria-labelledby', `${quantityLabel.id} ${itemName.id}`);
       quantity.setAttribute('aria-describedby', `${quantity.id}-help ${quantity.id}-error`);
       quantity.setAttribute('on:input', '/clearFieldError');
       const help = document.createElement('span');
@@ -337,7 +341,7 @@ class ReturnsRequest extends Component {
       item.className = 'returns-request__photo';
       const image = document.createElement('img');
       image.src = url;
-      image.alt = this.message('photoPreviewAlt', { name: file.name });
+      image.alt = '';
       image.width = 240;
       image.height = 240;
       image.decoding = 'async';
@@ -402,7 +406,7 @@ class ReturnsRequest extends Component {
       item.className = 'returns-request__photo';
       const image = document.createElement('img');
       image.src = url;
-      image.alt = this.message('photoPreviewAlt', { name: file.name });
+      image.alt = '';
       image.width = 240;
       image.height = 240;
       image.decoding = 'async';
