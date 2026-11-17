@@ -119,12 +119,16 @@ function generateCategoryLinks(entriesByDepartment) {
     '  @example',
     "  {% render 'floral-department-category-links', collection_handle: collection.handle %}",
     '{%- enddoc -%}',
+    '{% capture category_links %}',
     '{%- case collection_handle -%}',
   ];
 
   for (const department of departments) {
     lines.push(`  {%- when '${department.handle}' -%}`);
     lines.push('    <ul class="supplies-category-links__list" role="list">');
+    lines.push(
+      `      <li class="supplies-category-links__item"><a class="supplies-category-links__link" href="{{ routes.collections_url }}/${department.handle}"{% if collection.handle == '${department.handle}' %} aria-current="page"{% endif %}>{{ collections['${department.handle}'].title | escape }}</a></li>`
+    );
     const entries = [...entriesByDepartment.get(department.name)].sort((first, second) =>
       compareCategoryNames(first.name, second.name)
     );
@@ -137,13 +141,26 @@ function generateCategoryLinks(entriesByDepartment) {
   }
 
   lines.push('{%- endcase -%}');
+  lines.push('{% endcapture %}');
+  lines.push('');
+  lines.push("{% if collection_handle == 'plants' or collection_handle == 'flowers' or collection_handle == 'roses' or collection_handle == 'greens' %}");
+  lines.push('  {% liquid');
+  lines.push("    assign current_category_url = routes.collections_url | append: '/' | append: collection.handle");
+  lines.push(`    assign current_category_link = '<a class="supplies-category-links__link" href="' | append: current_category_url | append: '">'`);
+  lines.push(`    assign active_category_link = '<a class="supplies-category-links__link" href="' | append: current_category_url | append: '" aria-current="page">'`);
+  lines.push('    assign category_links = category_links | replace: current_category_link, active_category_link');
+  lines.push('  %}');
+  lines.push('{% endif %}');
+  lines.push('{{ category_links }}');
   return `${lines.join('\n')}\n`;
 }
 
 function generateBackLinks(department, entries) {
   const lines = [
     '{%- doc -%}',
-    `  Renders the Back to ${department.name} link for one of its confirmed category collections.`,
+    department.handle === 'plants'
+      ? '  Returns the Plants department handle for Plants and its confirmed category collections.'
+      : `  Returns the confirmed ${department.name} department handle for one of its category collections.`,
     '  @param {string} collection_handle - The category collection handle.',
     '  @example',
     `  {% render 'floral-department-back-link-${department.handle}', collection_handle: collection.handle %}`,
@@ -151,11 +168,14 @@ function generateBackLinks(department, entries) {
     '{%- case collection_handle -%}',
   ];
 
+  if (department.handle === 'plants') {
+    lines.push("  {%- when 'plants' -%}");
+    lines.push('    plants');
+  }
+
   for (const entry of entries) {
     lines.push(`  {%- when '${entry.handle}' -%}`);
-    lines.push(
-      `    <a href="{{ routes.collections_url }}/${department.handle}">{{ 'actions.back_to' | t: title: '${department.name}' }}</a>`
-    );
+    lines.push(`    ${department.handle}`);
   }
 
   lines.push('{%- endcase -%}');

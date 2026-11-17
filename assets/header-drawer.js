@@ -1,6 +1,6 @@
 import { Component } from '@theme/component';
 import { trapFocus, removeTrapFocus } from '@theme/focus';
-import { onAnimationEnd, removeWillChangeOnAnimationEnd } from '@theme/utilities';
+import { onAnimationEnd, removeWillChangeOnAnimationEnd, unlockScroll } from '@theme/utilities';
 
 /**
  * A custom element that manages the main menu drawer.
@@ -18,13 +18,29 @@ class HeaderDrawer extends Component {
     super.connectedCallback();
 
     this.addEventListener('keyup', this.#onKeyUp);
+    window.addEventListener('pageshow', this.#onPageShow);
     this.#setupAnimatedElementListeners();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('keyup', this.#onKeyUp);
+    window.removeEventListener('pageshow', this.#onPageShow);
   }
+
+  /** @param {PageTransitionEvent} event */
+  #onPageShow = (event) => {
+    if (!event.persisted || !this.isOpen) return;
+
+    const { details, menuDrawer } = this.refs;
+    reset(details);
+    this.querySelectorAll('details[open]:not(accordion-custom > details)').forEach((element) => {
+      if (element instanceof HTMLDetailsElement) reset(element);
+    });
+    menuDrawer.classList.remove('menu-drawer--has-submenu-opened');
+    unlockScroll(details);
+    removeTrapFocus();
+  };
 
   /**
    * Close the main menu drawer when the Escape key is pressed
@@ -76,6 +92,7 @@ class HeaderDrawer extends Component {
 
     this.preventInitialAccordionAnimations(details);
     requestAnimationFrame(() => {
+      if (!details.open || !this.isOpen) return;
       details.classList.add('menu-open');
 
       if (target) {
@@ -84,7 +101,9 @@ class HeaderDrawer extends Component {
 
       // Wait for the drawer animation to complete before trapping focus
       const drawer = details.querySelector('.menu-drawer, .menu-drawer__submenu');
-      onAnimationEnd(drawer || details, () => trapFocus(details), { subtree: false });
+      onAnimationEnd(drawer || details, () => {
+        if (details.open && this.isOpen) trapFocus(details);
+      }, { subtree: false });
     });
   }
 

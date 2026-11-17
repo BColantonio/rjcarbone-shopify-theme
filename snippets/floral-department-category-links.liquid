@@ -180,8 +180,9 @@
 
 {% if collection_handle == 'plants' or collection_handle == 'flowers' or collection_handle == 'roses' or collection_handle == 'greens' %}
   {% liquid
-    assign current_category_link = '<a class="supplies-category-links__link" href="' | append: collection.url | append: '">'
-    assign active_category_link = '<a class="supplies-category-links__link" href="' | append: collection.url | append: '" aria-current="page">'
+    assign current_category_url = routes.collections_url | append: '/' | append: collection.handle
+    assign current_category_link = '<a class="supplies-category-links__link" href="' | append: current_category_url | append: '">'
+    assign active_category_link = '<a class="supplies-category-links__link" href="' | append: current_category_url | append: '" aria-current="page">'
     assign category_links = category_links | replace: current_category_link, active_category_link
   %}
 {% endif %}
