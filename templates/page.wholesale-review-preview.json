@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "wholesale_review_preview": {
+      "type": "wholesale-review-preview"
+    }
+  },
+  "order": [
+    "wholesale_review_preview"
+  ]
+}

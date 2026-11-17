@@ -1,0 +1,119 @@
+<script src="{{ 'wholesale-review-preview.js' | asset_url }}" type="module"></script>
+
+<wholesale-review-preview class="wholesale-review section page-width-content">
+  <div class="wholesale-review__content">
+	<h1>{{ 'wholesale_review_preview.heading' | t }}</h1>
+	<p class="wholesale-review__notice">{{ 'wholesale_review_preview.notice' | t }}</p>
+	<p>{{ 'wholesale_review_preview.boundary' | t }}</p>
+	<noscript>{{ 'wholesale_review_preview.javascript_required' | t }}</noscript>
+	<div data-review-ui hidden>
+	  <label for="review-application-{{ section.id }}">{{ 'wholesale_review_preview.select_application' | t }}</label>
+	  <select id="review-application-{{ section.id }}" data-application></select>
+
+	  <section aria-labelledby="review-details-{{ section.id }}">
+		<h2 id="review-details-{{ section.id }}">
+		  <span data-business></span>
+		  <small class="wholesale-review__application-id" data-business-id></small>
+		</h2>
+		<p><strong>{{ 'wholesale_review_preview.eligibility' | t }}:</strong> <span data-state></span></p>
+		<p><strong>{{ 'wholesale_review_preview.access' | t }}:</strong> <span data-access></span></p>
+		<div class="wholesale-review__groups">
+		  <section><h3>{{ 'wholesale_application_preview.business_details_step_title' | t }}</h3><p data-business-details></p></section>
+		  <section><h3>{{ 'wholesale_review_preview.permit' | t }}</h3><p data-permit></p></section>
+		  <section><h3>{{ 'wholesale_application_preview.buyers_owner_step_title' | t }}</h3><p data-buyers-owner></p></section>
+		  <section><h3>{{ 'wholesale_review_preview.documents' | t }}</h3><p data-documents></p></section>
+		</div>
+	  </section>
+
+	  <div class="wholesale-review__fields">
+		<label for="review-notes-{{ section.id }}">{{ 'wholesale_review_preview.internal_notes' | t }}</label>
+		<textarea id="review-notes-{{ section.id }}" rows="3" data-notes></textarea>
+		<label for="review-message-{{ section.id }}">{{ 'wholesale_review_preview.customer_message' | t }}</label>
+		<textarea id="review-message-{{ section.id }}" rows="3" data-message></textarea>
+		<p>{{ 'wholesale_review_preview.message_notice' | t }}</p>
+	  </div>
+
+	  <form data-action-form>
+		<h2>{{ 'wholesale_review_preview.actions' | t }}</h2>
+		<label for="review-action-{{ section.id }}">{{ 'wholesale_review_preview.select_action' | t }}</label>
+		<select id="review-action-{{ section.id }}" data-action></select>
+		<div data-reason-wrap hidden>
+		  <label for="review-reason-{{ section.id }}">{{ 'wholesale_review_preview.reason' | t }}</label>
+		  <textarea id="review-reason-{{ section.id }}" rows="3" data-reason></textarea>
+		</div>
+		<button class="button" type="submit">{{ 'wholesale_review_preview.continue' | t }}</button>
+	  </form>
+	  <section class="wholesale-review__confirmation" data-confirmation hidden aria-labelledby="review-confirm-title-{{ section.id }}">
+		<h2 id="review-confirm-title-{{ section.id }}" tabindex="-1" data-confirm-title>{{ 'wholesale_review_preview.confirm_heading' | t }}</h2>
+		<p data-confirm-description></p>
+		<div class="wholesale-review__buttons">
+		  <button class="button" type="button" data-confirm>{{ 'wholesale_review_preview.confirm' | t }}</button>
+		  <button class="button button-secondary" type="button" data-cancel>{{ 'wholesale_review_preview.cancel' | t }}</button>
+		</div>
+	  </section>
+	  <p role="status" aria-live="polite" data-status></p>
+	  <section aria-labelledby="review-history-{{ section.id }}">
+		<h2 id="review-history-{{ section.id }}">{{ 'wholesale_review_preview.history' | t }}</h2>
+		<ol data-history></ol>
+	  </section>
+	</div>
+	<script type="application/json" data-review-translations>
+	  {
+		"awaiting": {{ 'wholesale_review_preview.awaiting' | t | json }},
+		"needs": {{ 'wholesale_review_preview.needs' | t | json }},
+		"approved": {{ 'wholesale_review_preview.approved' | t | json }},
+		"declined": {{ 'wholesale_review_preview.declined' | t | json }},
+		"revoked": {{ 'wholesale_review_preview.revoked' | t | json }},
+		"request": {{ 'wholesale_review_preview.request' | t | json }},
+		"return": {{ 'wholesale_review_preview.return' | t | json }},
+		"approve": {{ 'wholesale_review_preview.approve' | t | json }},
+		"decline": {{ 'wholesale_review_preview.decline' | t | json }},
+		"revoke": {{ 'wholesale_review_preview.revoke' | t | json }},
+		"reopen": {{ 'wholesale_review_preview.reopen' | t | json }},
+		"not_available": {{ 'wholesale_review_preview.not_available' | t | json }},
+		"access_pending": {{ 'wholesale_review_preview.access_pending' | t | json }},
+		"enforcement_pending": {{ 'wholesale_review_preview.enforcement_pending' | t | json }},
+		"access_pending_revocation": {{ 'wholesale_review_preview.access_pending_revocation' | t | json }},
+		"confirm_prompt": {{ 'wholesale_review_preview.confirm_prompt' | t | json }},
+		"reason_label": {{ 'wholesale_review_preview.reason' | t | json }},
+		"reason_required": {{ 'wholesale_review_preview.reason_required' | t | json }},
+		"message_required": {{ 'wholesale_review_preview.message_required' | t | json }},
+		"updated": {{ 'wholesale_review_preview.updated' | t | json }},
+		"sample_reviewer": {{ 'wholesale_review_preview.sample_reviewer' | t | json }},
+		"sample_created": {{ 'wholesale_review_preview.sample_created' | t | json }},
+		"sample_transition": {{ 'wholesale_review_preview.sample_transition' | t | json }}
+	  }
+	</script>
+  </div>
+</wholesale-review-preview>
+
+{% stylesheet %}
+	.wholesale-review { padding-block: var(--padding-2xl); }
+  .wholesale-review__content { width: 100%; max-width: var(--normal-content-width); margin-inline: auto; overflow-wrap: anywhere; }
+	.wholesale-review__content h1 { font-size: var(--font-size--2xl); line-height: var(--font-h3--line-height); margin-block: 0 var(--gap-sm); }
+  .wholesale-review__content h2 { font-size: var(--font-size--xl); line-height: var(--font-h4--line-height); margin-block: 0 var(--gap-sm); }
+  .wholesale-review__content h3 { font-size: var(--font-paragraph--size); line-height: var(--font-paragraph--line-height); }
+  .wholesale-review__application-id { display: block; margin-block-start: var(--gap-xs); font-family: var(--font-paragraph--family); font-size: var(--font-size--sm); font-weight: var(--font-paragraph--weight); line-height: var(--font-paragraph--line-height); text-transform: none; }
+  .wholesale-review__notice { padding: var(--padding-sm) var(--padding-md); border: var(--style-border-width-inputs) solid var(--color-input-border); border-radius: var(--style-border-radius-inputs); font-weight: 600; }
+	.wholesale-review [data-review-ui] > section { margin-block: var(--gap-lg); }
+  .wholesale-review__groups { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-md); }
+  @media screen and (min-width: 750px) {
+	.wholesale-review__groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .wholesale-review__groups section, .wholesale-review__confirmation { padding: var(--padding-md); border: var(--style-border-width-inputs) solid var(--color-input-border); border-radius: var(--style-border-radius-inputs); min-width: 0; }
+  .wholesale-review__groups h3 { margin-block: 0 var(--gap-sm); }
+  .wholesale-review__groups p { white-space: pre-line; margin: 0; }
+	.wholesale-review__fields, .wholesale-review form { display: grid; gap: var(--gap-sm); margin-block: var(--gap-lg); }
+  .wholesale-review label { display: block; font-weight: 600; }
+  .wholesale-review select, .wholesale-review textarea { display: block; width: 100%; max-width: 100%; padding: var(--padding-sm); border: var(--style-border-width-inputs) solid var(--color-input-border); border-radius: var(--style-border-radius-inputs); background: var(--color-background); color: var(--color-foreground); }
+  .wholesale-review__buttons { display: flex; flex-wrap: wrap; gap: var(--gap-sm); }
+  .wholesale-review [hidden] { display: none !important; }
+  .wholesale-review :focus-visible { outline: var(--focus-outline-width) solid var(--color-foreground); outline-offset: var(--focus-outline-offset); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Wholesale review preview",
+  "settings": []
+}
+{% endschema %}
