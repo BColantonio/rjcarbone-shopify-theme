@@ -80,6 +80,9 @@
     data-storage-changed="{{ 'saved_orders.storage_changed' | t | escape }}"
     data-browser-notice="{{ 'saved_orders.browser_notice' | t | escape }}"
     data-no-saved-orders="{{ 'saved_orders.no_saved_orders' | t | escape }}"
+    data-no-items="{{ 'saved_orders.no_items' | t | escape }}"
+    data-browse-url="{{ routes.root_url | escape }}"
+    data-browse-label="{{ 'customer_access_preview.continue_browsing' | t | escape }}"
     data-current-price="{{ 'saved_orders.current_price' | t: price: '__price__' | escape }}"
     data-available-price="{{ 'saved_orders.available_price' | t: price: '__price__' | escape }}"
     data-price-changed="{{ 'saved_orders.price_changed' | t | escape }}"
@@ -88,6 +91,7 @@
     data-cart-refresh-error="{{ 'saved_orders.cart_refresh_error' | t | escape }}"
     data-cart-none="{{ 'saved_orders.cart_none' | t: items: '__items__' | escape }}"
     data-item-removed="{{ 'saved_orders.item_removed' | t | escape }}"
+    data-sample-item-removed="{{ 'saved_orders.sample_item_removed' | t | escape }}"
     data-list-removed="{{ 'saved_orders.list_removed' | t | escape }}"
     data-name-saved="{{ 'saved_orders.name_saved' | t | escape }}"
     data-sample-saved="{{ 'saved_orders.sample_saved' | t | escape }}"
@@ -100,6 +104,7 @@
     <p class="saved-orders__notice">{{ 'saved_orders.prototype_notice' | t }}</p>
     <p class="saved-orders__notice">{{ 'saved_orders.browser_notice' | t }}</p>
     <p class="saved-orders__notice">{{ 'saved_orders.wholesale_notice' | t }}</p>
+    <p class="saved-orders__notice">{{ 'saved_orders.workflow_help' | t }}</p>
     <p class="saved-orders__status" role="status" aria-live="polite" aria-atomic="true" ref="savedOrdersStatus"></p>
 
     <section class="saved-orders__group" aria-labelledby="SavedOrdersSamples-{{ section.id }}">
@@ -111,7 +116,10 @@
     <section class="saved-orders__group" aria-labelledby="SavedOrdersSaved-{{ section.id }}">
       <h2 id="SavedOrdersSaved-{{ section.id }}">{{ 'saved_orders.saved_heading' | t }}</h2>
       <ul class="saved-orders__list" ref="savedList"></ul>
-      <p class="saved-orders__empty" ref="savedEmpty">{{ 'saved_orders.no_saved_orders' | t }}</p>
+      <div class="saved-orders__empty" ref="savedEmpty">
+        <p>{{ 'saved_orders.no_saved_orders' | t }}</p>
+        <a href="{{ routes.root_url }}">{{ 'customer_access_preview.continue_browsing' | t }}</a>
+      </div>
     </section>
   </saved-orders-component>
 </section>
@@ -267,8 +275,12 @@
     margin-block-start: 0;
   }
 
-  .saved-orders__actions > * {
+  .saved-orders__actions > *,
+  .saved-orders__card > button,
+  .saved-orders__editor > button,
+  .saved-orders__quantity-controls > button {
     max-width: 100%;
+    overflow-wrap: anywhere;
     white-space: normal;
   }
 

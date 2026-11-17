@@ -276,17 +276,20 @@ class FavoritesPage extends Component {
   };
 
   #render() {
+    const activeElement = document.activeElement;
     try {
       const favorites = readFavorites();
-      const activeElement = document.activeElement;
-      const focusedProductId =
-        activeElement instanceof HTMLButtonElement && this.contains(activeElement)
+      const focusedLink = activeElement instanceof HTMLAnchorElement && this.refs.favoriteList.contains(activeElement);
+      const focusedProductId = focusedLink
+        ? activeElement.dataset.favoriteProduct
+        : activeElement instanceof HTMLButtonElement && this.refs.favoriteList.contains(activeElement)
           ? activeElement.dataset.removeFavorite
           : undefined;
+      const focusedEmpty = this.refs.favoriteEmpty.contains(activeElement);
       this.refs.favoriteStatus.textContent = favorites.invalid ? this.dataset.storageError || '' : '';
       this.refs.favoriteList.replaceChildren(...favorites.map((favorite) => this.#createFavoriteItem(favorite)));
       this.refs.favoriteList.hidden = favorites.length === 0;
-      this.refs.favoriteEmpty.hidden = favorites.length !== 0;
+      this.refs.favoriteEmpty.hidden = favorites.length !== 0 || Boolean(favorites.invalid);
       for (const favorite of favorites) {
         if (!this.#pendingImageLookups.has(favorite.id)) this.#loadMissingImage(favorite);
       }
@@ -294,21 +297,28 @@ class FavoritesPage extends Component {
       if (focusedProductId) {
         const remainingButtons = this.querySelectorAll('[data-remove-favorite]');
         const matchingButton = Array.from(remainingButtons).find(
-          (button) => button.dataset.removeFavorite === focusedProductId
+          (button) => button instanceof HTMLButtonElement && button.dataset.removeFavorite === focusedProductId
         );
-        if (matchingButton instanceof HTMLButtonElement) {
+        const matchingLink = matchingButton?.parentElement?.querySelector('a[href]');
+        if (focusedLink && matchingLink instanceof HTMLAnchorElement) {
+          matchingLink.focus();
+        } else if (matchingButton instanceof HTMLButtonElement) {
           matchingButton.focus();
         } else if (remainingButtons[0] instanceof HTMLButtonElement) {
           remainingButtons[0].focus();
         } else {
           this.refs.favoriteHeading.focus();
         }
+      } else if (focusedEmpty && this.refs.favoriteEmpty.hidden) {
+        this.refs.favoriteHeading.focus();
       }
     } catch {
+      const restoreFocus = this.refs.favoriteList.contains(activeElement) || this.refs.favoriteEmpty.contains(activeElement);
       this.refs.favoriteList.replaceChildren();
       this.refs.favoriteList.hidden = true;
       this.refs.favoriteEmpty.hidden = true;
       this.#showStorageError();
+      if (restoreFocus) this.refs.favoriteHeading.focus();
     }
   }
 
@@ -319,6 +329,7 @@ class FavoritesPage extends Component {
 
     const link = document.createElement('a');
     link.className = 'favorites-page__product';
+    link.dataset.favoriteProduct = favorite.id;
     link.href = favorite.url;
 
     if (favorite.image) {
@@ -365,7 +376,7 @@ class FavoritesPage extends Component {
         signal: this.#imageLookupController.signal,
       });
       if (response.status === 404) {
-        this.#showProductStatus(favorite, this.dataset.unavailable || '');
+        this.#showProductStatus(favorite, this.dataset.unavailable || '', true);
         return;
       }
       const responseUrl = new URL(response.url);
@@ -413,8 +424,8 @@ class FavoritesPage extends Component {
     }
   }
 
-  /** @param {FavoriteProduct} favorite @param {string} message */
-  #showProductStatus(favorite, message) {
+  /** @param {FavoriteProduct} favorite @param {string} message @param {boolean} [missing] */
+  #showProductStatus(favorite, message, missing = false) {
     if (!this.isConnected) return;
     const button = Array.from(this.querySelectorAll('button[data-remove-favorite]')).find(
       (element) => element instanceof HTMLButtonElement && element.dataset.removeFavorite === favorite.id
@@ -423,6 +434,11 @@ class FavoritesPage extends Component {
     const status = button?.parentElement?.querySelector('[data-favorite-availability]');
     if (link instanceof HTMLAnchorElement && link.getAttribute('href') === favorite.url && status) {
       status.textContent = message;
+      if (missing) {
+        const wasFocused = document.activeElement === link;
+        link.removeAttribute('href');
+        if (wasFocused && button instanceof HTMLButtonElement) button.focus();
+      }
     }
   }
 

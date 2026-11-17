@@ -13,8 +13,8 @@
     data-remove-label="{{ 'favorites.remove_saved' | t: title: '__title__' | escape }}"
     data-removed-status="{{ 'favorites.removed_status' | t | escape }}"
     data-storage-error="{{ 'saved_orders.storage_help' | t | escape }}"
-    data-unavailable="{{ 'saved_orders.unavailable' | t | escape }}"
-    data-lookup-error="{{ 'saved_orders.lookup_error' | t | escape }}"
+    data-unavailable="{{ 'favorites.page_missing' | t | escape }}"
+    data-lookup-error="{{ 'favorites.page_lookup_error' | t | escape }}"
   >
     <div class="favorites-page__heading text-block h2">
       <h1 id="FavoritesHeading-{{ section.id }}" tabindex="-1" ref="favoriteHeading">
@@ -23,7 +23,10 @@
     </div>
     <p class="favorites-page__notice">{{ 'favorites.browser_notice' | t }}</p>
     <p class="favorites-page__status" role="status" aria-live="polite" aria-atomic="true" ref="favoriteStatus"></p>
-    <p class="favorites-page__empty" ref="favoriteEmpty">{{ 'favorites.empty' | t }}</p>
+    <div class="favorites-page__empty" ref="favoriteEmpty">
+      <p>{{ 'favorites.empty' | t }}</p>
+      <a href="{{ routes.root_url }}">{{ 'customer_access_preview.continue_browsing' | t }}</a>
+    </div>
     <ul class="favorites-page__list" hidden ref="favoriteList"></ul>
   </favorites-page>
 </section>
@@ -99,9 +102,12 @@
 
   .favorites-page__remove {
     align-self: flex-start;
+    max-width: 100%;
     min-height: var(--minimum-touch-target);
     padding-block: var(--padding-xs);
     padding-inline: var(--padding-sm);
+    overflow-wrap: anywhere;
+    white-space: normal;
   }
 
   @media screen and (max-width: 749px) {

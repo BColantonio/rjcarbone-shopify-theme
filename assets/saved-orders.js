@@ -169,8 +169,15 @@ class SavedOrders extends Component {
   /** @param {StorageEvent} event */
   #handleStorageChange = (event) => {
     if (event.key !== STORAGE_KEY && event.key !== null) return;
+    const activeElement = document.activeElement;
+    const restoreFocus = activeElement && (
+      this.refs.savedList.contains(activeElement) ||
+      this.refs.savedEmpty.contains(activeElement) ||
+      this.#activeEditor?.container.contains(activeElement)
+    );
     this.#closeEditor();
     this.#renderSavedOrders();
+    if (restoreFocus) this.refs.savedOrdersHeading.focus();
     if (!this.refs.savedOrdersStatus.textContent) this.#setStatus(this.#message('storageChanged'));
   };
 
@@ -235,7 +242,7 @@ class SavedOrders extends Component {
         );
         if (card) card.append(active.container);
       }
-      this.refs.savedEmpty.hidden = orders.length !== 0;
+      this.refs.savedEmpty.hidden = orders.length !== 0 || Boolean(orders.invalid);
       if (orders.invalid) this.#setStatus(this.#message('storageError'));
       else if (orders.length === 0) this.refs.savedOrdersStatus.textContent = '';
     } catch (error) {
@@ -448,6 +455,15 @@ class SavedOrders extends Component {
       items.append(this.#createOrderItem(entry, loaded, index, active));
     });
     container.append(items);
+    if (order.items.length === 0) {
+      const empty = document.createElement('p');
+      empty.textContent = this.#message('noItems');
+      container.append(empty);
+      const browse = document.createElement('a');
+      browse.href = this.#message('browseUrl');
+      browse.textContent = this.#message('browseLabel');
+      container.append(browse);
+    }
 
     if (kind === 'sample') {
       container.append(this.#button('saveOrder', 'save-sample'));
@@ -484,8 +500,7 @@ class SavedOrders extends Component {
       item.append(
         details,
         this.#createQuantityControls(entry, index, active),
-        status,
-        this.#createProductLink(entry.handle)
+        status
       );
     } else if (loaded.error === 'lookup' || !loaded.product) {
       status.textContent = this.#message('lookupError');
@@ -775,12 +790,13 @@ class SavedOrders extends Component {
         this.#closeEditor();
         this.#renderSavedOrders();
         this.#showStorageError(error);
+        this.refs.savedOrdersHeading.focus();
         return;
       }
     }
     this.#renderEditor();
     active.container.querySelector('h3')?.focus();
-    this.#setStatus(this.#message('itemRemoved'));
+    this.#setStatus(this.#message(active.kind === 'sample' ? 'sampleItemRemoved' : 'itemRemoved'));
   }
 
   /** @param {HTMLInputElement} input */
@@ -864,6 +880,7 @@ class SavedOrders extends Component {
       this.#closeEditor();
       this.#renderSavedOrders();
       this.#showStorageError(error);
+      this.refs.savedOrdersHeading.focus();
     }
   }
 
