@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 720" role="img" aria-labelledby="title">
+  <title id="title">Illustrative placeholder for a red poinsettia stem</title>
+  <rect width="640" height="720" fill="#f3f5f2"/>
+  <path d="M320 342 C315 460 338 546 310 654" fill="none" stroke="#627d61" stroke-width="12" stroke-linecap="round"/>
+  <path d="M324 523 C250 470 203 474 179 486 C215 540 270 557 324 537" fill="#789274"/>
+  <path d="M320 452 C379 408 429 411 463 426 C428 472 378 490 321 469" fill="#789274"/>
+  <g fill="#a52938" stroke="#842432" stroke-width="3">
+	<path d="M320 342 C272 280 269 195 320 116 C371 195 368 280 320 342Z"/>
+	<path d="M320 342 C251 334 195 279 178 197 C260 215 306 264 320 342Z"/>
+	<path d="M320 342 C249 381 172 376 119 332 C193 294 264 295 320 342Z"/>
+	<path d="M320 342 C292 409 230 451 155 446 C186 374 247 340 320 342Z"/>
+	<path d="M320 342 C348 409 410 451 485 446 C454 374 393 340 320 342Z"/>
+	<path d="M320 342 C391 381 468 376 521 332 C447 294 376 295 320 342Z"/>
+	<path d="M320 342 C389 334 445 279 462 197 C380 215 334 264 320 342Z"/>
+  </g>
+  <circle cx="320" cy="342" r="24" fill="#d6bb73"/>
+  <g fill="#f2e5ad">
+	<circle cx="311" cy="337" r="4"/><circle cx="329" cy="336" r="4"/><circle cx="319" cy="350" r="4"/>
+  </g>
+</svg>

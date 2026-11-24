@@ -1,15 +1,34 @@
 # Horizon wholesale price-protection proof
 
-**Status: not proven.** This is a proposed experiment, not an instruction to
-change the current store. No supported configuration has yet been established
-that both preserves public Horizon product browsing and prevents all
-unauthorized price retrieval. The [access audit](./customer-access-audit.md),
+**Status: not proven.** The November 18 Shopify Basic test passed the checks
+described below, but broader price and order surface coverage remains pending
+for prelaunch. No supported configuration has yet been established that both
+preserves public Horizon product browsing and prevents all unauthorized price
+retrieval. The [access audit](./customer-access-audit.md),
 [requirements](./wholesale-registration-requirements.md), and
 [decision brief](./wholesale-access-decision-brief.md) provide the background.
-Basic is the reported development plan; the launch plan and actual store
-configuration are unverified. Login alone is not approval.
+Basic was used for the November 18 test; the launch plan and complete store
+configuration remain unverified. Login alone is not approval.
 
-## Baseline evidence
+## November 18 Shopify Basic test results
+
+- The approved buyer saw the **$1.00** catalog price and placed test order
+  **#1001**.
+- After revocation, an already-open checkout was blocked, and no new order
+  appeared.
+- Signed-out and unapproved checks passed on the paths tested. These results do
+  not establish protection on untested paths or channels.
+
+Broader coverage of price retrieval, order paths, and revocation remains pending
+for prelaunch under the acceptance cases below.
+
+## Next prototype
+
+Prototype a separate, price-free public catalog. Its separation from the
+purchase experience and its protection across all relevant price and order
+surfaces still need to be established before launch.
+
+## Earlier baseline evidence
 
 The new baseline requests were canceled before returning results. No result
 below should be inferred from a failed, redirected, password-protected, or
@@ -33,7 +52,7 @@ tokenless product access [3] with product and variant price fields [4].
 Shopify's product `structured_data` example includes an offer price [5].
 These describe possible exposure, not responses observed during this baseline.
 
-## One decisive experiment for review
+## Earlier proposed experiment for review
 
 **Question:** Can a Shopify-supported B2B catalog and customer/company context,
 with Horizon retained, make the actual public product endpoints price-free for
@@ -45,8 +64,8 @@ setting exists.
 
 Use a disposable, authorized Shopify environment with B2B capability and a
 copy of Horizon. Obtain permission and record the original settings first.
-Use fictional, non-sensitive prices and test accounts only. **Do not execute
-these changes in the current phase.**
+Use fictional, non-sensitive prices and test accounts only. This proposal is
+not an instruction to change the current store.
 
 1. Configure one test product with a known handle, a nonzero fictional base
    price and compare-at price, and one variant. Publish it to the Online Store
@@ -79,7 +98,7 @@ these changes in the current phase.**
 5. With separate authorization for a later order-path test, inspect direct cart,
    existing checkout links and every enabled accelerated/other order channel;
    demonstrate server-side denial for unapproved buyers and successful approved
-   test checkout without placing a live order. The present phase makes no such
+	  test checkout without placing a live order. The earlier baseline made no such
    requests. A checkout validation Function can block supported checkout paths,
    but cannot hide product or cart prices [8].
 
@@ -141,8 +160,7 @@ not prove all possible Horizon architectures impossible.
 
 ## Official sources
 
-Reviewed **2026-11-17** in the preceding decision-brief research; no new
-network checks were completed in this phase.
+Reviewed **2026-11-17** in the preceding decision-brief research.
 
 1. [Ajax Product API](https://shopify.dev/docs/api/ajax/reference/product).
 2. [Predictive Search API](https://shopify.dev/docs/api/ajax/reference/predictive-search).
