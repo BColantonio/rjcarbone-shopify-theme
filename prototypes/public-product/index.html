@@ -34,13 +34,14 @@
     .back-link:focus-visible { outline: 3px solid #15191b; outline-offset: 3px; }
     .eyebrow { color: #687578; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
     .product { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: 64px; align-items: start; margin-top: 24px; }
+    .product[hidden] { display: none; }
     figure { margin: 0; }
     figure img { display: block; width: 100%; height: auto; background: #f3f5f2; }
     figcaption { margin-top: 10px; color: #687578; font-size: 12px; }
     .details { padding-top: 12px; }
     h1 { margin: 14px 0 20px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.12; letter-spacing: -.025em; }
     .sku { color: #687578; font-size: 13px; overflow-wrap: anywhere; }
-    .description { max-width: 48ch; margin: 28px 0; color: #333; font-size: 16px; line-height: 1.7; }
+    .sign-in { margin-top: 28px; }
     .sign-in {
       display: inline-block;
       padding: 16px 22px;
@@ -65,12 +66,26 @@
   <script src="./product-fixture.js" defer></script>
   <script defer>
     document.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('#product-name').textContent = publicProduct.name;
-      document.querySelector('#product-description').textContent = publicProduct.description;
-      document.querySelector('#product-sku').textContent = publicProduct.sku;
+      const sku = new URLSearchParams(window.location.search).get('sku');
+      const product = publicProducts.find((item) => item.sku === sku);
+      const productView = document.querySelector('#product');
+      const notFound = document.querySelector('#not-found');
+      if (!product) {
+        if (notFound instanceof HTMLElement) notFound.hidden = false;
+        return;
+      }
+      const name = document.querySelector('#product-name');
+      const productSku = document.querySelector('#product-sku');
+      const category = document.querySelector('#product-category');
       const image = document.querySelector('#product-image');
-      image.src = publicProduct.image;
-      image.alt = publicProduct.imageAlt;
+      if (name) name.textContent = product.name;
+      if (productSku) productSku.textContent = product.sku;
+      if (category) category.textContent = product.category;
+      if (image instanceof HTMLImageElement) {
+        image.src = product.image;
+        image.alt = product.name;
+      }
+      if (productView instanceof HTMLElement) productView.hidden = false;
     });
   </script>
 </head>
@@ -83,17 +98,20 @@
   </header>
   <main>
     <a class="back-link" href="./catalog.html">Back to catalog</a>
-    <div class="eyebrow">Public catalog / Floral stems</div>
-    <div class="product">
+    <div class="eyebrow">Public catalog / Roses</div>
+    <noscript>Enable JavaScript to view the local product fixture.</noscript>
+    <section id="not-found" hidden>
+      <h1>Product not found</h1>
+      <p>Select a product from the catalog.</p>
+    </section>
+    <div class="product" id="product" hidden>
       <figure>
-        <img id="product-image" src="./poinsettia-placeholder.svg" alt="Illustrative placeholder for a red poinsettia stem" width="640" height="720">
-        <figcaption>Illustration placeholder — not a product photograph.</figcaption>
+        <img id="product-image" alt="">
       </figure>
       <section class="details" aria-labelledby="product-name">
-        <div class="eyebrow">Floral stems</div>
+        <div class="eyebrow" id="product-category"></div>
         <h1 id="product-name">Product details unavailable</h1>
         <p class="sku">SKU: <span id="product-sku">Unavailable</span></p>
-        <p class="description" id="product-description">Enable JavaScript to view the local product fixture.</p>
         <a class="sign-in" href="https://0igxkv-sp.myshopify.com/">Sign in for wholesale pricing and ordering</a>
       </section>
     </div>

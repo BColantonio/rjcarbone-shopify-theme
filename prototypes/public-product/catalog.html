@@ -28,10 +28,20 @@
     main { max-width: 1200px; margin: auto; padding: 44px 24px 80px; }
     .eyebrow { color: #687578; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
     h1 { margin: 14px 0 24px; font-size: clamp(30px, 3.4vw, 48px); line-height: 1.12; letter-spacing: -.025em; }
-    .product-card { max-width: 360px; border: 1px solid #e8ebea; }
-    .product-card img { display: block; width: 100%; height: auto; background: #f3f5f2; }
-    .card-details { padding: 20px; }
+    .search { margin-bottom: 24px; }
+    .search label { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 700; }
+    .search-controls { display: flex; flex-wrap: wrap; gap: 12px; }
+    .search input { flex: 1 1 260px; min-width: 0; padding: 14px; border: 1px solid #687578; border-radius: 14px; font: inherit; }
+    .search button { padding: 14px 22px; border: 0; border-radius: 14px; background: #0e9ca4; color: #15191b; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+    .search button:hover { background: #0b838a; }
+    .search input:focus-visible, .search button:focus-visible { outline: 3px solid #15191b; outline-offset: 3px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 24px; }
+    .product-card { display: flex; flex-direction: column; border: 1px solid #e8ebea; }
+    .product-card[hidden] { display: none; }
+    .product-card img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: contain; background: #f3f5f2; }
+    .card-details { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: 20px; }
     .card-details h2 { margin: 0 0 20px; font-size: 20px; line-height: 1.3; }
+    .sku { margin: 0 0 20px; color: #687578; font-size: 13px; overflow-wrap: anywhere; }
     .view-product {
       display: inline-block;
       padding: 16px 22px;
@@ -43,6 +53,7 @@
       line-height: 1.4;
       text-align: center;
       text-decoration: none;
+      margin-top: auto;
     }
     .view-product:hover { background: #0b838a; }
     .view-product:focus-visible { outline: 3px solid #15191b; outline-offset: 3px; }
@@ -54,13 +65,51 @@
   <script src="./product-fixture.js" defer></script>
   <script defer>
     document.addEventListener('DOMContentLoaded', () => {
-      const name = document.querySelector('#product-name');
-      const image = document.querySelector('#product-image');
-      if (name) name.textContent = publicProduct.name;
-      if (image instanceof HTMLImageElement) {
-        image.src = publicProduct.image;
-        image.alt = publicProduct.imageAlt;
-      }
+      const grid = document.querySelector('#product-grid');
+      const search = document.querySelector('#product-search');
+      const clearSearch = document.querySelector('#clear-search');
+      const emptyState = document.querySelector('#empty-state');
+      if (!grid || !(search instanceof HTMLInputElement) || !clearSearch || !emptyState) return;
+      const cards = publicProducts.map((product) => {
+        const card = document.createElement('article');
+        card.className = 'product-card';
+        const image = document.createElement('img');
+        image.src = product.image;
+        image.alt = product.name;
+        const details = document.createElement('div');
+        details.className = 'card-details';
+        const name = document.createElement('h2');
+        name.textContent = product.name;
+        const sku = document.createElement('p');
+        sku.className = 'sku';
+        sku.textContent = `SKU: ${product.sku}`;
+        const link = document.createElement('a');
+        link.className = 'view-product';
+        link.href = `./index.html?sku=${encodeURIComponent(product.sku)}`;
+        link.textContent = 'View product';
+        link.setAttribute('aria-label', `View product: ${product.name}`);
+        details.append(name, sku, link);
+        card.append(image, details);
+        grid.append(card);
+        return { card, product };
+      });
+      const filterProducts = () => {
+        const query = search.value.trim().toLowerCase();
+        let visibleCount = 0;
+        cards.forEach(({ card, product }) => {
+          const matches = product.name.toLowerCase().includes(query) || product.sku.toLowerCase().includes(query);
+          card.hidden = !matches;
+          if (matches) visibleCount += 1;
+        });
+        emptyState.hidden = visibleCount > 0;
+      };
+      search.addEventListener('input', filterProducts);
+      clearSearch.addEventListener('click', () => {
+        search.value = '';
+        filterProducts();
+        search.focus();
+      });
+      filterProducts();
     });
   </script>
 </head>
@@ -72,15 +121,18 @@
     </div>
   </header>
   <main>
-    <div class="eyebrow">Public catalog / Floral stems</div>
-    <h1>Floral stems</h1>
-    <article class="product-card" aria-labelledby="product-name">
-      <img id="product-image" src="./poinsettia-placeholder.svg" alt="Illustrative placeholder for a red poinsettia stem" width="640" height="720">
-      <div class="card-details">
-        <h2 id="product-name">Product details unavailable</h2>
-        <a class="view-product" href="./index.html">View product</a>
+    <div class="eyebrow">Public catalog</div>
+    <h1>Roses</h1>
+    <noscript>Enable JavaScript to view the local product catalog.</noscript>
+    <div class="search">
+      <label for="product-search">Search by product name or SKU</label>
+      <div class="search-controls">
+        <input id="product-search" type="search">
+        <button id="clear-search" type="button">Clear search</button>
       </div>
-    </article>
+    </div>
+    <p id="empty-state" role="status" hidden>No products match your search</p>
+    <div class="product-grid" id="product-grid"></div>
   </main>
 </body>
 </html>
